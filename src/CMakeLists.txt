@@ -183,32 +183,6 @@ endif()
 
 # INVADER SRC
 set(  INVADER_LIB_SRCS ${INVADER_LIB_SRCS} 
-	System.cpp
-	Graphics.cpp
-	Input.cpp
-	Collider.cpp
-	Image.cpp
-	Sprite.cpp
-	Entity.cpp
-	EntityAnimation.cpp
-	EntityManager.cpp
-	Tilemap.cpp
-	Font.cpp
-	Sound.cpp
-	SoundPlayer.cpp
-	
-	Conjunt.cxx
-	Effects.cxx
-	Enemics.cxx
-	Resources.cxx
-	
-	Invader.cxx
-	Mouse.cxx
-	Moviment.cxx
-	Objecte.cxx
-	Paleta.cxx
-	Stage1.cxx
-	Vscreen.cxx
 	main.cpp
 )
 
