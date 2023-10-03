@@ -1,10 +1,6 @@
 #ifndef FONT_H
  #define FONT_H
 
-#include "grafics.h"
-
-
-
 
 #define MAX_LLETRES    48
 
@@ -39,7 +35,7 @@
 
 
 
- // B…siques
+ // Bï¿½siques
 
  int traduccio_caracter(char c);
  void PutChar(int X, int Y,char CARACTER,int ALTURA, char TEXTURA,unsigned short NEGRETA,unsigned short INVERT,char TIPUS_FONT);
@@ -47,7 +43,7 @@
 
  int centred(int X,int LONGITUD_MISSATGE);
 
- // Acan‡ades
+ // Acanï¿½ades
 
  void OutText(int X,int Y,char *MESSAGE,char TEXTURA,unsigned short NEGRETA,unsigned short INVERT,char TIPUS_FONT);
 

@@ -1,8 +1,6 @@
 #ifndef SPRITES_H
  #define SPRITES_H
 
-#include "all_lib.h"
-
 #define PASSIU           0
 #define BALA_ENEMIC      1
 #define ENEMIC_AERI      2
@@ -20,7 +18,7 @@ typedef struct
  int dimx,dimy;
  tImatge imatge;
  int retard_dispar; // 0...MAX_DISPAR*DIFICULTAT
- int agresiu;  // 0 (No ho es), != 0 (ens diu el tipus de dispar a dispar…)...
+ int agresiu;  // 0 (No ho es), != 0 (ens diu el tipus de dispar a disparï¿½)...
  int invencible;  // es te en compte si decreix la seva vitalitat al ser impactat (CERT o FALS).
  int impactable;  // CERT/FALS
  int vx,vy;

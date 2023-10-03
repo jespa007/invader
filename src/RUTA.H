@@ -1,9 +1,6 @@
 #ifndef RUTA_H
  #define RUTA_H
 
-#include "moviment.h"
-
-
 typedef struct MOV
 {
 
@@ -44,7 +41,7 @@ public:
 
  int EsNul();
 
-// SeguentMoviment(); // Crea el nou moviment... (en funcio de la condici¢.)
+// SeguentMoviment(); // Crea el nou moviment... (en funcio de la condiciï¿½.)
 
 void EntrarCoordenades(int x,int y);
 void SeguentPosicio(int *x,int *y,int myposx,int myposy,int velx,int vely,int DIM); // Seguent Posicio del moviment...

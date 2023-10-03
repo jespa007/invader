@@ -1,7 +1,6 @@
 #ifndef ENEMICS_H
  #define ENEMICS_H
 
-#include "definicions.h"
 
 
 typedef struct _INFO_ENEMY

@@ -1,9 +1,6 @@
 #ifndef MOVIMENT_H
  #define MOVIMENT_H
 
-#include "definicions.h"
-#include "mouse.h"
-
 /*************\
 | DEFINICIONS |
 \*************/

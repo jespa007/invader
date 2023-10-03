@@ -1,15 +1,13 @@
 #ifndef PCX_H
  #define PCX_H
 
-#include "all_lib.h"
-
 // Definicions del PCX
 
 typedef struct capcalera{
-                        byte idpcx; // Es un fitxer PCX v…lid ?
+                        byte idpcx; // Es un fitxer PCX vï¿½lid ?
                         byte pcxversion; // Versio del PCX.
                         byte rle; // Comprimit amb RLE?
-                        byte bitspixel; // bits per pixel.(Normalment s¢n 8 bits).
+                        byte bitspixel; // bits per pixel.(Normalment sï¿½n 8 bits).
                         word d_x1;
                         word d_y1;
                         word d_x2;

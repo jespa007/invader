@@ -1,3 +1,5 @@
+
+
 void tInvader::UnLoadStage1()
 {
  int i;
@@ -27,7 +29,7 @@ void tInvader::UnLoadStage1()
 void tInvader::LoadStage1()  // Carregar Imatges !!!
 {
 
- byte Motiu0[]={"Mem¢ria insuficient !!!.\0"};
+ byte Motiu0[]={"Memï¿½ria insuficient !!!.\0"};
  byte Motiu1[]={"No s'ha pogut obrir el arxiu \"mapa1.dat !!!\".\0"};
  byte Motiu2[]={"No s'ha pogut obrir el arxiu \"blocs1.raw !!!\".\0"};
  byte Motiu3[]={"No s'ha pogut obrir el arxiu \"sprites1.raw !!!\".\0"};
@@ -51,7 +53,7 @@ void tInvader::LoadStage1()  // Carregar Imatges !!!
 
  for(i=0;i<MAX_BLOCS_Y;i++) fread(Mapa+i*MAX_BLOCS_X,MAX_BLOCS_X,1,fitxer2) ;
 
- fclose(fitxer2); // Millor k el tanqui ara, k encara m'el deixar‚ obert. :)
+ fclose(fitxer2); // Millor k el tanqui ara, k encara m'el deixarï¿½ obert. :)
 
  // Carreguem els blocs...
 
@@ -77,7 +79,7 @@ void tInvader::LoadStage1()  // Carregar Imatges !!!
     for(j=0;j<AMPLADA_BLOC;j++)
       Blocs[k][i*AMPLADA_BLOC+j] = BUFFER1[(y+i)*320+j+x];
 
-   k++; // Bloc pr•xim.
+   k++; // Bloc prï¿½xim.
   }
  }
 
@@ -115,7 +117,7 @@ void tInvader::LoadStage1()  // Carregar Imatges !!!
 
  if(!CarregarImatgeVScreen((char *)&"grafics//sprites1.raw",BUFFER1)) Quit(Motiu3);
 
- // Carreguem Imatges 8x8 tot reservant mem¢ria...
+ // Carreguem Imatges 8x8 tot reservant memï¿½ria...
 
 
  k=0;
@@ -145,14 +147,14 @@ void tInvader::LoadStage1()  // Carregar Imatges !!!
     for(j=0;j<DIM_SPR_8X8;j++)
       Imatges[k][2+i*DIM_SPR_8X8+j] = BUFFER1[(y+i)*320+j+x];
 
-   k++; // Bloc pr•xim.
+   k++; // Bloc prï¿½xim.
   }
  }
 
- sprites = sprites + k; // M‚s sprites!
+ sprites = sprites + k; // Mï¿½s sprites!
 
 
- // Carreguem Imatges 16x16 tot reservant mem¢ria...
+ // Carreguem Imatges 16x16 tot reservant memï¿½ria...
 
  for(k=0;k<MAX_SPR_16X16;k++)
  {
@@ -179,13 +181,13 @@ void tInvader::LoadStage1()  // Carregar Imatges !!!
     for(j=0;j<DIM_SPR_16X16;j++)
       Imatges[sprites+k][2+i*DIM_SPR_16X16+j] = BUFFER1[N_FILES_SPR_8X8*320*DIM_SPR_8X8+(y+i)*320+j+x];
 
-   k++; // Bloc pr•xim.
+   k++; // Bloc prï¿½xim.
   }
  }
 
- sprites = sprites + k; // M‚s sprites!
+ sprites = sprites + k; // Mï¿½s sprites!
 
- // Carreguem Imatges 32x32 tot reservant mem¢ria...
+ // Carreguem Imatges 32x32 tot reservant memï¿½ria...
 
  for(k=0;k<MAX_SPR_32X32;k++)
  {
@@ -211,13 +213,13 @@ void tInvader::LoadStage1()  // Carregar Imatges !!!
     for(j=0;j<DIM_SPR_32X32;j++)
       Imatges[sprites+k][2+i*DIM_SPR_32X32+j] = BUFFER1[(N_FILES_SPR_8X8*320*DIM_SPR_8X8) + (N_FILES_SPR_16X16*320*DIM_SPR_16X16) + ((y+i)*320 + j + x)];
 
-   k++; // Bloc pr•xim.
+   k++; // Bloc prï¿½xim.
   }
  }
  
- sprites = sprites + k; // M‚s sprites!
+ sprites = sprites + k; // Mï¿½s sprites!
 
- // Carreguem Imatges 64x64 tot reservant mem¢ria...
+ // Carreguem Imatges 64x64 tot reservant memï¿½ria...
 
  for(k=0;k<MAX_SPR_64X64;k++)
  {
@@ -243,7 +245,7 @@ void tInvader::LoadStage1()  // Carregar Imatges !!!
     for(j=0;j<DIM_SPR_64X64;j++)
       Imatges[sprites+k][2+i*DIM_SPR_64X64+j] = BUFFER1[(N_FILES_SPR_8X8*320*DIM_SPR_8X8) + (N_FILES_SPR_16X16*320*DIM_SPR_16X16) + (N_FILES_SPR_32X32*320*DIM_SPR_32X32) + ((y+i)*320 + j + x)];
 
-   k++; // Bloc pr•xim.
+   k++; // Bloc prï¿½xim.
   }
  }
 
@@ -937,7 +939,7 @@ for(i=84;i<88;i++)
   Conjunts[BOSS1].AfegirObjecte(Objectes[COMPORTES_ESQUERRA],0,0,NO,INFINIT);
 
 
-  // Moviments b…siques per fer rutes...
+  // Moviments bï¿½siques per fer rutes...
 
   for(i=0;i<10;i++) {Moviments[i].AfegirPart(20-(2*i),1,1,0,1,14);Moviments[10+i].AfegirPart((i*2),1,-1,0,1,14);Moviments[20+i].AfegirPart(20-(i*2),-1,-1,0,1,14);Moviments[30+i].AfegirPart(0+(i*2),-1,1,0,1,14);}
   Moviments[40].AfegirPart(20,1,1,0,1,7);

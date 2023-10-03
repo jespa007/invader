@@ -1,5 +1,3 @@
-#include "all_lib.h"
-
 #define PI 3.141592654
 
 

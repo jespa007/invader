@@ -1,19 +1,17 @@
 #ifndef PART_H
  #define PART_H
 
-#include  "definicions.h"
-
 #define NOTIME -1
 
 
 typedef struct _tAnimacio
 {
- // Nota: Ser… circular o acabat en NULL depent del seu us.
+ // Nota: Serï¿½ circular o acabat en NULL depent del seu us.
 
- // P.e: - Si es una animaci¢ infinita ser  circular.(ex: un ocell que mou les ales repetidament).
- //      - Una explosi¢ acabar… en NULL quant hagi acabat.
+ // P.e: - Si es una animaciï¿½ infinita serï¿½ circular.(ex: un ocell que mou les ales repetidament).
+ //      - Una explosiï¿½ acabarï¿½ en NULL quant hagi acabat.
 
- int actual;                            // Refer‚ncia al sprite actual de la part.
+ int actual;                            // Referï¿½ncia al sprite actual de la part.
  int temps_frame;                       // Temps (o condicio) que es deixa fins a la propera imatge.
  int temps_actual;
  _tAnimacio *PSeguent;                   // Punter que apunta al seguent sprite.(o NULL)
@@ -28,7 +26,7 @@ class tObjecte
 private: // Funcions (o variables) privades.(Exclusives de la classe.)
 
     PAnimacio direccio[MAX_DIRECCIONS];     // Aixo compren les imatges compreses
-                                            // en un canvi de direcci¢ x (<- | ->);
+                                            // en un canvi de direcciï¿½ x (<- | ->);
     PAnimacio PActual;
 
     int   Regalet;
