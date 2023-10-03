@@ -5,23 +5,11 @@
 | DEFINICIONS |
 \*************/
 
-// Determinació a la plataforma que treballarà el compilador...
-#include "stdlib.h"
-#include "stdio.h"
+#define 	UNUSUED_PARAM(x) 				((void)(x))
+#define 	UNUSUED_2PARAMS(x1,x2) 			((void)(x1),(void)(x2))
+#define 	UNUSUED_3PARAMS(x1,x2,x3) 		((void)(x1),(void)(x2),(void)(x3))
+#define 	UNUSUED_4PARAMS(x1,x2,x3,x4)	((void)(x1),(void)(x2),(void)(x3),(void)(x4))
 
-#if defined(_WINDOWS) || defined(_LINUX)
-#ifndef __SDL__
- #define __SDL__
-#endif
- 
- #include "conio.h"
- #include "memory.h"
- #include "string.h"
- #include "SDL/SDL.h"
-#endif
-
-#include "Tipus.h"
-#include "Paleta.h"
 
 /********************************\
 | DEFINICIONS DE SPRITES i BLOCS |
@@ -41,7 +29,7 @@
 #define ALTURA_PANTALLA_JOC  192
 
 #define MAX_BLOCS_X  word(AMPLADA_PANTALLA/AMPLADA_BLOC)   // 7 blocs per ser exactes
-#define MAX_BLOCS_Y  77    // N§ de blocs verticals
+#define MAX_BLOCS_Y  77    // Nï¿½ de blocs verticals
 
 
 #define MAX_LLETRES_X  word(260/AMPLADA_LLETRAM)   // 20 lletres per ser exactes.
@@ -70,7 +58,7 @@
 
 
 #define MAX_DIRECCIONS 3        // Esquerra , Dreta i Normal.
-#define MAX_TIME       50      // m…xim de tics que es deixa per la animaci¢ per canvi de temps m…xima!
+#define MAX_TIME       50      // mï¿½xim de tics que es deixa per la animaciï¿½ per canvi de temps mï¿½xima!
 
 #define MAX_POWERUP  5
 #define MAX_BOMBERS  5
@@ -195,8 +183,8 @@
 #define BALA1   1  // Normal va cap a tu...
 #define BALA2   2  // Laser, va recte a tu...
 #define BALA3   3  // Laser, va recte a tu...
-#define LASER1  4  // Llen‡a un enemic...
-#define LASER2  5  // Llen‡a un enemic...
+#define LASER1  4  // Llenï¿½a un enemic...
+#define LASER2  5  // Llenï¿½a un enemic...
 
 
 #define RETARD_DISPAR 200
@@ -278,14 +266,9 @@ extern tPaleta paleta1,paleta2,paleta3;
 | DEFINICIONS DE PANTALLA |
 \*************************/
 
-#ifdef __SDL__ // treballem sobre plataforma SDL per tant, la resolució pot ser variable.
-	#define AMPLADA_PANTALLA		320
-	#define ALTURA_PANTALLA			200
+#define AMPLADA_PANTALLA		320
+#define ALTURA_PANTALLA			200
 	
-#endif
-
-
-
 /********************\
 | ALTRES DEFINICIONS |
 \********************/

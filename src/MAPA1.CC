@@ -1,4 +1,4 @@
-#include "all_lib.h"
+#include "Invader.h"
 
 // ALERTA!!!, AIXO NO ES UN PROGRAMA ES UN PROCES QUE
 // CREA EL MAPEJAT DEL ESCENARI I EL GUARDA EN UN ARXIU.

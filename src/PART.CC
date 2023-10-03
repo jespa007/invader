@@ -1,4 +1,4 @@
-//#include "Part.h"
+#include "Invader.h"
 
 #define RETARD_CANVI_DIRECCIO 4
 
@@ -63,7 +63,7 @@ tObjecte & tObjecte::operator = (tObjecte const &S)
 {
 
 
- // Destrucci¢...
+ // Destrucciï¿½...
 
  this->tObjecte::~tObjecte();
 
@@ -85,7 +85,7 @@ void tObjecte::AfegirFrame(int Dir,int Sprite,int temps,int NUL)
 
  // Sprite = Numero de sprite.
  // Dir = Direccio del sprite.
- // NUL = Si '1' llavors la animacio es finita, si no, no ho ‚s.
+ // NUL = Si '1' llavors la animacio es finita, si no, no ho ï¿½s.
 
  PAnimacio PInici,PAux;
  PAnimacio PNou = NULL;
@@ -109,7 +109,7 @@ void tObjecte::AfegirFrame(int Dir,int Sprite,int temps,int NUL)
  }
 
 
- if(NUL) // Llavors ser  una animaci¢ finita...
+ if(NUL) // Llavors serï¿½ una animaciï¿½ finita...
  {
   // Carrega de dades...
 
@@ -119,7 +119,7 @@ void tObjecte::AfegirFrame(int Dir,int Sprite,int temps,int NUL)
   PNou->temps = temps;
 
  }
- else // Ser  infinita...
+ else // Serï¿½ infinita...
  {
 
   PNou -> PSeguent = PInici;
@@ -165,7 +165,7 @@ void tObjecte::EntrarCoordenades(int x,int y)
 
 
 
-void tObjecte::ActualitzarCoordenades(int x,int y) // Li podem passar els moviments que volguem !!! (Serïla estrategia !!!)
+void tObjecte::ActualitzarCoordenades(int x,int y) // Li podem passar els moviments que volguem !!! (Serï¿½la estrategia !!!)
 {
  if(!EsNul())
  {

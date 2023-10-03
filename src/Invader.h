@@ -1,18 +1,52 @@
 #ifndef INVADER_H
  #define INVADER_H
 
-#include "Teclat.h"
 
+ #include <stdio.h>
+#include   <SDL2/SDL.h>
+#include <unordered_map>
+#include		<vector>
+#include		<map>
+#include        <new>
+#include 		<functional>
+#include <string>
+
+#define snprintf _snprintf
+
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#endif
+
+#ifdef __MEMMANAGER__
+#include "memmgr.h"
+#endif
+
+#include 		<stdexcept>
+#include 		<cstddef>
+
+#include "System.h"
+#include "Input.h"
+#include "Image.h"
+#include "Font.h"
+#include "Collider.h"
+#include "Sprite.h"
+#include "EntityAnimation.h"
+#include "Entity.h"
+#include "EntityManager.h"
+#include "Tilemap.h"
+#include "Graphics.h"
+#include "Sound.h"
+#include "SoundPlayer.h"
+
+
+#include "Tipus.h"
+#include "Paleta.h"
 #include "definicions.h"
-
 #include "Vscreen.h"
 
 #include "Moviment.h"
 #include "Objecte.h"
 #include "Conjunt.h"
-
-
-
 
 
 class tInvader

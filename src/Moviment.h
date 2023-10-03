@@ -12,7 +12,7 @@
 
 #define NORMAL     0 
 #define AUTO1     -1    // Va fins a nosaltres...
-#define AUTO2     -2    // Es despla‡a horitzontalment a la nostra posicio X.
+#define AUTO2     -2    // Es desplaï¿½a horitzontalment a la nostra posicio X.
 #define MANUAL    -3
 #define DETECTA_POSX1 -4
 #define DETECTA_POSX2 -5
@@ -123,7 +123,7 @@ public:
  void Reset();
  int EsNul();
  int MovimentsActuals();
- void tMoviment::SeguentPosicio(int *X,int *Y,int MYPOSX,int MYPOSY,int velx,int vely,int Sprite);
+ void SeguentPosicio(int *X,int *Y,int MYPOSX,int MYPOSY,int velx,int vely,int Sprite);
  ~tMoviment();
 
 };

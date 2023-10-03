@@ -1,4 +1,4 @@
-#include "conjunt.h"
+#include "Invader.h"
 
 
 void Quit(byte *);
@@ -61,7 +61,7 @@ tConjunt & tConjunt::operator = (tConjunt const &S)
 {
 
 
- // Destrucci¢...
+ // Destrucciï¿½...
 
  this->tConjunt::~tConjunt();
 
@@ -77,7 +77,7 @@ tConjunt & tConjunt::operator = (tConjunt const &S)
 
 void tConjunt::AfegirObjecte(tObjecte const &Objecte,int OFFSETX,int OFFSETY,int part_debil,int TEMPS)
 {
- byte Motiu0[]={"Tens poca mem•ria pels objectes!\0"};
+ byte Motiu0[]={"Tens poca memï¿½ria pels objectes!\0"};
  PObjectes PNou=NULL,PAux = OBJECTES;
 
  
@@ -329,7 +329,7 @@ void tConjunt::EliminarActual()
  {
     if(PActual == OBJECTES)
     {
-     OBJECTES = PActual -> PSeguent; // Enlla‡em
+     OBJECTES = PActual -> PSeguent; // Enllaï¿½em
      PAnterior = PActual;
 
      PActual = PActual -> PSeguent;

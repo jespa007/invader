@@ -1,7 +1,4 @@
-#include "moviment.h"
-#include "Teclat.h"
-
-#include <math.h>   // sin,cos,tangent,etc...
+#include "Invader.h"
 
 
 //#include "Ruta.cc"
@@ -351,7 +348,7 @@ tMoviment & tMoviment::operator = (tMoviment const &S)
 {
 
  
- // Destrucci¢...
+ // Destrucciï¿½...
 
  this->tMoviment::~tMoviment();
 
@@ -386,7 +383,7 @@ int tMoviment::RetornarSigneY()
 
 void tMoviment::AfegirPart(int MOVIMENT,int XPOS,int YPOS,int condicio,int VELOCITAT,int N_VEGADES)
 {
- byte Motiu0[]={"No tens prou mem•ria...\0"};
+ byte Motiu0[]={"No tens prou memï¿½ria...\0"};
  PMoviment PNou = NULL;
 
  PNou = (PMoviment) new tM;

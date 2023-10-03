@@ -1,10 +1,6 @@
 #ifndef CONJUNT_H
  #define CONJUNT_H
 
-#include "Objecte.h"
-
-
-
 
 typedef struct _conjunt_objectes
 {

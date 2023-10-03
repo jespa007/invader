@@ -1,4 +1,4 @@
-#include "invader.h"
+#include "Invader.h"
 #include "struct.cc"
 #include "test.cc"
 
@@ -671,7 +671,7 @@ void tInvader::Actualitzar() // Checkejat i dibuixat de totes les naus...
  PExplosions PExActual,PExAnterior;
  PItems   PIActual,PIAnterior;
 
- // Actualitzar Enemics (TERRESTRES I AERIS)... (Si vol dispar… tamb‚ li donarem la oportunitat.)
+ // Actualitzar Enemics (TERRESTRES I AERIS)... (Si vol disparï¿½ tambï¿½ li donarem la oportunitat.)
 
 
  if((PActual = EnemicsTerrestres)!= NULL)

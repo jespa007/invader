@@ -1,6 +1,3 @@
-//#include "Invader.cc"
-#include "Enemics.h"
-
 extern INFO_ENEMY MatriuEnemicsStage1[MAX_ENEMICS_STAGE1];
 
 

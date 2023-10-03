@@ -1,5 +1,4 @@
-#include "Ruta.h"
-#include "moviment.cc"
+#include "Invader.h"
 
 void Quit(byte *);
 
@@ -58,7 +57,7 @@ tRuta & tRuta::operator = (tRuta const &S)
 {
 
  
- // Destrucci¢...
+ // Destrucciï¿½...
 
  this->tRuta::~tRuta();
 
@@ -77,14 +76,14 @@ tRuta & tRuta::operator = (tRuta const &S)
 
 void tRuta::AfegirMoviment(const tMoviment &M,int vel,int condicio,int n_vegades)
 {
- byte Motiu0[] = {"Insuficient mem•ria...\0"};
+ byte Motiu0[] = {"Insuficient memï¿½ria...\0"};
  PMoviments PNou;
 
  PNou = new MOV;
 
  if(PNou == NULL) Quit(Motiu0);
 
- // C…rrega de dades...
+ // Cï¿½rrega de dades...
 
  PNou -> actual = M;
  PNou -> vel = vel;
@@ -92,7 +91,7 @@ void tRuta::AfegirMoviment(const tMoviment &M,int vel,int condicio,int n_vegades
  PNou -> n_vegades = n_vegades;
  PNou -> PSeguent = NULL;
 
- // Enlla‡ament...
+ // Enllaï¿½ament...
 
  if(PARTS == NULL)
  {
@@ -177,7 +176,7 @@ int tRuta::EsNul()
 }
 
 
-int tRuta::N() // Per llen‡ar contratac...
+int tRuta::N() // Per llenï¿½ar contratac...
 {
  return (N_Moviments+PActual->actual.MovimentsActuals());
 }

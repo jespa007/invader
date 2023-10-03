@@ -1,4 +1,4 @@
-#include "all_lib.h"
+#include "Invader.h"
 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -22,14 +22,14 @@
 //                                                                        //
 ////////////////////////////////////////////////////////////////////////////
 
-                   /*-______________-*\__  ú   ú            ú
-  ú       ú     )-/                    \_)   ú      ú
-    ú            | (  SOUND BLASTER 16  |_) ú      ú     ú 
- .         ú    )-\                    /_)   ú    ú
-   ú   ú           \*_---------------_*/
+                   /*-______________-*\__  ï¿½   ï¿½            ï¿½
+  ï¿½       ï¿½     )-/                    \_)   ï¿½      ï¿½
+    ï¿½            | (  SOUND BLASTER 16  |_) ï¿½      ï¿½     ï¿½ 
+ .         ï¿½    )-\                    /_)   ï¿½    ï¿½
+   ï¿½   ï¿½           \*_---------------_*/
 
 
-#define NUMSOUNDS 6     /* Cambie este parametro si a¤adi¢ mas sonidos */
+#define NUMSOUNDS 6     /* Cambie este parametro si aï¿½adiï¿½ mas sonidos */
 #define XMSREQUIRED 700 /* memoria en kbytes, que requiere sus sonidos */
 
 char *sonidos_key[NUMSOUNDS] = { /* aqui debe definir las claves de su */
@@ -47,69 +47,69 @@ char *sonidos_key[NUMSOUNDS] = { /* aqui debe definir las claves de su */
 
 
 
-                   /*-___________-*\__  ú   ú            ú
-  ú       ú     )-/                 \_)   ú      ú
-    ú            | (  DEFINICIONS    |_) ú      ú     ú 
- .         ú    )-\                  /_)   ú    ú
-   ú   ú           \*_-------------_*/
+                   /*-___________-*\__  ï¿½   ï¿½            ï¿½
+  ï¿½       ï¿½     )-/                 \_)   ï¿½      ï¿½
+    ï¿½            | (  DEFINICIONS    |_) ï¿½      ï¿½     ï¿½ 
+ .         ï¿½    )-\                  /_)   ï¿½    ï¿½
+   ï¿½   ï¿½           \*_-------------_*/
 
 
 
 
 
-                   /*-_________________-*\__  ú   ú            ú
-  ú       ú     )-/                       \_)   ú      ú
-    ú            | (  DEFINICIO DE TIPUS  |_) ú      ú     ú 
- .         ú    )-\                       /_)   ú    ú
-   ú   ú           \*_------------------_*/
+                   /*-_________________-*\__  ï¿½   ï¿½            ï¿½
+  ï¿½       ï¿½     )-/                       \_)   ï¿½      ï¿½
+    ï¿½            | (  DEFINICIO DE TIPUS  |_) ï¿½      ï¿½     ï¿½ 
+ .         ï¿½    )-\                       /_)   ï¿½    ï¿½
+   ï¿½   ï¿½           \*_------------------_*/
 
 
 //typedef tSpriteDinamic Sprites[MAX_SPRITES];
 typedef byte far tBloc[AMPLADA_BLOC*ALTURA_BLOC];
 
 
-                   /*-____________________-*\__  ú   ú            ú
-  ú       ú     )-/                          \_)   ú      ú
-    ú            | (  CAP€ALERA DE FUNCIONS  |_) ú      ú     ú 
- .         ú    )-\                          /_)   ú    ú
-   ú   ú           \*_---------------------_*/
+                   /*-____________________-*\__  ï¿½   ï¿½            ï¿½
+  ï¿½       ï¿½     )-/                          \_)   ï¿½      ï¿½
+    ï¿½            | (  CAPï¿½ALERA DE FUNCIONS  |_) ï¿½      ï¿½     ï¿½ 
+ .         ï¿½    )-\                          /_)   ï¿½    ï¿½
+   ï¿½   ï¿½           \*_---------------------_*/
 
 
 
 
-//  ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-//  ³Estructures del joc³
-//  ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+//  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
+//  ï¿½Estructures del jocï¿½
+//  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 void InicialitzarEstructura(void);
 
-//  ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-//  ³Funcions propies del joc³
-//  ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+//  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
+//  ï¿½Funcions propies del jocï¿½
+//  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
 void Scrollejar(int POSICIO_Y,int SCROLL_Y,word SEGMENT);
 
 
-//  ÚÄÄÄÄÄÄ¿
-//  ³Altres³
-//  ÀÄÄÄÄÄÄÙ
+//  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
+//  ï¿½Altresï¿½
+//  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
 
 
-//  ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-//  ³Gestio de Sortida³
-//  ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+//  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
+//  ï¿½Gestio de Sortidaï¿½
+//  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 void Quit(byte *Motiu);
 
 
-                   /*-_______________-*\__  ú   ú            ú
-  ú       ú     )-/                     \_)   ú      ú
-    ú            | (  VARIABLES GLOBALS |_) ú      ú     ú 
- .         ú    )-\                     /_)   ú    ú
-   ú   ú           \*_----------------_*/
+                   /*-_______________-*\__  ï¿½   ï¿½            ï¿½
+  ï¿½       ï¿½     )-/                     \_)   ï¿½      ï¿½
+    ï¿½            | (  VARIABLES GLOBALS |_) ï¿½      ï¿½     ï¿½ 
+ .         ï¿½    )-\                     /_)   ï¿½    ï¿½
+   ï¿½   ï¿½           \*_----------------_*/
 
 
  /******************************\
@@ -128,7 +128,7 @@ void Quit(byte *Motiu);
 
 
 byte Mapa[MAX_BLOCS_Y][MAX_BLOCS_X];
-byte Objectes[60*10]; // N§ Maxim de posicions.
+byte Objectes[60*10]; // Nï¿½ Maxim de posicions.
 
  /********************\
 | VSCREENS NECESSARIES |
@@ -185,10 +185,10 @@ void InicialitzarEstructura(void)
 
 
 
- if((BUFFER1 = VScreen(&VSCREEN1))==NULL) Quit(Motiu1); // Ens entrega el punter i la seva adre‡a.
- if((BUFFER2 = VScreen(&VSCREEN2))==NULL) Quit(Motiu1); // Ens entrega el punter i la seva adre‡a.
- if((BUFFER3 = VScreen(&VSCREEN3))==NULL) Quit(Motiu1); // Ens entrega el punter i la seva adre‡a.
- if((BUFFER4 = VScreen(&VSCREEN4))==NULL) Quit(Motiu1); // Ens entrega el punter i la seva adre‡a.
+ if((BUFFER1 = VScreen(&VSCREEN1))==NULL) Quit(Motiu1); // Ens entrega el punter i la seva adreï¿½a.
+ if((BUFFER2 = VScreen(&VSCREEN2))==NULL) Quit(Motiu1); // Ens entrega el punter i la seva adreï¿½a.
+ if((BUFFER3 = VScreen(&VSCREEN3))==NULL) Quit(Motiu1); // Ens entrega el punter i la seva adreï¿½a.
+ if((BUFFER4 = VScreen(&VSCREEN4))==NULL) Quit(Motiu1); // Ens entrega el punter i la seva adreï¿½a.
 
 
 
@@ -199,7 +199,7 @@ void InicialitzarEstructura(void)
 
  for(i=0;i<MAX_BLOCS_Y;i++) fread(Mapa[i],MAX_BLOCS_X,1,fitxer2) ;
 
- fclose(fitxer2); // Millor k el tanqui ara, k encara m'el deixar‚ obert. :)
+ fclose(fitxer2); // Millor k el tanqui ara, k encara m'el deixarï¿½ obert. :)
 
  // Carreguem els blocs...
 

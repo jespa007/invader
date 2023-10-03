@@ -1,3 +1,5 @@
+#include "Invader.h"
+
 int myposy,myposx;
 
 #define MAX_OBJECTES  25
@@ -54,7 +56,7 @@ typedef struct tMyShotList
 
 
 // void CrearObjecte(IniciX,IniciY,TipusPartActual,TipusPartDestruida,Moviment[AUTO][0]);
-// Si Moviment = AUTO . Calcula la teva posici¢ i realitza el moviment RECTA o
+// Si Moviment = AUTO . Calcula la teva posiciï¿½ i realitza el moviment RECTA o
 //                      amb cercles.
 
 // TipusObjecte = ENEMICS , DISPARS_ENEMICS, ELS_MEUS_DISPARS , ITEMS...

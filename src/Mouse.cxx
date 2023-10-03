@@ -1,12 +1,12 @@
-#include "mouse.h"
+#include "Invader.h"
 
 
 /*
-   ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»
-   º                     º
-   º  UTILITATS RATOLI   º
-   º                     º
-   ÈÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼
+   ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í»
+   ï¿½                     ï¿½
+   ï¿½  UTILITATS RATOLI   ï¿½
+   ï¿½                     ï¿½
+   ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼
 */
 
 
@@ -15,7 +15,7 @@
 
 /*
 int Init_Mouse(void)
-// Inicia el ratol¡, si no el detecta retorna un 0 patatero.
+// Inicia el ratolï¿½, si no el detecta retorna un 0 patatero.
 {
  asm{
      xor AX,AX  // Iniciant AX a 0.
@@ -28,13 +28,8 @@ int Init_Mouse(void)
 
 void Posicio_Mouse(tPosicio *MOUSE)
 {
-#ifdef __SDL__
  SDL_PumpEvents();
  SDL_GetMouseState(&MOUSE->x, &MOUSE->y);
-#endif
-  
-
-
 }
 
 
@@ -62,10 +57,8 @@ int Buto_Pitjat(void)
 {
 	char buto;
 
-#ifdef __SDL__
 	SDL_PumpEvents();
 	if(buto = SDL_GetMouseState(NULL,NULL)) return (buto == SDL_BUTTON(1))? BUTO_MOUSE_ESQUERRE: BUTO_MOUSE_DRET ;
-#endif
   
 	return 0;
 }

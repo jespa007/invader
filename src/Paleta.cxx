@@ -1,13 +1,11 @@
-#include "paleta.h"
-#include "grafics.h"
-#include "font.h"
+#include "Invader.h"
 
 
-//   ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»
-//   º                     º
-//   º  UTILITATS PALETA   º
-//   º                     º
-//   ÈÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼
+//   ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í»
+//   ï¿½                     ï¿½
+//   ï¿½  UTILITATS PALETA   ï¿½
+//   ï¿½                     ï¿½
+//   ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼
 
 
 
@@ -18,14 +16,12 @@
 void ModificarColorPaleta(tColor *paleta,unsigned char  R,unsigned char  G,unsigned char  B,unsigned char numcolor)
 {
 
-#ifdef __SDL__
-
    paleta[numcolor].r=R;
    paleta[numcolor].g=G;
    paleta[numcolor].b=B;
 
    SDL_SetColors(Video, paleta, 0, 256);
-#endif
+
 }
 
 /*
@@ -44,7 +40,7 @@ void GetPalette(byte far *paleta,word inici,word final)
      add di,[inici]
      mov dx,3c7h // Registre de Lectura PEL//
      xor al,al // mov al,0 //
-     out dx,al // Volem comen‡ar a llegir el valor 0 del DAC //
+     out dx,al // Volem comenï¿½ar a llegir el valor 0 del DAC //
      inc dx
      inc dx     // dx = 3c9h escriu en VIDEO //
      mov cx,[final] // 256x3 posicions que hem de fer referencia. //
@@ -60,9 +56,7 @@ void SetPalette(tColor *paleta,int inici,int final)
 {
 	if(inici < 0 || final > 256) return;
 
-#ifdef __SDL__
 	SDL_SetPalette(Video, SDL_LOGPAL|SDL_PHYSPAL, paleta, inici, final);
-#endif
 }
 
 
@@ -79,14 +73,14 @@ int  CarregarPaleta(char *NOM_PALETA,tColor *PALETA)
 
  for(x=0;x<256;x++) 
  {
-#ifdef __SDL__
-	  // La paleta a carrega defineix 6 bits per cada component rgb. Per aixó, s'ha de amplificar
-	  // x4, perquè SDL utilitza els 8 bits per cada component.
+
+	  // La paleta a carrega defineix 6 bits per cada component rgb. Per aixï¿½, s'ha de amplificar
+	  // x4, perquï¿½ SDL utilitza els 8 bits per cada component.
 	 
 	  PALETA[x].r = fgetc(file) << 2;
 	  PALETA[x].g = fgetc(file) << 2;
 	  PALETA[x].b = fgetc(file) << 2;
-#endif
+
  }
 
  fclose(file);
@@ -116,7 +110,6 @@ void CopiaPaleta(tColor *pal_dest,tColor *pal_origen,int inici,int final)
 void XchangeColor(tColor *paleta,char color1,char color2)
 {
  // Intercanvia un color de una paleta.
-#ifdef __SDL__
  tColor Color_Aux;
 
  Color_Aux.r = paleta[color1].r;
@@ -130,8 +123,6 @@ void XchangeColor(tColor *paleta,char color1,char color2)
  paleta[color2].r = Color_Aux.r;
  paleta[color2].g = Color_Aux.g;
  paleta[color2].b = Color_Aux.b;
-#endif
-
 }
 
 
@@ -185,11 +176,11 @@ void VisualitzarPaleta(void)
 
 
 
-//   ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»
-//   º                  º
-//   º  EFECTES PALETA  º
-//   º                  º
-//   ÈÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼
+//   ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í»
+//   ï¿½                  ï¿½
+//   ï¿½  EFECTES PALETA  ï¿½
+//   ï¿½                  ï¿½
+//   ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼
 
 
 
@@ -211,14 +202,12 @@ void FadeOut(tColor *paleta,int inici,int final)
 
   for(x=inici;x<final;x++)
   {
-#ifdef __SDL__
    if (paleta4[x].r>4) paleta4[x].r-= 4;
    else paleta4[x].r = 0;
    if (paleta4[x].g>4) paleta4[x].g-= 4;
    else paleta4[x].g = 0;
    if (paleta4[x].b>4) paleta4[x].b-= 4;
    else paleta4[x].b = 0;
-#endif
   }
 
   SetPalette(paleta4,inici,final);

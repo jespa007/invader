@@ -1,9 +1,3 @@
-
-#include "definicions.h"
-#include "Enemics.h"
-#include "Grafics.h"
-#include "Paleta.h"
-#include "Font.h"
 #include "Invader.h"
 
 

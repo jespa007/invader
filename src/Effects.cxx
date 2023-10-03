@@ -1,6 +1,4 @@
-#include "effects.h"
-#include "grafics.h"
-#include "stdlib.h"
+#include "Invader.h"
 
 
 
@@ -298,7 +296,7 @@ void mk_ytab(void)
 
 void CrearPaletaFoc(char index_i,char vermell_i,char verd_i,char blau_i,char index_f,char vermell_f,char verd_f,char blau_f)
 {
-// Crea un degradat de paleta per la funci¢ FOC. "i" = inicial, "f" = final i "inc" = increment //
+// Crea un degradat de paleta per la funciï¿½ FOC. "i" = inicial, "f" = final i "inc" = increment //
 
  unsigned char index;
  unsigned char max = (index_f - index_i);
@@ -327,7 +325,7 @@ void cll(unsigned char *vbuffer)
 void set_hot(unsigned char *vbuffer)
 {
  int x;
- cll(vbuffer);// Neteja la linia per a la pr¢xima volta. //
+ cll(vbuffer);// Neteja la linia per a la prï¿½xima volta. //
  for(x=0;x<319;x++)
  {
   if(random(100)<50)vbuffer[ytab[199]+x]=63;
@@ -429,7 +427,7 @@ void Plasma(word VSCREEN)
 
  ToAdd=0;
 
- // Aqui comen‡a l' acci¢ //
+ // Aqui comenï¿½a l' acciï¿½ //
 
  do
  {
@@ -500,7 +498,7 @@ void TransformarBLOCK(byte far*DEST,byte far*ORG,word far *TFM,word L,byte tipus
     }
    }
 
-   for(y=0;y<=(L)*(L)-1;y++) DEST[y]=ORG[TFM[y]];// La mateixa DESTI mateix que ORG per¢ transformat.
+   for(y=0;y<=(L)*(L)-1;y++) DEST[y]=ORG[TFM[y]];// La mateixa DESTI mateix que ORG perï¿½ transformat.
 
   
    break;
@@ -513,7 +511,7 @@ void TransformarBLOCK(byte far*DEST,byte far*ORG,word far *TFM,word L,byte tipus
    for(y=0; y < L ;y++)
    {
     for(x=0;x < L;x++)
-    TFM[y*L+x]=y*L+L-1-x; // La mateixa DESTI mateix que ORG per¢ transformat.
+    TFM[y*L+x]=y*L+L-1-x; // La mateixa DESTI mateix que ORG perï¿½ transformat.
    }
    for(y=0;y<=(L)*(L)-1;y++) DEST[y]=ORG[TFM[y]];
    break;
@@ -524,7 +522,7 @@ void TransformarBLOCK(byte far*DEST,byte far*ORG,word far *TFM,word L,byte tipus
   // Effecte (Capgirar eix de les X i la Y).
 
    for(y=0;y<=L*L-1;y++)
-     TFM[y]=L*L-y-1; // La mateixa DESTI mateix que ORG per¢ transformat.
+     TFM[y]=L*L-y-1; // La mateixa DESTI mateix que ORG perï¿½ transformat.
 
    for(y=0;y<=(L)*(L)-1;y++) DEST[y]=ORG[TFM[y]];
    break;
@@ -536,9 +534,9 @@ void TransformarBLOCK(byte far*DEST,byte far*ORG,word far *TFM,word L,byte tipus
    for(y=0;y < L;y++)
    {
     for(x=0;x < L;x++)
-     TFM[y*L+x]=(y/m)*L+(x/m); // La mateixa DESTI mateix que ORG per¢ transformat.
+     TFM[y*L+x]=(y/m)*L+(x/m); // La mateixa DESTI mateix que ORG perï¿½ transformat.
    }
-   for(y=0;y<=(L)*(L)-1;y++) DEST[y]=ORG[TFM[y]];// La mateixa DESTI mateix que ORG per¢ transformat.
+   for(y=0;y<=(L)*(L)-1;y++) DEST[y]=ORG[TFM[y]];// La mateixa DESTI mateix que ORG perï¿½ transformat.
    break;
 
   case Lents:
@@ -554,7 +552,7 @@ void TransformarBLOCK(byte far*DEST,byte far*ORG,word far *TFM,word L,byte tipus
    {
     Px=(x-Rc);
     Py=(y-Rc);
-    if((Rc*Rc)>(Px*Px)+(Py*Py)) // Est… dins el cercle?
+    if((Rc*Rc)>(Px*Px)+(Py*Py)) // Estï¿½ dins el cercle?
     {
 
      // Si!!! Llabors, transforma...
@@ -581,15 +579,15 @@ void TransformarBLOCK(byte far*DEST,byte far*ORG,word far *TFM,word L,byte tipus
     }
    }
   }
-  for(y=0;y<=(L)*(L)-1;y++) DEST[y]=ORG[TFM[y]];// La mateixa DESTI mateix que ORG per¢ transformat.
+  for(y=0;y<=(L)*(L)-1;y++) DEST[y]=ORG[TFM[y]];// La mateixa DESTI mateix que ORG perï¿½ transformat.
  }
 }
 
 
 
-//  ÚÄÄÄÄÄÄúúÄÄúÄ¿
-//  ³ CROSSFADE   ³      
-//  ÀÄÄÄÄÄúúúúÄÄúúÄÙ     
+//  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
+//  ï¿½ CROSSFADE   ï¿½      
+//  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½     
   
 
 
@@ -634,7 +632,7 @@ int InitFade(byte *S2, byte *S1,byte *S3, byte *p2, byte *p1, byte *desti,byte *
 {
  // Inicialitza un CrossFade... (Retorna 0 si no s'ha pogut acabar amb exit)!
 
- int y,x,t = 1; // N§ de pixel (representa)
+ int y,x,t = 1; // Nï¿½ de pixel (representa)
  byte posicio;
 
  byte color1;
@@ -658,7 +656,7 @@ int InitFade(byte *S2, byte *S1,byte *S3, byte *p2, byte *p1, byte *desti,byte *
     if(ExisteixCombinacio(p1,p2,color1,color2,origen,desti,t,&posicio))
     {
 
-      S3[(y << 8) + (y << 6)+x] = posicio; // Combinaci¢ trobada (posicio).
+      S3[(y << 8) + (y << 6)+x] = posicio; // Combinaciï¿½ trobada (posicio).
 
     }
     else
@@ -666,14 +664,14 @@ int InitFade(byte *S2, byte *S1,byte *S3, byte *p2, byte *p1, byte *desti,byte *
 
      if(t > MAX_COMB)
      {
-      return 0; // error!, hem superat el limit m…xim de combinacions.
+      return 0; // error!, hem superat el limit mï¿½xim de combinacions.
      }
 
      IntroduirCombinacio(t,origen,desti,p1[color1*3],p2[color2*3],p1[color1*3+1],p2[color2*3+1],p1[color1*3+2],p2[color2*3+2]);
 
-     S3[(y << 8) + (y << 6) + x] = t; // Nova combinaci¢ introduida.
+     S3[(y << 8) + (y << 6) + x] = t; // Nova combinaciï¿½ introduida.
 
-     t++; // Pr•xima combinacio.
+     t++; // Prï¿½xima combinacio.
 
     }
     

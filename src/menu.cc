@@ -1,5 +1,4 @@
-#include <stdlib.h>
-#include <ctype.h>
+#include "Invader.h"
 
 
 // Respecte els color.
