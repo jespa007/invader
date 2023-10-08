@@ -1,5 +1,3 @@
- *  tileset from: https://observablehq.com/@davidalencia/playing-pacman-with-neat
-
 # Invader
 
 <h2>Description</h2>
