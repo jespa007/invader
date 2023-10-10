@@ -12,7 +12,7 @@
 	#include "Font.cpp"
 	#include "Sound.cpp"
 	#include "SoundPlayer.cpp"
-	
+	/*
 	#include "Conjunt.cxx"
 	#include "Effects.cxx"
 	#include "Enemics.cxx"
@@ -24,7 +24,7 @@
 	#include "Objecte.cxx"
 	#include "Paleta.cxx"
 	#include "Stage1.cxx"
-	#include "Vscreen.cxx"
+	#include "Vscreen.cxx"*/
 
 
 //#include "intro.h"
