@@ -1,4 +1,4 @@
-#include "Invader.h"
+#include "invader.h"
 
 INFO_ENEMY MatriuEnemicsStage1[MAX_ENEMICS_STAGE1];
 

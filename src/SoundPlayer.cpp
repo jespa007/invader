@@ -3,7 +3,7 @@
  *  See LICENSE file for details.
  */
 
-#include "Invader.h"
+#include "invader.h"
 
 SoundPlayer *SoundPlayer::singleton=NULL;
 SoundPlayer::SoundData SoundPlayer::sound_data[MAX_PLAYING_SOUNDS];

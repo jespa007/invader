@@ -1,4 +1,4 @@
-#include "Invader.h"
+#include "invader.h"
 #include "struct.cc"
 #include "test.cc"
 

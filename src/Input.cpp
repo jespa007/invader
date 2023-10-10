@@ -3,7 +3,7 @@
  *  See LICENSE file for details.
  */
 
-#include "Invader.h"
+#include "invader.h"
 
 Input *Input::input=NULL;
 

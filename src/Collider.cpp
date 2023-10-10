@@ -3,7 +3,7 @@
  *  See LICENSE file for details.
  */
 
-#include "Invader.h"
+#include "invader.h"
 
 bool Collider::testIntersectionRectangleRectangle(
 		  int _c1_x

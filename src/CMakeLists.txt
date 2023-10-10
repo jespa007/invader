@@ -183,18 +183,24 @@ endif()
 
 # INVADER SRC
 set(  INVADER_LIB_SRCS ${INVADER_LIB_SRCS} 
-	main.cpp
+	invader.cpp
 )
 
 
-add_executable( invader${POST_NAME} ${INVADER_LIB_SRCS}  )
+add_library( invader${POST_NAME} STATIC ${INVADER_LIB_SRCS} )
+
+# zs script
+add_executable(main${POST_NAME}
+	${PROJECT_SOURCE_DIR}/main.cpp
+)
+
 
 # Library
 if (EMSCRIPTEN)
 	set_target_properties(invader${POST_NAME} PROPERTIES LINK_FLAGS " -s USE_SDL=2 ")
 	target_link_libraries(invader${POST_NAME} SDL2main SDL2)
 else()
-	target_link_libraries(invader${POST_NAME} ${LIB_DEPS})
+	target_link_libraries(main${POST_NAME} invader${POST_NAME} ${LIB_DEPS})
 endif()
 
 

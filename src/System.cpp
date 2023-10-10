@@ -3,7 +3,7 @@
  *  See LICENSE file for details.
  */
 
-#include "Invader.h"
+#include "invader.h"
 
 Uint32 System::synch_time = 0;
 

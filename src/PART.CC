@@ -1,4 +1,4 @@
-#include "Invader.h"
+#include "invader.h"
 
 #define RETARD_CANVI_DIRECCIO 4
 
