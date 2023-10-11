@@ -5,18 +5,18 @@
 
 #pragma once
 
-#define  T_ESC	      	Input::getInstance()->key[DEF_KEY_ESCAPE]
-#define  T_F5	      	Input::getInstance()->key[DEF_KEY_F5]
-#define  T_F9	      	Input::getInstance()->key[DEF_KEY_F9]
-#define  T_F10	      	Input::getInstance()->key[DEF_KEY_F10]
-#define  T_SPACE      	Input::getInstance()->key[DEF_KEY_SPACE]
-#define  T_TAB			Input::getInstance()->key[DEF_KEY_TAB]
+#define  T_ESC	      	Input::getKey(DEF_KEY_ESCAPE)
+#define  T_F5	      	Input::getKey(DEF_KEY_F5)
+#define  T_F9	      	Input::getKey(DEF_KEY_F9)
+#define  T_F10	      	Input::getKey(DEF_KEY_F10)
+#define  T_SPACE      	Input::getKey(DEF_KEY_SPACE)
+#define  T_TAB			Input::getKey(DEF_KEY_TAB)
 
 
-#define  TR_UP          Input::getInstance()->keyR[DEF_KEY_UP]
-#define  TR_LEFT        Input::getInstance()->keyR[DEF_KEY_LEFT]
-#define  TR_RIGHT       Input::getInstance()->keyR[DEF_KEY_RIGHT]
-#define  TR_DOWN        Input::getInstance()->keyR[DEF_KEY_DOWN]
+#define  TR_UP          Input::getKeyR(DEF_KEY_UP)
+#define  TR_LEFT        Input::getKeyR(DEF_KEY_LEFT)
+#define  TR_RIGHT       Input::getKeyR(DEF_KEY_RIGHT)
+#define  TR_DOWN        Input::getKeyR(DEF_KEY_DOWN)
 
 
 typedef enum {
@@ -299,16 +299,12 @@ typedef struct{
 
 class Input{
 public:
-	bool            key[DEF_KEY_LAST];
-	bool            keyR[DEF_KEY_LAST];
 
-	static Input * getInstance();
-	static void destroy();
+	static void update();
+	static bool getKey(DefKey _key_id);
+	static bool getKeyR(DefKey _key_id);
+	
 
-	void update();
-
-private:
-	static Input *input;
-
+	
 
 };

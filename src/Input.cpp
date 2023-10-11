@@ -5,26 +5,23 @@
 
 #include "invader.h"
 
-Input *Input::input=NULL;
+bool            g_key[DEF_KEY_LAST]={false};
+bool            g_keyR[DEF_KEY_LAST]={false};
 
-Input * Input::getInstance(){
-	if(input == NULL){
-		input = new Input();
-	}
-	return input;
+
+bool Input::getKey(DefKey _key_id){
+	return g_key[_key_id];
 }
 
-void Input::destroy(){
-	if(input){
-		delete input;
-	}
-	input = NULL;
+bool Input::getKeyR(DefKey _key_id){
+	return g_keyR[_key_id];
 }
+
 
 void Input::update(){
 
-	memset(key,0,sizeof(key));
-	Uint32 m_idxKey=-1;
+	memset(g_key,0,sizeof(g_key));
+	Uint32 id_key=-1;
 	EventKey event_key;
 	SDL_Event sdl_event;
 
@@ -32,25 +29,25 @@ void Input::update(){
 	{
 		memset(&event_key,0,sizeof(event_key));
 
-		if(sdl_event.key.repeat == 0){ // one key key press at time...
+		if(sdl_event.key.repeat == 0){ // one g_key g_key press at time...
 
 			switch(sdl_event.type) {
 			case SDL_KEYUP:
 			case SDL_KEYDOWN:
-				m_idxKey = sdl_event.key.keysym.sym;
+				id_key = sdl_event.key.keysym.sym;
 
 				//print_info_cr("UnPress");
 				switch(sdl_event.key.keysym.sym){
 
-					case SDLK_UP: m_idxKey = DEF_KEY_UP; break;
-					case SDLK_DOWN: m_idxKey = DEF_KEY_DOWN; break;
-					case SDLK_LEFT: m_idxKey = DEF_KEY_LEFT; break;
-					case SDLK_RIGHT:m_idxKey = DEF_KEY_RIGHT; break;
-					case SDLK_ESCAPE: m_idxKey = DEF_KEY_ESCAPE;  break;
-					case SDLK_F5: m_idxKey = DEF_KEY_F5; break;
-					case SDLK_F9: m_idxKey = DEF_KEY_F9;break;
-					case SDLK_F10: m_idxKey = DEF_KEY_F10;break;
-					case SDLK_BACKSPACE:m_idxKey=DEF_KEY_SPACE;break;
+					case SDLK_UP: id_key = DEF_KEY_UP; break;
+					case SDLK_DOWN: id_key = DEF_KEY_DOWN; break;
+					case SDLK_LEFT: id_key = DEF_KEY_LEFT; break;
+					case SDLK_RIGHT:id_key = DEF_KEY_RIGHT; break;
+					case SDLK_ESCAPE: id_key = DEF_KEY_ESCAPE;  break;
+					case SDLK_F5: id_key = DEF_KEY_F5; break;
+					case SDLK_F9: id_key = DEF_KEY_F9;break;
+					case SDLK_F10: id_key = DEF_KEY_F10;break;
+					case SDLK_BACKSPACE:id_key=DEF_KEY_SPACE;break;
 
 					default:
 						if(DEF_KEY_SPACE <= sdl_event.key.keysym.sym && sdl_event.key.keysym.sym <= DEF_KEY_z) {
@@ -60,13 +57,13 @@ void Input::update(){
 						break;
 				}
 
-				if(m_idxKey<DEF_KEY_LAST) {
+				if(id_key<DEF_KEY_LAST) {
 
-					keyR[m_idxKey]=false;
+					g_keyR[id_key]=false;
 
 					if(sdl_event.type == SDL_KEYDOWN) {
-						key[m_idxKey]=true;
-						keyR[m_idxKey]=true;
+						g_key[id_key]=true;
+						g_keyR[id_key]=true;
 
 					}
 
@@ -78,3 +75,5 @@ void Input::update(){
 		}
 	}
 }
+
+

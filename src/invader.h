@@ -35,6 +35,5 @@
 #include "SoundPlayer.h"
 
 
-namespace invader{
-
-}
+#define INVADER_WINDOW_WIDTH    320
+#define INVADER_WINDOW_HEIGHT   200

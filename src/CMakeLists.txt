@@ -170,6 +170,7 @@ else()
 	   ${SDL2_LIBRARIES}
 	   ${SDL2_EXTRA_LINK_FLAGS_STATIC}
 	)	
+
 endif()
 
 #
@@ -187,11 +188,16 @@ set(  INVADER_LIB_SRCS ${INVADER_LIB_SRCS}
 )
 
 
-add_library( invader${POST_NAME} STATIC ${INVADER_LIB_SRCS} )
+if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+    enable_language("RC")
+    set (WIN32_RESOURCES ${CMAKE_CURRENT_SOURCE_DIR}/invader.rc)
+endif()
 
-# zs script
-add_executable(main${POST_NAME}
-	${PROJECT_SOURCE_DIR}/main.cpp
+# invader
+add_executable(
+	invader${POST_NAME}	
+	${INVADER_LIB_SRCS} 
+	${WIN32_RESOURCES}
 )
 
 
@@ -200,7 +206,7 @@ if (EMSCRIPTEN)
 	set_target_properties(invader${POST_NAME} PROPERTIES LINK_FLAGS " -s USE_SDL=2 ")
 	target_link_libraries(invader${POST_NAME} SDL2main SDL2)
 else()
-	target_link_libraries(main${POST_NAME} invader${POST_NAME} ${LIB_DEPS})
+	target_link_libraries(invader${POST_NAME} ${LIB_DEPS})
 endif()
 
 
