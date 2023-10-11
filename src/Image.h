@@ -37,7 +37,6 @@ class Image{
 
 public:
 
-	static Image *newImage(const std::string & name,const std::vector<Uint32> & _rows);
 	static Image *newImage(const std::string & name,const std::string & filename,const ImageLoadOptions &_image_load_options=ImageLoadOptions());
 	static Image *newImage(const std::string & name,int _width=0,int _height=0);
 
@@ -53,10 +52,12 @@ public:
 	// create image from file
 	//bool load(const std::string & file,const ImageLoadOptions &_image_load_options=ImageLoadOptions());
 
-	// draw pixmap
-	void updateBinary(
-		const std::vector<Uint32> & _rows
-	);
+	// update pixels
+	void begin();
+	void setColor3i(int8_t _r, int8_t _g, int8_t _b);
+	void putPoint(int x, int y);
+	void end();
+
 
 	int getWidth();
 	int getHeight();

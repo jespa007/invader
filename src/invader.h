@@ -1,3 +1,5 @@
+ #pragma once
+ 
  #include <stdio.h>
 #include  <SDL2/SDL.h>
 #include  <unordered_map>
@@ -37,3 +39,28 @@
 
 #define INVADER_WINDOW_WIDTH    320
 #define INVADER_WINDOW_HEIGHT   200
+#define INVADER_PALETTE_COLORS  256
+#define INVADER_PALETTE_SIZE    INVADER_PALETTE_COLORS*sizeof(Color)
+#define INVADER_IMAGE_WIDTH     320
+#define INVADER_IMAGE_HEIGHT    200
+#define INVADER_IMAGE_SIZE    INVADER_IMAGE_WIDTH*INVADER_IMAGE_HEIGHT
+
+
+struct Color{
+    uint8_t r,g,b;
+    Color(){
+        r=0;
+        g=0;
+        b=0;
+    }
+    friend bool operator==(const Color & _c1, const Color & _c2){
+        return _c1.r==_c2.r
+               && _c1.g==_c2.g
+               && _c1.b==_c2.b;
+    }
+
+    friend bool operator!=(const Color & _c1, const Color & _c2){
+        return !(_c1==_c2);
+    }
+
+};

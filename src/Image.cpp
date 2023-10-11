@@ -31,25 +31,6 @@ SDL_Texture *  Image::convertSurfaceToTexture(SDL_Surface *_srf){
 	return text;
 }
 
-// create image from native ...
-Image *Image::newImage(const std::string & _name, const std::vector<Uint32> & _rows){
-
-	Image *image=Image::get(_name);
-
-	if(image != NULL){
-		fprintf(stderr,"Image::newImage: Image '%s' already exists\n",_name.c_str());
-		return image;
-	}
-
-	image=new Image();
-
-	image->updateBinary(_rows);
-
-	(*s_images)[_name]=image;
-
-	return image;
-
-}
 
 Image *Image::newImage(const std::string & _name,const std::string & _file,const ImageLoadOptions &_image_load_options){
 
@@ -211,30 +192,44 @@ bool Image::loadImage(const std::string & _file,const ImageLoadOptions &_texture
 }
 
 
+void Image::begin(){
+	SDL_Renderer *renderer=Graphics::getRenderer();
 
-void Image::updateBinary(
-	const std::vector<Uint32> & _rows
+	// render image with alpha
+	SDL_SetRenderTarget(renderer, sdl_texture);
+	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0x00);
+	SDL_RenderClear(renderer);
+	SDL_SetTextureBlendMode(sdl_texture, SDL_BLENDMODE_BLEND);
+}
+
+void Image::setColor3i(int8_t _r, int8_t _g, int8_t _b){
+	SDL_Renderer *renderer=Graphics::getRenderer();
+	SDL_SetRenderDrawColor(renderer, _r, _g, _b, 0xFF);
+}
+
+void Image::putPoint(int x, int y){
+	SDL_Renderer *renderer=Graphics::getRenderer();
+	SDL_RenderDrawPoint(renderer, x, y);
+}
+
+void Image::end(){
+	SDL_Renderer *renderer=Graphics::getRenderer();
+	SDL_SetRenderTarget(renderer, NULL);
+}
+/*
+void Image::update(
+	uint8_t *_pixels
+	,int _width
+	,int _height
 ){
-
-	// gget height/width
-	int tmp_height=_rows.size();
-	int tmp_width=-1;
-
-	for(auto pm : _rows){
-		for(int x=0; x < 32;x++){
-			if(pm & (0x1<<x)){
-				tmp_width=(tmp_width<(x+1)?(x+1):tmp_width);
-			}
-		}
-	}
+	// image expects RGB
 
 	if(sdl_texture == NULL){
-		createTexture(tmp_width,tmp_height);
-
+		createTexture(_width,_height);
 	}
 
 
-	if(tmp_height <= this->height || tmp_width<=this->width){
+	if(_width==this->width && _height == this->height){
 
 		// draw image
 		SDL_Renderer *renderer=Graphics::getRenderer();
@@ -246,12 +241,17 @@ void Image::updateBinary(
 		SDL_SetTextureBlendMode(sdl_texture, SDL_BLENDMODE_BLEND);
 		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
+		uint8_t pixels=_pixels;
+
 		for(int y=0; y < this->height;y++){
-			int pm=_rows[y];
 			for(int x=0; x < this->width;x++){
-				if(pm & (0x1<<x)){
-					SDL_RenderDrawPoint(renderer, x, y);
-				}
+				Uint8 r=*(pixels+0);
+				Uint8 g=*(pixels+1);
+				Uint8 b=*(pixels+2);
+
+				SDL_SetRenderDrawColor(renderer, r, g, b, 0xFF);
+				SDL_RenderDrawPoint(renderer, x, y);
+				pixels+=3
 			}
 		}
 
@@ -259,10 +259,10 @@ void Image::updateBinary(
 		SDL_SetRenderTarget(renderer, NULL);
 	}
 	else{
-		fprintf(stderr,"Image::updateBinary : Dimensions out of boundsy\n");
+		fprintf(stderr,"Image::update : Dimensions out of boundy\n");
 	}
 
-}
+}*/
 
 SDL_Texture * Image::getSdlTexture(){
 	return sdl_texture;
