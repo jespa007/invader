@@ -78,8 +78,6 @@ Sound::Sound(){
 
 bool Sound::convertAudio(SDL_AudioSpec * wav_spec, Uint8 **wav_buffer,	Uint32 *wav_length) {
 	// PRE: wav_buffer is loaded by SDL_LoadWav
-	SoundPlayer *sound_player=SoundPlayer::getInstance();
-
 	SDL_AudioCVT cvt;
 	int ret;
 	ret = SDL_BuildAudioCVT(
@@ -87,9 +85,9 @@ bool Sound::convertAudio(SDL_AudioSpec * wav_spec, Uint8 **wav_buffer,	Uint32 *w
 			, wav_spec->format
 			, wav_spec->channels
 			, wav_spec->freq
-			, sound_player->getFormat()
-			, sound_player->getChannels()
-			, sound_player->getFrequency()
+			, SoundPlayer::getFormat()
+			, SoundPlayer::getChannels()
+			, SoundPlayer::getFrequency()
 	);
 
 	if(ret == -1){

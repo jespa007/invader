@@ -11,6 +11,11 @@
 #define  T_F10	      	Input::getKey(DEF_KEY_F10)
 #define  T_SPACE      	Input::getKey(DEF_KEY_SPACE)
 #define  T_TAB			Input::getKey(DEF_KEY_TAB)
+#define  T_UP           Input::getKey(DEF_KEY_UP)
+#define  T_LEFT         Input::getKey(DEF_KEY_LEFT)
+#define  T_RIGHT        Input::getKey(DEF_KEY_RIGHT)
+#define  T_DOWN         Input::getKey(DEF_KEY_DOWN)
+
 
 
 #define  TR_UP          Input::getKeyR(DEF_KEY_UP)

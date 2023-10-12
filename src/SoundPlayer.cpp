@@ -5,8 +5,19 @@
 
 #include "invader.h"
 
-SoundPlayer *SoundPlayer::singleton=NULL;
-SoundPlayer::SoundData SoundPlayer::sound_data[MAX_PLAYING_SOUNDS];
+
+SDL_AudioSpec g_audio_spec;
+
+typedef struct {
+	Uint8 *audio_pos;
+	int 	audio_len;
+	Sound  *sound;
+	bool	loop;
+	bool	is_playing;
+}SoundData;
+
+SoundData g_sound_data[MAX_PLAYING_SOUNDS]={0};
+SDL_AudioDeviceID g_sound_device=0;
 
 void SoundPlayer::callbackAudio(void *_user_data, Uint8* stream, int len)
 {
@@ -15,43 +26,26 @@ void SoundPlayer::callbackAudio(void *_user_data, Uint8* stream, int len)
 	memset(stream,0,len);
 
 	for(int i = 0; i < MAX_PLAYING_SOUNDS; i++){
-		if(sound_data[i].is_playing==true){ // some data to play...
-			int length = (int)sound_data[i].audio_len<len?sound_data[i].audio_len:len;
-			if((sound_data[i].audio_len-length)==0){
-				if(sound_data[i].loop==true){
-					sound_data[i].audio_len=sound_data[i].sound->wav_length;
-					sound_data[i].audio_pos=sound_data[i].sound->wav_buffer;
-					length = (int)sound_data[i].audio_len<len?sound_data[i].audio_len:len;
+		if(g_sound_data[i].is_playing==true){ // some data to play...
+			int length = (int)g_sound_data[i].audio_len<len?g_sound_data[i].audio_len:len;
+			if((g_sound_data[i].audio_len-length)==0){
+				if(g_sound_data[i].loop==true){
+					g_sound_data[i].audio_len=g_sound_data[i].sound->wav_length;
+					g_sound_data[i].audio_pos=g_sound_data[i].sound->wav_buffer;
+					length = (int)g_sound_data[i].audio_len<len?g_sound_data[i].audio_len:len;
 				}else{
-					sound_data[i].is_playing=false;
+					g_sound_data[i].is_playing=false;
 				}
 			}
 
-			SDL_MixAudio(stream, sound_data[i].audio_pos, length, SDL_MIX_MAXVOLUME);
-			sound_data[i].audio_len-=length;
-			sound_data[i].audio_pos+=length;
+			SDL_MixAudio(stream, g_sound_data[i].audio_pos, length, SDL_MIX_MAXVOLUME);
+			g_sound_data[i].audio_len-=length;
+			g_sound_data[i].audio_pos+=length;
 		}
 	}
 }
 
-SoundPlayer *SoundPlayer::getInstance(){
-	if(singleton==NULL){
-		memset(sound_data,0,sizeof(SoundData));
-		singleton=new SoundPlayer();
-	}
-	return singleton;
-}
 
-void SoundPlayer::destroy(){
-	if(singleton != NULL){
-		delete singleton;
-	}
-	singleton = NULL;
-}
-
-SoundPlayer::SoundPlayer(){
-	dev=0;
-}
 
 const char *SoundPlayer::getAudioFormatStr(SDL_AudioFormat _format){
 	switch(_format){
@@ -75,7 +69,7 @@ Uint8 SoundPlayer::getBytesPerSample(SDL_AudioFormat _format){
 	return 1;
 }
 
-void SoundPlayer::setup(SDL_AudioFormat _format, Uint16 _freq, Uint16 _samples, Uint8 _channels){
+void SoundPlayer::init(SDL_AudioFormat _format, Uint16 _freq, Uint16 _samples, Uint8 _channels){
 
 	if (SDL_WasInit(SDL_INIT_AUDIO) != SDL_INIT_AUDIO) {
 		if (SDL_InitSubSystem(SDL_INIT_AUDIO) < 0) {
@@ -86,24 +80,24 @@ void SoundPlayer::setup(SDL_AudioFormat _format, Uint16 _freq, Uint16 _samples, 
 
 	SDL_AudioSpec audio_obtained;
 
-	SDL_memset(&audio_spec, 0, sizeof(audio_spec)); /* or SDL_zero(want) */
-	audio_spec.userdata=NULL;
-	audio_spec.freq=_freq;
-	audio_spec.samples=_samples;
-	audio_spec.channels=_channels;
-	audio_spec.format=_format;
-	audio_spec.callback = callbackAudio; /* you wrote this function elsewhere. */
+	SDL_memset(&g_audio_spec, 0, sizeof(g_audio_spec)); /* or SDL_zero(want) */
+	g_audio_spec.userdata=NULL;
+	g_audio_spec.freq=_freq;
+	g_audio_spec.samples=_samples;
+	g_audio_spec.channels=_channels;
+	g_audio_spec.format=_format;
+	g_audio_spec.callback = callbackAudio; /* you wrote this function elsewhere. */
 
 // MAC fails to init SDL_OpenAudio (disable by default)
 //#if !defined(__APPLE_CC__)
 
-	if ( SDL_OpenAudio(&audio_spec, &audio_obtained) < 0 ){
+	if ( SDL_OpenAudio(&g_audio_spec, &audio_obtained) < 0 ){
 	    fprintf(stderr,"SoundPlayer: '%s'", SDL_GetError());
 	} else {
 	    SDL_PauseAudio(0); // start audio playing.
 
-	    audio_spec=audio_obtained;
-	    audio_spec.callback=callbackAudio;
+	    g_audio_spec=audio_obtained;
+	    g_audio_spec.callback=callbackAudio;
 
 	    printf("Sound\n");
 	    printf("-----\n");
@@ -111,10 +105,10 @@ void SoundPlayer::setup(SDL_AudioFormat _format, Uint16 _freq, Uint16 _samples, 
 	    	   "- Frequency :  %i(Hz)\n"
 	    	   "- Channels : %i\n"
 	    	   "- Samples : %i\n"
-	    		,getAudioFormatStr(audio_spec.format)
-	    		,audio_spec.freq
-				,audio_spec.channels
-				,audio_spec.samples
+	    		,getAudioFormatStr(g_audio_spec.format)
+	    		,g_audio_spec.freq
+				,g_audio_spec.channels
+				,g_audio_spec.samples
 
 		);
 	    printf("\n");
@@ -124,19 +118,19 @@ void SoundPlayer::setup(SDL_AudioFormat _format, Uint16 _freq, Uint16 _samples, 
 }
 
 Uint16 SoundPlayer::getSamples(){
-	return audio_spec.samples;
+	return g_audio_spec.samples;
 }
 
 Uint16 SoundPlayer::getFrequency(){
-	return audio_spec.freq;
+	return g_audio_spec.freq;
 }
 
 Uint8 SoundPlayer::getChannels(){
-	return audio_spec.channels;
+	return g_audio_spec.channels;
 }
 
 SDL_AudioFormat SoundPlayer::getFormat(){
-	return audio_spec.format;
+	return g_audio_spec.format;
 }
 
 void SoundPlayer::play(Sound *_sound, bool _loop){
@@ -146,12 +140,12 @@ void SoundPlayer::play(Sound *_sound, bool _loop){
 	}
 
 	for(int i = 0; i < MAX_PLAYING_SOUNDS; i++){
-		if(sound_data[i].is_playing==false){ // is not playing.
-			sound_data[i].audio_pos=_sound->wav_buffer;
-			sound_data[i].audio_len=_sound->wav_length;
-			sound_data[i].sound=_sound;
-			sound_data[i].loop=_loop;
-			sound_data[i].is_playing=true;
+		if(g_sound_data[i].is_playing==false){ // is not playing.
+			g_sound_data[i].audio_pos=_sound->wav_buffer;
+			g_sound_data[i].audio_len=_sound->wav_length;
+			g_sound_data[i].sound=_sound;
+			g_sound_data[i].loop=_loop;
+			g_sound_data[i].is_playing=true;
 			return;
 		}
 	}
@@ -164,15 +158,15 @@ void SoundPlayer::stop(Sound *_sound){
 	}
 
 	for(int i = 0; i < MAX_PLAYING_SOUNDS; i++){
-		if(sound_data[i].sound==_sound){
-			sound_data[i].is_playing=false;
+		if(g_sound_data[i].sound==_sound){
+			g_sound_data[i].is_playing=false;
 		}
 	}
 }
 
 void SoundPlayer::stopAllSounds(){
 	for(int i = 0; i < MAX_PLAYING_SOUNDS; i++){
-		sound_data[i].is_playing=false;
+		g_sound_data[i].is_playing=false;
 	}
 }
 
@@ -185,7 +179,7 @@ bool SoundPlayer::isPlaying(Sound *_sound){
 	}
 
 	for(int i = 0; i < MAX_PLAYING_SOUNDS; i++){
-		if((sound_data[i].sound==_sound) && (sound_data[i].is_playing==true)){ // is not playing.
+		if((g_sound_data[i].sound==_sound) && (g_sound_data[i].is_playing==true)){ // is not playing.
 			count++;
 		}
 	}
@@ -193,7 +187,7 @@ bool SoundPlayer::isPlaying(Sound *_sound){
 	return count;
 }
 
-SoundPlayer::~SoundPlayer(){
+void SoundPlayer::deInit(){
 	// stop audio...
 	stopAllSounds();
 	SDL_PauseAudio(1);
