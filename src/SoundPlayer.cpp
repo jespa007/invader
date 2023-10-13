@@ -16,7 +16,7 @@ typedef struct {
 	bool	is_playing;
 }SoundData;
 
-SoundData g_sound_data[MAX_PLAYING_SOUNDS]={0};
+SoundData g_sound_data[MAX_PLAYING_SOUNDS];
 SDL_AudioDeviceID g_sound_device=0;
 
 void SoundPlayer::callbackAudio(void *_user_data, Uint8* stream, int len)
