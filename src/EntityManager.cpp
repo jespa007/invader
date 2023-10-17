@@ -44,7 +44,7 @@ EntityManager::EntityManager(){
 }
 
 
-void EntityManager::setup(const std::string _name, const EntityType & _entity_type){
+void EntityManager::newType(const std::string _name, const EntityType & _entity_type){
 	//{
 	//		set number of entities
 	//		set animations and its sprite per animation

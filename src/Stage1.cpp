@@ -108,7 +108,6 @@ void Stage1::load(){
         ,INVADER_STAGE1_TILEMAP_HEIGHT
         ,INVADER_TILE_WIDTH
         ,INVADER_TILE_HEIGHT
-
     );
 }
 
