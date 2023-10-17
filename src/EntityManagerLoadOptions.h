@@ -5,7 +5,7 @@
 
 #pragma once
 
-class EntityManagerLoadOptions{
+class EntityTypeConfiguration{
 public:
 	int max;
 	uint16_t properties;
@@ -16,7 +16,7 @@ public:
 	std::function<void(Entity *)> *on_create;
 	std::function<void(Entity *)> *on_update;
 
-	EntityManagerLoadOptions(){
+	EntityType(){
 		max=1;
 		life_time=0;
 		on_create=NULL;

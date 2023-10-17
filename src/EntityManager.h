@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "EntityManagerLoadOptions.h"
+#include "EntityTypeConfiguration.h"
 
 class EntityManager{
 public:
@@ -13,10 +13,12 @@ public:
 		ENTITY_PROPERTY_DIE_OUTSCREEN=0x1 << 0
 	}EntityProperty;
 
+	 newEnt
+
 	/*static EntityManager *newEntityManager(
 			const std::string & _name
 			, int _max_instances
-			, const EntityManagerLoadOptions & _entity_manager_load_options
+			, const EntityType & _entity_manager_load_options
 	);
 	static EntityManager *get(const std::string & name);
 	static void unloadAll();
@@ -31,7 +33,7 @@ public:
 	std::function<void (Entity *)> *on_create;
 
 	EntityManager();
-	void setup(const EntityManagerLoadOptions & _entity_manager_load_options);
+	void newType(const std::string _entity_name, const EntityType & _entity_type);
 
 	Collider *getCollider();
 	std::unordered_map<std::string, EntityAnimation *> *getAnimations();

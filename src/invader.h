@@ -35,6 +35,7 @@
 #include "Graphics.h"
 #include "Sound.h"
 #include "SoundPlayer.h"
+#include "Stage1.h"
 
 
 #define INVADER_WINDOW_WIDTH            320
@@ -49,6 +50,8 @@
 #define INVADER_FONT_NUM_LETTERS        48
 #define INVADER_BIG_FONT_LETTER_WIDTH   26
 #define INVADER_BIG_FONT_LETTER_HEIGHT  19
+#define INVADER_TILE_WIDTH              32                       
+#define INVADER_TILE_HEIGHT             32
 
 
 
