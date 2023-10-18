@@ -98,46 +98,14 @@ void Stage1::load(){
     };              
 
 
-     for(y=0;(y<200)&&(k<MAX_BLOCS);y+=ALTURA_BLOC)
- {
-  for(x=0;(x<320)&&(k<MAX_BLOCS);x+=AMPLADA_BLOC)
-  {
-   // Assignem memoria...
-
-   for(i=0;i<ALTURA_BLOC;i++)
-    for(j=0;j<AMPLADA_BLOC;j++)
-      Blocs[k][i*AMPLADA_BLOC+j] = BUFFER1[(y+i)*320+j+x];
-
-   k++; // Bloc pr�xim.
-  }
- }
-
-
- // Crea la Matriu Inversa...
-
-   for(y=0;y<ALTURA_BLOC;y++)
-   {
-    for(x=0;x<AMPLADA_BLOC;x++)
+     /* from block 48 and upper are inverted */
+    for(k=48;k<MAX_BLOCS;k++)
     {
 
-     BLOCINVERS[y*AMPLADA_BLOC+x] = (AMPLADA_BLOC)*(AMPLADA_BLOC-1) - y*(AMPLADA_BLOC) + x;
-    
-    }
-   }
-
-
-
-
- // Creem els els blocs invertits...
-
-    /* from block 48 and upper are inverted */
- for(k=48;k<MAX_BLOCS;k++)
- {
-
-  for(j=0;j<=((AMPLADA_BLOC)*(AMPLADA_BLOC)-1);j++)
-  Blocs[k][j] = Blocs[k-48+14][BLOCINVERS[j]];
-
- }
+        for(j=0;j<=((AMPLADA_BLOC)*(AMPLADA_BLOC)-1);j++)
+        Blocs[k][j] = Blocs[k-48+14][BLOCINVERS[j]];
+     }
+     // may be an special flag the flips horizontally, or set properties for blocs or hardcode flip the image 
 
      
 
