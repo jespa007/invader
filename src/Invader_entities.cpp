@@ -16,7 +16,9 @@
 
 void Invader::loadEntities(){
     Image *sprites=Image::get("SPRITES1.RAW");
-    size_t explosion_type_id=entity_manager->newType({
+    size_t explosion_type_id=entity_manager->newType((EntityTypeConfiguration)(
+
+    ){
        .max=10
 	    ,.properties=0
 	    ,.entity_animations={
