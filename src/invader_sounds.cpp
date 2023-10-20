@@ -1,7 +1,7 @@
 #include "invader.h"
 
 
-void loadSounds(){
+void Invader::loadSounds(){
         std::vector<std::string> sound_files={
         "ALARMA.WAV"
         ,"BOMBOUT.WAV"

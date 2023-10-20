@@ -399,11 +399,12 @@ void Graphics::drawEntity(Entity *_entity){
 
 void Graphics::drawEntity(Entity *_entity,int _x_center, int _y_center){
 
+
 	if(_entity->is_visible==false){
 		return;
 	}
 
-	drawFrameInfo(_entity->getFrame(),_x_center+_entity->x,_y_center+_entity->y);
+	drawFrameInfo(_entity->getCurrentFrameData(),_x_center+_entity->x,_y_center+_entity->y);
 
 	if(g_graphics_show_sprite_colliders){
 		auto collider=_entity->getCollider();

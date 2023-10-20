@@ -4,6 +4,8 @@
  */
 class Frame{
 public:
+	static const size_t npos=-1;
+
 	Image *image;
 	int time;
 	SDL_Rect crop;

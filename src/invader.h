@@ -35,13 +35,14 @@
 #include "Graphics.h"
 #include "Sound.h"
 #include "SoundPlayer.h"
-#include "Stage1.h"
+#include "Color.h"
+//#include "Stage1.h"
 
 
 #define INVADER_WINDOW_WIDTH            320
 #define INVADER_WINDOW_HEIGHT           200
 #define INVADER_PALETTE_COLORS          256
-#define INVADER_PALETTE_SIZE            INVADER_PALETTE_COLORS*sizeof(Color)
+#define INVADER_PALETTE_SIZE            (INVADER_PALETTE_COLORS*sizeof(Color))
 #define INVADER_IMAGE_WIDTH             320
 #define INVADER_IMAGE_HEIGHT            200
 #define INVADER_IMAGE_SIZE              INVADER_IMAGE_WIDTH*INVADER_IMAGE_HEIGHT
@@ -54,24 +55,28 @@
 #define INVADER_TILE_HEIGHT             32
 
 
+class Invader{
+public:
+    static void init();
+    static void loadEntities();
+    static void loadImages();
+    static void loadSounds();
+    static void deInit();
 
+private:
 
+    static void loadImage(
+        const std::string _image_name
+        , const std::string & _raw_image_file
+        , int _image_width
+        , int _image_height
+        ,const std::string  & _raw_palette_file
+    );
 
-struct Color{
-    uint8_t r,g,b;
-    Color(){
-        r=0;
-        g=0;
-        b=0;
-    }
-    friend bool operator==(const Color & _c1, const Color & _c2){
-        return _c1.r==_c2.r
-               && _c1.g==_c2.g
-               && _c1.b==_c2.b;
-    }
+    static Tilemap *background;
+    static EntityManager *entity_manager;
+    static bool    initialized;
 
-    friend bool operator!=(const Color & _c1, const Color & _c2){
-        return !(_c1==_c2);
-    }
 
 };
+

@@ -29,16 +29,17 @@ Entity::Entity(){
 	dx=0;
 	dy=0;
 	life_time=0;
-	idx_current_frame=0;
+	current_frame_idx=0;
 	next_time_change_frame=-1;
 	//skip_frame=1;
 	scale=1;
-	id_current_animation="";
+	current_animation_idx=0;
 	width=0;
 	height=0;
 	is_active=false;
 	current_animation=NULL;
 	entity_manager=NULL;
+	entity_type_id=0;
 	animations=NULL;
 	entity_id=-1;
 	fix_frame=false;
@@ -48,76 +49,82 @@ Entity::Entity(){
 	//idx_fixed_frame=-1;
 }
 
-void Entity::setEntityManagerInfo(EntityManager *_entity_manager, int _entity_id){
+void Entity::setEntityManagerInfo(EntityManager *_entity_manager, size_t _entity_type_id, size_t _entity_id){
 	entity_manager=_entity_manager;
 	entity_id=_entity_id;
-	animations=entity_manager->getAnimations();
+	entity_type_id=_entity_type_id;
+	animations=entity_manager->getAnimations(entity_type_id);
 
 	if(animations->size()>0){
-		auto first_animation=animations->begin();
-		id_current_animation=first_animation->first;
-		current_animation=first_animation->second;
+		auto first_animation=animations[0];
 	}
 }
 
 void Entity::setAnimation(
-	const std::string & _id_animation
+	size_t _animation_idx
 
 ){
 	EntityAnimationOptions eso;
 
-	if(_id_animation==id_current_animation){
+	if(_animation_idx==current_animation_idx){
 		return;
 	}
 
-	if(animations->count(_id_animation)==0){
-		fprintf(stderr,"Entity::setFrame: '%s' animation not found\n",_id_animation.c_str());
+	if(_animation_idx >= animations->size()){
+		fprintf(stderr,"Entity::setAnimation: animation_idx out of bounds\n");
 		return;
 	}
 
-	idx_current_frame=0;
-	next_time_change_frame=System::getTime()+current_animation->sprite.frames[idx_current_frame].time;
-	id_current_animation=_id_animation;
-	current_animation=(*animations)[_id_animation];
+	current_frame_idx=0;
+	next_time_change_frame=System::getTime()+current_animation->sprite.frames[current_frame_idx].time;
+	current_animation_idx=_animation_idx;
+	current_animation=(*animations)[_animation_idx];
 	fix_frame=false;
 	//idx_fixed_frame=-1;
 
 }
 
 
-void Entity::setFrame(int _idx_frame){
+void Entity::setFrame(size_t _idx_frame){
 
 	if(current_animation==NULL){
 		fprintf(stderr,"Entity::setFrame: no animation entries\n");
 		return;
 	}
 
-	if(_idx_frame < 0 || _idx_frame >= (int)current_animation->sprite.frames.size()){
+	if(_idx_frame >= current_animation->sprite.frames.size()){
 		fprintf(stderr,"Entity::setFrame: frame out of bounds (entry:%i max: %i)\n"
-				,_idx_frame
+				,(int)_idx_frame
 				,(int)current_animation->sprite.frames.size());
 		return;
 	}
-	idx_current_frame=_idx_frame;
+	current_frame_idx=_idx_frame;
 	fix_frame=true;
 }
 
-Frame * Entity::getFrame(){
+Frame * Entity::getCurrentFrameData(){
 	if(current_animation != NULL){
-	//EntityAnimationOptions eso =animations[id_current_animation];
-		return &current_animation->sprite.frames[idx_current_frame];
+	//EntityAnimationOptions eso =animations[current_animation_idx];
+		return &current_animation->sprite.frames[current_frame_idx];
 	}
 	return NULL;
 }
 
+size_t Entity::getCurrentFrameIdx(){
+	if(current_animation != NULL){
+	//EntityAnimationOptions eso =animations[current_animation_idx];
+		return current_frame_idx;
+	}
+	return Frame::npos;
+}
 
 
-std::string Entity::getAnimation(){
-	return this->id_current_animation;
+size_t Entity::getCurrentAnimationIdx(){
+	return this->current_animation_idx;
 }
 
 void Entity::deInit(){
-	idx_current_frame=0;
+	current_frame_idx=0;
 
 	x=0;
 	y=0;
@@ -141,13 +148,13 @@ void Entity::setSkipFrame(float _skip_frame){
 }*/
 
 Collider * Entity::getCollider(){
-	auto current_frame=this->getFrame();
+	auto current_frame=this->getCurrentFrameData();
 	if(current_frame!=NULL){
 		if(current_frame->collider.collider_type!=Collider::COLLIDER_TYPE_NONE){
 			return &current_frame->collider;
 		}
 	}
-	return entity_manager->getCollider();
+	return entity_manager->getCollider(entity_type_id);
 }
 
 EntityManager * Entity::getEntityManager(){
@@ -155,7 +162,7 @@ EntityManager * Entity::getEntityManager(){
 }
 
 void			Entity::die(){
-	this->entity_manager->remove(this->entity_id);
+	this->entity_manager->remove(this->entity_type_id,this->entity_id);
 	this->deInit();
 }
 
@@ -168,9 +175,9 @@ void Entity::update(){
 	// condition change frame animation
 	if(	(current_animation!=NULL)
 			&&
-		(idx_current_frame<current_animation->sprite.frames.size())
+		(current_frame_idx<current_animation->sprite.frames.size())
 			&&
-		(current_animation->sprite.frames[idx_current_frame].time>0)
+		(current_animation->sprite.frames[current_frame_idx].time>0)
 			&&
 		fix_frame==false
 	){
@@ -181,14 +188,14 @@ void Entity::update(){
 		// change frame
 		if(next_time_change_frame<synch_time){
 
-			idx_current_frame=(idx_current_frame+1);
+			current_frame_idx=(current_frame_idx+1);
 
-			if(idx_current_frame>=current_animation->sprite.frames.size()){
-				idx_current_frame=0;
+			if(current_frame_idx>=current_animation->sprite.frames.size()){
+				current_frame_idx=0;
 			}
 
-			next_time_change_frame=synch_time+current_animation->sprite.frames[idx_current_frame].time;//*skip_frame;
-			Image *image=current_animation->sprite.frames[idx_current_frame].image;
+			next_time_change_frame=synch_time+current_animation->sprite.frames[current_frame_idx].time;//*skip_frame;
+			Image *image=current_animation->sprite.frames[current_frame_idx].image;
 
 			if(image!=NULL){
 				width = image->getWidth();

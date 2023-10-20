@@ -19,13 +19,12 @@ public:
 	int				life_time;
 	bool			is_active;
 	bool			is_visible;
-	EntityManager	*entity_manager;
 
 
 	Entity();//EntityManager *_entity_manager, int _entity_id);
-	void setEntityManagerInfo(EntityManager *_entity_manager, int _entity_id);
-	void setAnimation(const std::string & _id_animation);
-	void setFrame(int _idx_frame);
+	void setEntityManagerInfo(EntityManager *_entity_manager, size_t _entity_type_id, size_t _entity_id);
+	void setAnimation(size_t _animation_idx);
+	void setFrame(size_t _frame_idx);
 	inline int getWidth()  {return width;}
 	inline  int getHeight()  {return height;}
 	inline int getX()  {return x;}
@@ -38,8 +37,9 @@ public:
 
 	//void setSkipFrame(float _skip_frame);
 
-	Frame 			* 	getFrame();
-	std::string 		getAnimation();
+	Frame 			* 	getCurrentFrameData();
+	size_t			 	getCurrentFrameIdx();
+	size_t 				getCurrentAnimationIdx();
 	Collider 		*	getCollider();
 	void				die();
 	EntityManager 	* 	getEntityManager();
@@ -51,20 +51,22 @@ public:
 private:
 
 	float		scale;
-	int			 entity_id;
+	size_t		entity_id;
+	size_t		entity_type_id;
+	EntityManager	*entity_manager;
 	//float 		skip_frame;
-	unsigned 	idx_current_frame;
+	size_t 		current_frame_idx;
 	int 		width, height;
 	bool		fix_frame;
 	Uint32		next_move_time;
 	Uint32		move_time;
 
 
-	std::string	id_current_animation;
+	size_t		current_animation_idx;
 	int 		next_time_change_frame;
 	EntityAnimation	*current_animation;
 	//int idx_fixed_frame;
 
-	std::unordered_map<std::string, EntityAnimation *> *	animations;
+	std::vector<EntityAnimation *> *	animations;
 
 };

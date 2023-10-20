@@ -1,7 +1,13 @@
 #include "invader.h"
 
 
-void loadImage(const std::string _image_name, const std::string & _raw_image_file, int _image_width, int _image_height,const std::string  & _raw_palette_file){
+void Invader::loadImage(
+    const std::string _image_name
+    , const std::string & _raw_image_file
+    , int _image_width
+    , int _image_height
+    ,const std::string  & _raw_palette_file
+){
     
     FILE *fp_raw_palette=fopen(_raw_palette_file.c_str(),"rb");
     FILE *fp_raw_image=NULL;
@@ -55,7 +61,10 @@ void loadImage(const std::string _image_name, const std::string & _raw_image_fil
                 }
 
             }else{
-                fprintf(stderr,"loadImage : Error loading '%s'. Invalid palette size. Expected %i bytes but it was %i bytes\n",_image_name.c_str(),(int)INVADER_PALETTE_SIZE,(int)buf_size_palette);
+                fprintf(stderr,"loadImage : Error loading '%s'. Invalid palette size. Expected %i bytes but it was %i bytes\n"
+                ,_image_name.c_str()
+                ,(int)INVADER_PALETTE_SIZE
+                ,(int)(buf_size_palette));
             }
     }else{
         fprintf(stderr,"loadImage : Cannot open \"%s\"\n",_raw_palette_file.c_str());
@@ -70,7 +79,7 @@ void loadImage(const std::string _image_name, const std::string & _raw_image_fil
     }
 }
 
-void loadImages(){
+void Invader::loadImages(){
        typedef struct{
         std::string file_name;
         int width,height;
@@ -104,10 +113,4 @@ void loadImages(){
         );
     }
 
-
-    int idx_current_image=0;
-    Image *current_image=Image::get(image_files[idx_current_image].file_name);
-
-    int idx_current_sound=0;
-    Sound *current_sound=Sound::get(sound_files[idx_current_sound]);
 }

@@ -7,12 +7,12 @@
 
 class EntityTypeConfiguration{
 public:
-	int max;
+	size_t max;
 	uint16_t properties;
-	std::unordered_map<std::string, EntityAnimationOptions> entity_animations;
+	std::vector<EntityAnimationOptions> entity_animations;
 	Collider		*collider;
-	int life_time;
-	int move_time;
+	size_t life_time;
+	size_t move_time;
 	std::function<void(Entity *)> *on_create;
 	std::function<void(Entity *)> *on_update;
 

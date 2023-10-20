@@ -9,13 +9,13 @@
 // Static
 
 void EntityManager::testCollision(
-		EntityManager *_em1
-		,EntityManager *_em2
+		EntityType *_em1
+		,EntityType *_em2
 		,const std::function<void (Entity *_e1, Entity *_e2)> & _on_collide){
-	for(int i=0; i < _em1->entities_len; i++){
+	for(size_t i=0; i < _em1->entities_len; i++){
 		Entity *e1=_em1->entities+i;
 		if(e1->is_active){
-			for(int j=0; j < _em2->entities_len; j++){
+			for(size_t j=0; j < _em2->entities_len; j++){
 				Entity *e2=_em2->entities+j;
 
 				if(e2->is_active){
@@ -33,14 +33,6 @@ void EntityManager::testCollision(
 // Members
 // Entities are build with only one frame
 EntityManager::EntityManager(){
-	entities_len=0;
-	entities=NULL;
-	this->life_time = 0;
-	on_update=NULL;
-	on_create=NULL;
-	collider=NULL;
-	properties=0;
-	move_time=0;
 }
 
 
@@ -53,133 +45,132 @@ size_t EntityManager::newType(const EntityTypeConfiguration & _entity_type_confi
 	//}
 
 	// set animations
-	size_t type_id=this->entity_types.size();
+	size_t entity_type_id=this->entity_types.size();
 
-	EntityType *entity_type=new EntityType();
+	EntityManager::EntityType *entity_type=new EntityManager::EntityType();
+	entity_type->id=entity_types.size();
 
 	entity_types.push_back(entity_type);
 
-	entity_type->properties=_entity_manager_load_options.properties;
-	entity_type->entities_len=_entity_manager_load_options.max;
-	entity_type->entities=new Entity[entities_len];
+	entity_type->properties=_entity_type_configuration.properties;
+	entity_type->entities_len=_entity_type_configuration.max;
+	entity_type->entities=new Entity[_entity_type_configuration.max];
 
-	for(auto it=_entity_manager_load_options.entity_animations.begin(); it!=_entity_manager_load_options.entity_animations.end();it++){
-		addAnimation(type_id,it->first,it->second);
+	for(auto animation:_entity_type_configuration.entity_animations){
+		addAnimation(entity_type_id,animation);
 	}
 
-	for(int i=0; i < _entity_manager_load_options.max; i++){
-		entities[i].setEntityManagerInfo(this,i);
-		this->free_index.push_back(i);
+	for(size_t entity_idx=0; entity_idx < _entity_type_configuration.max; entity_idx++){
+		entity_type->entities[entity_idx].setEntityManagerInfo(this,entity_type_id,entity_idx);
+		entity_type->free_index.push_back(entity_idx);
 	}
 
-	this->life_time=_entity_manager_load_options.life_time;
-	this->move_time=_entity_manager_load_options.move_time;
-	this->collider=_entity_manager_load_options.collider;
+	entity_type->life_time=_entity_type_configuration.life_time;
+	entity_type->move_time=_entity_type_configuration.move_time;
+	entity_type->collider=_entity_type_configuration.collider;
 
-	on_create=_entity_manager_load_options.on_create;
-	on_update=_entity_manager_load_options.on_update;
+	entity_type->on_create=_entity_type_configuration.on_create;
+	entity_type->on_update=_entity_type_configuration.on_update;
 
-	return type_id;
+	return entity_type_id;
 }
 
 
-void EntityManager::addAnimation(
+size_t EntityManager::addAnimation(
 	size_t _entity_type_id
-	,const std::string & _id_animation
 	,const EntityAnimationOptions & _entity_animation_options
 
 ){
 	if(_entity_type_id >= entity_types.size()){
-		return;		
+		fprintf(stderr,"EntityManager::addAnimation : _entity_type_id out of bounds\n");
+		return EntityAnimation::npos;		
 	}
 
 	EntityAnimation *eso;
 
-	if(_id_animation == ""){
-		fprintf(stderr,"Entity::addFrame: '_id_animation' cannot be empty\n");
-		return;
-	}
-
-	if(entity_types[_entity_type_id]->animations.count(_id_animation)!=0){
-		fprintf(stderr,"Entity::addFrame: '%s' animation already added\n",_id_animation.c_str());
-		return;
-	}
-
+	size_t animation_idx=entity_types[_entity_type_id]->animations.size();
 	eso=new EntityAnimation(_entity_animation_options);
 
-	entity_types[_entity_type_id]->animations[_id_animation]=eso;
+	entity_types[_entity_type_id]->animations.push_back(eso);
+
+	return animation_idx;
 
 }
 
 Collider *EntityManager::getCollider(size_t _entity_type_id){
 	if(_entity_type_id >= entity_types.size()){
-		return;		
+		fprintf(stderr,"EntityManager::getCollider : _entity_type_id out of bounds\n");
+		return NULL;		
 	}
 		
 	return entity_types[_entity_type_id]->collider;
 }
 
-std::unordered_map<std::string, EntityAnimation *> *EntityManager::getAnimations(size_t _entity_type_id){
+std::vector<EntityAnimation *> *EntityManager::getAnimations(size_t _entity_type_id){
 	if(_entity_type_id >= entity_types.size()){
-		return;		
+		fprintf(stderr,"EntityManager::getAnimations : _entity_type_id out of bounds\n");
+		return NULL;		
 	}
 	
 	return &entity_types[_entity_type_id]->animations;
 }
 
-int EntityManager::getNumActiveEntities(size_t _entity_type_id){
+size_t EntityManager::getNumActiveEntities(size_t _entity_type_id){
 
 	if(_entity_type_id >= entity_types.size()){
-		return;		
+		fprintf(stderr,"EntityManager::getNumActiveEntities : _entity_type_id out of bounds\n");
+		return npos;		
 	}
 	
-	int num=0;
-	int entities_len=entity_types[_entity_type_id]->entities_len;
-	auto entities=entity_types[_entity_type_id]->entities;
+	size_t num=0;
+	auto entities_type=entity_types[_entity_type_id];
 
-	for(int i = 0; i < entities_len; i++){
-		if(entities[i].is_active){
+	for(size_t i = 0; i < entities_type->entities_len; i++){
+		if(entities_type->entities[i].is_active){
 			num++;
 		}
 	}
 	return num;
 }
 
-int EntityManager::size(size_t _entity_type_id){
+size_t EntityManager::size(size_t _entity_type_id){
 
 	if(_entity_type_id >= entity_types.size()){
-		return;		
+		fprintf(stderr,"EntityManager::size : _entity_type_id out of bounds\n");
+		return npos;		
 	}
 	
-	return this->entities_len;
+	auto entities_type=entity_types[_entity_type_id];
+	return entities_type->entities_len;
 }
 
-Entity *EntityManager::create(size_t _entity_type_id,int _start_x, int _start_y, int _dx, int _dy){
+size_t EntityManager::create(size_t _entity_type_id,int _start_x, int _start_y, int _dx, int _dy){
 
 	if(_entity_type_id >= entity_types.size()){
-		return;		
+		fprintf(stderr,"EntityManager::create : _entity_type_id out of bounds\n");
+		return npos;		
 	}
 	
-	EntityType *entity_type=entity_types[_entity_type_id];
-	int index=0;
+	EntityManager::EntityType *entity_type=entity_types[_entity_type_id];
+	size_t entity_idx=0;
 	Entity *entity=NULL;
 
 	if(entity_type->free_index.size()<=0){
-		fprintf(stderr,"Cannot create more entities. (max is %i)\n",entity_type->entities_len);
-		return NULL;
+		fprintf(stderr,"Cannot create more entities. (max is %i)\n",(int)entity_type->entities_len);
+		return npos;
 	}
 
 	// pops the last value and set entities as is_active ...
-	index=entity_type->free_index[free_index.size()-1];
+	entity_idx=entity_type->free_index[entity_type->free_index.size()-1];
 	entity_type->free_index.pop_back();
-	entity=&entity_type->entities[index];
+	entity=&entity_type->entities[entity_idx];
 
 	if(entity->is_active == true){
 		throw std::runtime_error("EntityManager::create: Expected entity as NOT is_active");
 	}
 
 	entity->deInit();
-	entity->setMoveTime(this->move_time);
+	entity->setMoveTime(entity_type->move_time);
 	entity->x= _start_x;
 	entity->y=_start_y;
 	entity->dy=_dy;
@@ -188,20 +179,21 @@ Entity *EntityManager::create(size_t _entity_type_id,int _start_x, int _start_y,
 	entity->is_visible=true;
 
 	if(entity_type->life_time>0){
-		entity->life_time=System::getTime()+this->life_time;
+		entity->life_time=System::getTime()+entity_type->life_time;
 	}
 
-	if(on_create){
+	if(entity_type->on_create){
 		(*entity_type->on_create)(entity);
 	}
 
-	return entity;
+	return entity_idx;
 }
 
-Entity	*EntityManager::getEntity(size_t _entity_type_id, size_t _entity_idx){
+Entity	*EntityManager::getEntityData(size_t _entity_type_id, size_t _entity_idx){
 
 	if(_entity_type_id >= entity_types.size()){
-		return;		
+		fprintf(stderr,"EntityManager::getEntityData : _entity_type_id out of bounds\n");
+		return NULL;		
 	}
 
 	EntityType *entity_type=entity_types[_entity_type_id];
@@ -210,21 +202,22 @@ Entity	*EntityManager::getEntity(size_t _entity_type_id, size_t _entity_idx){
 		throw std::runtime_error("Entities out of bound");
 	}
 
-	return &entity_type->entities[_idx];
+	return &entity_type->entities[_entity_idx];
 }
 
 void EntityManager::removeAll(size_t _entity_type_id){
 
 	if(_entity_type_id >= entity_types.size()){
+		fprintf(stderr,"EntityManager::removeAll : _entity_type_id out of bounds\n");
 		return;		
 	}
 
-	EntityType *entity_type=entity_types[_entity_type_id];
+	EntityManager::EntityType *entity_type=entity_types[_entity_type_id];
 
-	for(int i=0; i < entity_type->entities_len; i++)
+	for(size_t i=0; i < entity_type->entities_len; i++)
 	{
 		if((entity_type->entities+i)->is_active==true){
-			entity_type->remove(_entity_type_id,i);
+			this->remove(_entity_type_id,i);
 		}
 	}
 }
@@ -264,9 +257,9 @@ void EntityManager::update(){
 	// update its positions
 	int current_time=System::getTime();
 	for(auto entity_type:entity_types){
-		for(int i=0; i < t->entities_len; i++)
+		for(size_t entity_idx=0; entity_idx < entity_type->entities_len; entity_idx++)
 		{
-			Entity *entity=&entity_type->entities[i];
+			Entity *entity=&entity_type->entities[entity_idx];
 
 			if(entity->is_active){
 
@@ -278,7 +271,7 @@ void EntityManager::update(){
 					(entity_type->life_time>0 && entity->life_time<current_time)
 											||
 
-					((properties & ENTITY_PROPERTY_DIE_OUTSCREEN)
+					((entity_type->properties & ENTITY_PROPERTY_DIE_OUTSCREEN)
 										&&
 						(
 								(entity->getY()<-entity->getHeight() || entity->getY()>Graphics::getHeight())
@@ -287,11 +280,11 @@ void EntityManager::update(){
 						)
 					)
 				){
-					entity_type->remove(entity_type->id,i);
+					this->remove(entity_type->id,entity_idx);
 
 				}else{
 					// update if there's a callback
-					if(on_update){
+					if(entity_type->on_update){
 						(*entity_type->on_update)(entity);
 					}
 				}
@@ -300,44 +293,46 @@ void EntityManager::update(){
 	}
 }
 
-void EntityManager::remove(size_idx _entity_type_idx, size_idx _entity_id){
-	if(_entity_type_id >= entity_types.size()){
+void EntityManager::remove(size_t _entity_type_idx, size_t _entity_idx){
+	if(_entity_type_idx >= entity_types.size()){
+		fprintf(stderr,"EntityManager::remove : _entity_type_id out of bounds\n");
 		return;		
 	}
 
-	EntityType *entity_type=entity_types[_entity_type_id];
+	EntityType *entity_type=entity_types[_entity_type_idx];
 
 	if(_entity_idx >= entity_type->entities_len){
 		throw std::runtime_error("Entities out of bound");
 	}
 
 
-	if(entity_type->entities[_entity_id].is_active == false){
+	if(entity_type->entities[_entity_idx].is_active == false){
 		throw std::runtime_error("EntityManager::remove: Expected entity as ACTIVE");
 	}
 
-	entity_type->entities[_entity_id].is_active=false;
-	entity_type->free_index.push_back(i);
+	entity_type->entities[_entity_idx].is_active=false;
+	entity_type->free_index.push_back(_entity_idx);
 }
 
 void EntityManager::draw(){
 	for(auto entity_type:entity_types){
-		for(size_t i=0; i < entity_type->entities_len; i++)
+		for(size_t entity_idx=0; entity_idx < entity_type->entities_len; entity_idx++)
 		{
-			if(entity_type->entities[i].is_active){
-				Graphics::drawEntity(&entity_type->entities[i]);
+			if(entity_type->entities[entity_idx].is_active){
+				Graphics::drawEntity(&entity_type->entities[entity_idx]);
 			}
 		}
 	}
 }
 
-void EntityManager::destroy(size_idx _entity_type_idx){
+void EntityManager::destroy(size_t _entity_type_idx){
 
-	if(_entity_idx >= entity_type->entities_len){
-		throw std::runtime_error("Entities out of bound");
+	if(_entity_type_idx >= entity_types.size()){
+		fprintf(stderr,"EntityManager::destroy : _entity_type_id out of bounds\n");
+		return;
 	}
 
-	EntityType *entity_type=entity_types[_entity_type_id];
+	EntityType *entity_type=entity_types[_entity_type_idx];
 
 	entity_type->entities_len=0;
 
@@ -351,8 +346,8 @@ void EntityManager::destroy(size_idx _entity_type_idx){
 		delete entity_type->collider;
 	}
 
-	for(auto it=entity_type->animations.begin(); it != entity_type->animations.end(); it++){
-		delete it->second;
+	for(auto animation:entity_type->animations){
+		delete animation;
 	}
 
 	if(entity_type->on_create){
@@ -370,7 +365,7 @@ void EntityManager::destroy(size_idx _entity_type_idx){
 
 	delete entity_type;
 
-	entity_types[_entity_type_id]=NULL;
+	entity_types[_entity_type_idx]=NULL;
 
 }
 

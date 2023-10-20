@@ -123,89 +123,89 @@ void Stage1::load(){
     );
 
     // load entitites
- Sprites[0].impactable = NO;
-  Sprites[0].invencible = NO;
-  Sprites[0].agresiu = NO;
-  Sprites[0].retard_dispar = 0;
-  Sprites[0].vx = Sprites[0].vy = 2;
-  Sprites[0].dimx = Sprites[0].dimy = 8;
+ entities[0].impactable = NO;
+  entities[0].invencible = NO;
+  entities[0].agresiu = NO;
+  entities[0].retard_dispar = 0;
+  entities[0].vx = entities[0].vy = 2;
+  entities[0].dimx = entities[0].dimy = 8;
   
-  Sprites[1].impactable = NO;
-  Sprites[1].invencible = NO;
-  Sprites[1].agresiu = NO;
-  Sprites[1].retard_dispar = 0;
-  Sprites[1].vx = Sprites[1].vy = 2;
-  Sprites[1].dimx = Sprites[1].dimy = 8;
+  entities[1].impactable = NO;
+  entities[1].invencible = NO;
+  entities[1].agresiu = NO;
+  entities[1].retard_dispar = 0;
+  entities[1].vx = entities[1].vy = 2;
+  entities[1].dimx = entities[1].dimy = 8;
   
-  Sprites[2].impactable = NO;
-  Sprites[2].invencible = NO;
-  Sprites[2].agresiu = NO;
-  Sprites[2].retard_dispar = 0;
-  Sprites[2].vx = Sprites[2].vy = 4;
-  Sprites[2].dimx = Sprites[2].dimy = 8;
+  entities[2].impactable = NO;
+  entities[2].invencible = NO;
+  entities[2].agresiu = NO;
+  entities[2].retard_dispar = 0;
+  entities[2].vx = entities[2].vy = 4;
+  entities[2].dimx = entities[2].dimy = 8;
 
-  Sprites[3].impactable = NO;
-  Sprites[3].invencible = NO;
-  Sprites[3].agresiu = NO;
-  Sprites[3].retard_dispar = 0;
-  Sprites[3].vx = Sprites[3].vy = 4;
-  Sprites[3].dimx = Sprites[3].dimy = 8;
+  entities[3].impactable = NO;
+  entities[3].invencible = NO;
+  entities[3].agresiu = NO;
+  entities[3].retard_dispar = 0;
+  entities[3].vx = entities[3].vy = 4;
+  entities[3].dimx = entities[3].dimy = 8;
 
-  Sprites[4].impactable = SI;
-  Sprites[4].invencible = NO;
-  Sprites[4].agresiu = NO;
-  Sprites[4].retard_dispar = 0;
-  Sprites[4].vx = Sprites[4].vy = 1;
-  Sprites[4].dimx = Sprites[4].dimy = 8;
+  entities[4].impactable = SI;
+  entities[4].invencible = NO;
+  entities[4].agresiu = NO;
+  entities[4].retard_dispar = 0;
+  entities[4].vx = entities[4].vy = 1;
+  entities[4].dimx = entities[4].dimy = 8;
 
   for(i=5;i<17;i++)
   {
-   Sprites[i].impactable = NO;
-   Sprites[i].invencible = NO;
-   Sprites[i].agresiu = NO;
-   Sprites[i].retard_dispar = 0;
-   Sprites[i].vx = Sprites[i].vy = 0;
-   Sprites[i].dimx = Sprites[i].dimy = 8;
+   entities[i].impactable = NO;
+   entities[i].invencible = NO;
+   entities[i].agresiu = NO;
+   entities[i].retard_dispar = 0;
+   entities[i].vx = entities[i].vy = 0;
+   entities[i].dimx = entities[i].dimy = 8;
   }
 
 
-  Sprites[17].impactable = NO;
-  Sprites[17].invencible = NO;
-  Sprites[17].agresiu = NO;
-  Sprites[17].retard_dispar = 0;
-  Sprites[17].vx = Sprites[17].vy = 4;
-  Sprites[17].dimx = Sprites[17].dimy = 16;
+  entities[17].impactable = NO;
+  entities[17].invencible = NO;
+  entities[17].agresiu = NO;
+  entities[17].retard_dispar = 0;
+  entities[17].vx = entities[17].vy = 4;
+  entities[17].dimx = entities[17].dimy = 16;
 
-  Sprites[18].impactable = NO;
-  Sprites[18].invencible = NO;
-  Sprites[18].agresiu = NO;
-  Sprites[18].retard_dispar = 0;
-  Sprites[18].vx = Sprites[18].vy = 4;
-  Sprites[18].dimx = Sprites[18].dimy = 16;
+  entities[18].impactable = NO;
+  entities[18].invencible = NO;
+  entities[18].agresiu = NO;
+  entities[18].retard_dispar = 0;
+  entities[18].vx = entities[18].vy = 4;
+  entities[18].dimx = entities[18].dimy = 16;
 
-  Sprites[19].impactable = NO;
-  Sprites[19].invencible = NO;
-  Sprites[19].agresiu = NO;
-  Sprites[19].retard_dispar = 0;
-  Sprites[19].vx = Sprites[19].vy = 4;
-  Sprites[19].dimx = Sprites[19].dimy = 16;
+  entities[19].impactable = NO;
+  entities[19].invencible = NO;
+  entities[19].agresiu = NO;
+  entities[19].retard_dispar = 0;
+  entities[19].vx = entities[19].vy = 4;
+  entities[19].dimx = entities[19].dimy = 16;
 
-  Sprites[20].impactable = NO;
-  Sprites[20].invencible = NO;
-  Sprites[20].agresiu = NO;
-  Sprites[20].retard_dispar = 0;
-  Sprites[20].vx = Sprites[20].vy = 4;
-  Sprites[20].dimx = Sprites[20].dimy = 16;
+  entities[20].impactable = NO;
+  entities[20].invencible = NO;
+  entities[20].agresiu = NO;
+  entities[20].retard_dispar = 0;
+  entities[20].vx = entities[20].vy = 4;
+  entities[20].dimx = entities[20].dimy = 16;
 
 
  for(i=21;i<28;i++)
  {
-  Sprites[i].impactable = NO;
-  Sprites[i].invencible = NO;
-  Sprites[i].agresiu = NO;
-  Sprites[i].retard_dispar = 0;
-  Sprites[i].vx = Sprites[i].vy = 0;
-  Sprites[i].dimx = Sprites[i].dimy = 16;
+  entities[i].impactable = NO;
+  entities[i].invencible = NO;
+  entities[i].agresiu = NO;
+  entities[i].retard_dispar = 0;
+  entities[i].vx = entities[i].vy = 0;
+  entities[i].dimx = entities[i].dimy = 16;
  }
 
  // La meva nau...
@@ -213,364 +213,364 @@ void Stage1::load(){
  for(i=28;i<30;i++)
  {
 
-  Sprites[i].impactable = SI;
-  Sprites[i].invencible = NO;
-  Sprites[i].agresiu = SI;
-  Sprites[i].retard_dispar = 0;
-  Sprites[i].vx = Sprites[i].vy = 2;
-  Sprites[i].dimx = Sprites[i].dimy = 16;
+  entities[i].impactable = SI;
+  entities[i].invencible = NO;
+  entities[i].agresiu = SI;
+  entities[i].retard_dispar = 0;
+  entities[i].vx = entities[i].vy = 2;
+  entities[i].dimx = entities[i].dimy = 16;
 
  }
 
  for(i=30;i<33;i++)
  {
-  Sprites[i].impactable = NO;
-  Sprites[i].invencible = NO;
-  Sprites[i].agresiu = NO;
-  Sprites[i].retard_dispar = 0;
-  Sprites[i].vx = Sprites[i].vy = 0;
-  Sprites[i].dimx = Sprites[i].dimy = 16;
+  entities[i].impactable = NO;
+  entities[i].invencible = NO;
+  entities[i].agresiu = NO;
+  entities[i].retard_dispar = 0;
+  entities[i].vx = entities[i].vy = 0;
+  entities[i].dimx = entities[i].dimy = 16;
  }
 
 
-  Sprites[33].impactable = SI;
-  Sprites[33].invencible = NO;
-  Sprites[33].agresiu = NO;
-  Sprites[33].retard_dispar = 0;
-  Sprites[33].vx = Sprites[33].vy = 1;
-  Sprites[33].dimx = Sprites[33].dimy = 16;
+  entities[33].impactable = SI;
+  entities[33].invencible = NO;
+  entities[33].agresiu = NO;
+  entities[33].retard_dispar = 0;
+  entities[33].vx = entities[33].vy = 1;
+  entities[33].dimx = entities[33].dimy = 16;
 
 
-  Sprites[34].impactable = NO;
-  Sprites[34].invencible = NO;
-  Sprites[34].agresiu = NO;
-  Sprites[34].retard_dispar = 0;
-  Sprites[34].vx = Sprites[34].vy = 0;
-  Sprites[34].dimx = Sprites[34].dimy = 16;
+  entities[34].impactable = NO;
+  entities[34].invencible = NO;
+  entities[34].agresiu = NO;
+  entities[34].retard_dispar = 0;
+  entities[34].vx = entities[34].vy = 0;
+  entities[34].dimx = entities[34].dimy = 16;
 
 
-  Sprites[35].impactable = SI;
-  Sprites[35].invencible = NO;
-  Sprites[35].agresiu = NO;
-  Sprites[35].retard_dispar = 0;
-  Sprites[35].vx = Sprites[35].vy = 1;
-  Sprites[35].dimx = Sprites[35].dimy = 16;
+  entities[35].impactable = SI;
+  entities[35].invencible = NO;
+  entities[35].agresiu = NO;
+  entities[35].retard_dispar = 0;
+  entities[35].vx = entities[35].vy = 1;
+  entities[35].dimx = entities[35].dimy = 16;
 
 
-  Sprites[36].impactable = NO;
-  Sprites[36].invencible = NO;
-  Sprites[36].agresiu = NO;
-  Sprites[36].retard_dispar = 0;
-  Sprites[36].vx = Sprites[36].vy = 0;
-  Sprites[36].dimx = Sprites[36].dimy = 16;
+  entities[36].impactable = NO;
+  entities[36].invencible = NO;
+  entities[36].agresiu = NO;
+  entities[36].retard_dispar = 0;
+  entities[36].vx = entities[36].vy = 0;
+  entities[36].dimx = entities[36].dimy = 16;
 
 
  for(i=36;i<40;i++)
  {
-  Sprites[i].impactable = NO;
-  Sprites[i].invencible = NO;
-  Sprites[i].agresiu = NO;
-  Sprites[i].retard_dispar = 0;
-  Sprites[i].vx = Sprites[i].vy = 1;
-  Sprites[i].dimx = Sprites[i].dimy = 16;
+  entities[i].impactable = NO;
+  entities[i].invencible = NO;
+  entities[i].agresiu = NO;
+  entities[i].retard_dispar = 0;
+  entities[i].vx = entities[i].vy = 1;
+  entities[i].dimx = entities[i].dimy = 16;
  }
 
 
  for(i=40;i<43;i++)
  {
-  Sprites[i].impactable = SI;
-  Sprites[i].invencible = NO;
-  Sprites[i].agresiu = BALA1;
-  Sprites[i].retard_dispar = 100;
-  Sprites[i].vx = Sprites[i].vy = 1;
-  Sprites[i].dimx = Sprites[i].dimy = 16;
+  entities[i].impactable = SI;
+  entities[i].invencible = NO;
+  entities[i].agresiu = BALA1;
+  entities[i].retard_dispar = 100;
+  entities[i].vx = entities[i].vy = 1;
+  entities[i].dimx = entities[i].dimy = 16;
  }
 
  
-  Sprites[43].impactable = SI;
-  Sprites[43].invencible = NO;
-  Sprites[43].agresiu = NO;
-  Sprites[43].retard_dispar = 0;
-  Sprites[43].vx = Sprites[43].vy = 2;
-  Sprites[43].dimx = Sprites[43].dimy = 16;
+  entities[43].impactable = SI;
+  entities[43].invencible = NO;
+  entities[43].agresiu = NO;
+  entities[43].retard_dispar = 0;
+  entities[43].vx = entities[43].vy = 2;
+  entities[43].dimx = entities[43].dimy = 16;
 
 
-  Sprites[44].impactable = SI;
-  Sprites[44].invencible = NO;
-  Sprites[44].agresiu = NO;
-  Sprites[44].retard_dispar = 0;
-  Sprites[44].vx = Sprites[44].vy = 2;
-  Sprites[44].dimx = Sprites[44].dimy = 16;
+  entities[44].impactable = SI;
+  entities[44].invencible = NO;
+  entities[44].agresiu = NO;
+  entities[44].retard_dispar = 0;
+  entities[44].vx = entities[44].vy = 2;
+  entities[44].dimx = entities[44].dimy = 16;
 
 
-  Sprites[45].impactable = SI;
-  Sprites[45].invencible = NO;
-  Sprites[45].agresiu = BALA3;
-  Sprites[45].retard_dispar = SEGUENT_POSICIO_AMB_TRANSICIO_Y;
-  Sprites[45].vx = Sprites[45].vy = 2;
-  Sprites[45].dimx = Sprites[45].dimy = 16;
+  entities[45].impactable = SI;
+  entities[45].invencible = NO;
+  entities[45].agresiu = BALA3;
+  entities[45].retard_dispar = SEGUENT_POSICIO_AMB_TRANSICIO_Y;
+  entities[45].vx = entities[45].vy = 2;
+  entities[45].dimx = entities[45].dimy = 16;
 
 
-  Sprites[46].impactable = SI;
-  Sprites[46].invencible = SI;
-  Sprites[46].agresiu = NO;
-  Sprites[46].retard_dispar = 0;
-  Sprites[46].vx = Sprites[46].vy = 2;
-  Sprites[46].dimx = Sprites[46].dimy = 16;
+  entities[46].impactable = SI;
+  entities[46].invencible = SI;
+  entities[46].agresiu = NO;
+  entities[46].retard_dispar = 0;
+  entities[46].vx = entities[46].vy = 2;
+  entities[46].dimx = entities[46].dimy = 16;
 
-  Sprites[47].impactable = SI;
-  Sprites[47].invencible = NO;
-  Sprites[47].agresiu = NO;
-  Sprites[47].retard_dispar = 0;
-  Sprites[47].vx = Sprites[47].vy = 0;
-  Sprites[47].dimx = Sprites[47].dimy = 16;
+  entities[47].impactable = SI;
+  entities[47].invencible = NO;
+  entities[47].agresiu = NO;
+  entities[47].retard_dispar = 0;
+  entities[47].vx = entities[47].vy = 0;
+  entities[47].dimx = entities[47].dimy = 16;
 
-  Sprites[48].impactable = SI;
-  Sprites[48].invencible = NO;
-  Sprites[48].agresiu = BALA1;
-  Sprites[48].retard_dispar = 9;
-  Sprites[48].vx = Sprites[48].vy = 0;
-  Sprites[48].dimx = Sprites[48].dimy = 16;
+  entities[48].impactable = SI;
+  entities[48].invencible = NO;
+  entities[48].agresiu = BALA1;
+  entities[48].retard_dispar = 9;
+  entities[48].vx = entities[48].vy = 0;
+  entities[48].dimx = entities[48].dimy = 16;
 
 for(i=49;i<53;i++)
 {
-  Sprites[i].impactable = SI;
-  Sprites[i].invencible = NO;
-  Sprites[i].agresiu = NO;
-  Sprites[i].retard_dispar = 0;
-  Sprites[i].vx = Sprites[i].vy = 2;
-  Sprites[i].dimx = Sprites[i].dimy = 16;
+  entities[i].impactable = SI;
+  entities[i].invencible = NO;
+  entities[i].agresiu = NO;
+  entities[i].retard_dispar = 0;
+  entities[i].vx = entities[i].vy = 2;
+  entities[i].dimx = entities[i].dimy = 16;
 }
 
 
-  Sprites[53].impactable = SI;
-  Sprites[53].invencible = NO;
-  Sprites[53].agresiu = NO;
-  Sprites[53].retard_dispar = 0;
-  Sprites[53].vx = Sprites[53].vy = 2;
-  Sprites[53].dimx = Sprites[53].dimy = 16;
+  entities[53].impactable = SI;
+  entities[53].invencible = NO;
+  entities[53].agresiu = NO;
+  entities[53].retard_dispar = 0;
+  entities[53].vx = entities[53].vy = 2;
+  entities[53].dimx = entities[53].dimy = 16;
 
 
-  Sprites[54].impactable = SI;
-  Sprites[54].invencible = NO;
-  Sprites[54].agresiu = NO;
-  Sprites[54].retard_dispar = 0;
-  Sprites[54].vx = Sprites[54].vy = 1;
-  Sprites[54].dimx = Sprites[54].dimy = 16;
+  entities[54].impactable = SI;
+  entities[54].invencible = NO;
+  entities[54].agresiu = NO;
+  entities[54].retard_dispar = 0;
+  entities[54].vx = entities[54].vy = 1;
+  entities[54].dimx = entities[54].dimy = 16;
 
-  Sprites[55].impactable = SI;
-  Sprites[55].invencible = NO;
-  Sprites[55].agresiu = BALA1;
-  Sprites[55].retard_dispar = 0;
-  Sprites[55].vx = Sprites[55].vy = 0;
-  Sprites[55].dimx = Sprites[55].dimy = 16;
+  entities[55].impactable = SI;
+  entities[55].invencible = NO;
+  entities[55].agresiu = BALA1;
+  entities[55].retard_dispar = 0;
+  entities[55].vx = entities[55].vy = 0;
+  entities[55].dimx = entities[55].dimy = 16;
 
-  Sprites[56].impactable = SI;
-  Sprites[56].invencible = NO;
-  Sprites[56].agresiu = NO;
-  Sprites[56].retard_dispar = 0;
-  Sprites[56].vx = Sprites[56].vy = 1;
-  Sprites[56].dimx = Sprites[56].dimy = 16;
-
-
-  Sprites[57].impactable = SI;
-  Sprites[57].invencible = NO;
-  Sprites[57].agresiu = NO;
-  Sprites[57].retard_dispar = 0;
-  Sprites[57].vx = Sprites[57].vy = 2;
-  Sprites[57].dimx = Sprites[57].dimy = 16;
-
-  Sprites[58].impactable = SI;      // BOLA 1...
-  Sprites[58].invencible = NO;
-  Sprites[58].agresiu = BALA1;
-  Sprites[58].retard_dispar = 100;
-  Sprites[58].vx = Sprites[58].vy = 2;
-  Sprites[58].dimx = Sprites[58].dimy = 16;
-
-  Sprites[59].impactable = SI;      // BOLA 2...
-  Sprites[59].invencible = NO;
-  Sprites[59].agresiu = BALA1;
-  Sprites[59].retard_dispar = 100;
-  Sprites[59].vx = Sprites[59].vy = 2;
-  Sprites[59].dimx = Sprites[59].dimy = 16;
-
-  Sprites[60].impactable = SI;       // ENEMIC 7
-  Sprites[60].invencible = NO;
-  Sprites[60].agresiu = BALA1;
-  Sprites[60].retard_dispar = 100;
-  Sprites[60].vx = Sprites[60].vy = 1;
-  Sprites[60].dimx = Sprites[60].dimy = 16;
+  entities[56].impactable = SI;
+  entities[56].invencible = NO;
+  entities[56].agresiu = NO;
+  entities[56].retard_dispar = 0;
+  entities[56].vx = entities[56].vy = 1;
+  entities[56].dimx = entities[56].dimy = 16;
 
 
-  Sprites[61].impactable = SI;
-  Sprites[61].invencible = NO;
-  Sprites[61].agresiu = BALA1;
-  Sprites[61].retard_dispar = 100;
-  Sprites[61].vx = Sprites[61].vy = 1;
-  Sprites[61].dimx = Sprites[61].dimy = 16;
+  entities[57].impactable = SI;
+  entities[57].invencible = NO;
+  entities[57].agresiu = NO;
+  entities[57].retard_dispar = 0;
+  entities[57].vx = entities[57].vy = 2;
+  entities[57].dimx = entities[57].dimy = 16;
+
+  entities[58].impactable = SI;      // BOLA 1...
+  entities[58].invencible = NO;
+  entities[58].agresiu = BALA1;
+  entities[58].retard_dispar = 100;
+  entities[58].vx = entities[58].vy = 2;
+  entities[58].dimx = entities[58].dimy = 16;
+
+  entities[59].impactable = SI;      // BOLA 2...
+  entities[59].invencible = NO;
+  entities[59].agresiu = BALA1;
+  entities[59].retard_dispar = 100;
+  entities[59].vx = entities[59].vy = 2;
+  entities[59].dimx = entities[59].dimy = 16;
+
+  entities[60].impactable = SI;       // ENEMIC 7
+  entities[60].invencible = NO;
+  entities[60].agresiu = BALA1;
+  entities[60].retard_dispar = 100;
+  entities[60].vx = entities[60].vy = 1;
+  entities[60].dimx = entities[60].dimy = 16;
 
 
-  Sprites[62].impactable = SI;
-  Sprites[62].invencible = NO;
-  Sprites[62].agresiu = BALA1;
-  Sprites[62].retard_dispar = 100;
-  Sprites[62].vx = Sprites[62].vy = 1;
-  Sprites[62].dimx = Sprites[62].dimy = 16;
+  entities[61].impactable = SI;
+  entities[61].invencible = NO;
+  entities[61].agresiu = BALA1;
+  entities[61].retard_dispar = 100;
+  entities[61].vx = entities[61].vy = 1;
+  entities[61].dimx = entities[61].dimy = 16;
 
 
-  Sprites[63].impactable = SI;
-  Sprites[63].invencible = NO;
-  Sprites[63].agresiu = BALA1;
-  Sprites[63].retard_dispar = 100;
-  Sprites[63].vx = Sprites[63].vy = 1;
-  Sprites[63].dimx = Sprites[63].dimy = 16;
+  entities[62].impactable = SI;
+  entities[62].invencible = NO;
+  entities[62].agresiu = BALA1;
+  entities[62].retard_dispar = 100;
+  entities[62].vx = entities[62].vy = 1;
+  entities[62].dimx = entities[62].dimy = 16;
 
 
-  Sprites[64].impactable = SI;    // TORRETA
-  Sprites[64].invencible = NO;
-  Sprites[64].agresiu = BALA1;
-  Sprites[64].retard_dispar = 80;
-  Sprites[64].vx = Sprites[64].vy = 1;
-  Sprites[64].dimx = Sprites[64].dimy = 16;
+  entities[63].impactable = SI;
+  entities[63].invencible = NO;
+  entities[63].agresiu = BALA1;
+  entities[63].retard_dispar = 100;
+  entities[63].vx = entities[63].vy = 1;
+  entities[63].dimx = entities[63].dimy = 16;
 
 
-  Sprites[65].impactable = SI;     // PERSEGUIDOR
-  Sprites[65].invencible = NO;
-  Sprites[65].agresiu = BALA1;
-  Sprites[65].retard_dispar = 100;
-  Sprites[65].vx = Sprites[65].vy = 1;
-  Sprites[65].dimx = Sprites[65].dimy = 16;
+  entities[64].impactable = SI;    // TORRETA
+  entities[64].invencible = NO;
+  entities[64].agresiu = BALA1;
+  entities[64].retard_dispar = 80;
+  entities[64].vx = entities[64].vy = 1;
+  entities[64].dimx = entities[64].dimy = 16;
 
 
-  Sprites[66].impactable = SI;
-  Sprites[66].invencible = NO;
-  Sprites[66].agresiu = LASER1;
-  Sprites[66].retard_dispar = RETARD_DISPAR >> dificultat;
-  Sprites[66].vx = Sprites[66].vy = 2;
-  Sprites[66].dimx = Sprites[66].dimy = 16;
+  entities[65].impactable = SI;     // PERSEGUIDOR
+  entities[65].invencible = NO;
+  entities[65].agresiu = BALA1;
+  entities[65].retard_dispar = 100;
+  entities[65].vx = entities[65].vy = 1;
+  entities[65].dimx = entities[65].dimy = 16;
 
 
-  Sprites[67].impactable = SI;
-  Sprites[67].invencible = NO;
-  Sprites[67].agresiu = SI;
-  Sprites[67].retard_dispar = 10;
-  Sprites[67].vx = Sprites[67].vy = 2;
-  Sprites[67].dimx = Sprites[67].dimy = 16;
+  entities[66].impactable = SI;
+  entities[66].invencible = NO;
+  entities[66].agresiu = LASER1;
+  entities[66].retard_dispar = RETARD_DISPAR >> dificultat;
+  entities[66].vx = entities[66].vy = 2;
+  entities[66].dimx = entities[66].dimy = 16;
 
 
-  Sprites[68].impactable = SI;
-  Sprites[68].invencible = SI;
-  Sprites[68].agresiu = NO;
-  Sprites[68].retard_dispar = 0;
-  Sprites[68].vx = Sprites[68].vy = 1;
-  Sprites[68].dimx = Sprites[68].dimy = 16;
+  entities[67].impactable = SI;
+  entities[67].invencible = NO;
+  entities[67].agresiu = SI;
+  entities[67].retard_dispar = 10;
+  entities[67].vx = entities[67].vy = 2;
+  entities[67].dimx = entities[67].dimy = 16;
+
+
+  entities[68].impactable = SI;
+  entities[68].invencible = SI;
+  entities[68].agresiu = NO;
+  entities[68].retard_dispar = 0;
+  entities[68].vx = entities[68].vy = 1;
+  entities[68].dimx = entities[68].dimy = 16;
 
 
 
-  Sprites[69].impactable = SI;
-  Sprites[69].invencible = SI;
-  Sprites[69].agresiu = NO;
-  Sprites[69].retard_dispar = 0;
-  Sprites[69].vx = Sprites[69].vy = 1;
-  Sprites[69].dimx = Sprites[69].dimy = 16;
+  entities[69].impactable = SI;
+  entities[69].invencible = SI;
+  entities[69].agresiu = NO;
+  entities[69].retard_dispar = 0;
+  entities[69].vx = entities[69].vy = 1;
+  entities[69].dimx = entities[69].dimy = 16;
 
 
-  Sprites[70].impactable = SI;
-  Sprites[70].invencible = SI;
-  Sprites[70].agresiu = NO;
-  Sprites[70].retard_dispar = 0;
-  Sprites[70].vx = Sprites[70].vy = 1;
-  Sprites[70].dimx = Sprites[70].dimy = 16;
+  entities[70].impactable = SI;
+  entities[70].invencible = SI;
+  entities[70].agresiu = NO;
+  entities[70].retard_dispar = 0;
+  entities[70].vx = entities[70].vy = 1;
+  entities[70].dimx = entities[70].dimy = 16;
 
-  Sprites[71].impactable = SI;
-  Sprites[71].invencible = NO;
-  Sprites[71].agresiu = BALA1;
-  Sprites[71].retard_dispar = 14;
-  Sprites[71].vx = Sprites[71].vy = 1;
-  Sprites[71].dimx = Sprites[71].dimy = 16;
+  entities[71].impactable = SI;
+  entities[71].invencible = NO;
+  entities[71].agresiu = BALA1;
+  entities[71].retard_dispar = 14;
+  entities[71].vx = entities[71].vy = 1;
+  entities[71].dimx = entities[71].dimy = 16;
 
 
-  Sprites[72].impactable = SI;
-  Sprites[72].invencible = NO;
-  Sprites[72].agresiu = BALA1;
-  Sprites[72].retard_dispar = RETARD_DISPAR >> dificultat;
-  Sprites[72].vx = Sprites[72].vy = 1;
-  Sprites[72].dimx = Sprites[72].dimy = 16;
+  entities[72].impactable = SI;
+  entities[72].invencible = NO;
+  entities[72].agresiu = BALA1;
+  entities[72].retard_dispar = RETARD_DISPAR >> dificultat;
+  entities[72].vx = entities[72].vy = 1;
+  entities[72].dimx = entities[72].dimy = 16;
 
  for(i=73;i<77;i++)
  {
-  Sprites[i].impactable = NO;
-  Sprites[i].invencible = NO;
-  Sprites[i].agresiu = NO;
-  Sprites[i].retard_dispar = 0;
-  Sprites[i].vx = Sprites[i].vy = 1;
-  Sprites[i].dimx = Sprites[i].dimy = 16;
+  entities[i].impactable = NO;
+  entities[i].invencible = NO;
+  entities[i].agresiu = NO;
+  entities[i].retard_dispar = 0;
+  entities[i].vx = entities[i].vy = 1;
+  entities[i].dimx = entities[i].dimy = 16;
  }
 
-  Sprites[77].impactable = NO;
-  Sprites[77].invencible = NO;
-  Sprites[77].agresiu = ENEMICD;
-  Sprites[77].retard_dispar = 24;
-  Sprites[77].vx = Sprites[77].vy = 1;
-  Sprites[77].dimx = Sprites[77].dimy = 16;
+  entities[77].impactable = NO;
+  entities[77].invencible = NO;
+  entities[77].agresiu = ENEMICD;
+  entities[77].retard_dispar = 24;
+  entities[77].vx = entities[77].vy = 1;
+  entities[77].dimx = entities[77].dimy = 16;
 
 
 
  for(i=78;i<82;i++)
  {
-  Sprites[i].impactable = NO;
-  Sprites[i].invencible = NO;
-  Sprites[i].agresiu = NO;
-  Sprites[i].retard_dispar = 0;
-  Sprites[i].vx = Sprites[i].vy = 1;
-  Sprites[i].dimx = Sprites[i].dimy = 16;
+  entities[i].impactable = NO;
+  entities[i].invencible = NO;
+  entities[i].agresiu = NO;
+  entities[i].retard_dispar = 0;
+  entities[i].vx = entities[i].vy = 1;
+  entities[i].dimx = entities[i].dimy = 16;
  }
 
-  Sprites[82].impactable = NO;
-  Sprites[82].invencible = NO;
-  Sprites[82].agresiu = ENEMICE;
-  Sprites[82].retard_dispar = 24;
-  Sprites[82].vx = Sprites[82].vy = 1;
-  Sprites[82].dimx = Sprites[82].dimy = 16;
+  entities[82].impactable = NO;
+  entities[82].invencible = NO;
+  entities[82].agresiu = ENEMICE;
+  entities[82].retard_dispar = 24;
+  entities[82].vx = entities[82].vy = 1;
+  entities[82].dimx = entities[82].dimy = 16;
 
 
-  Sprites[83].impactable = NO;
-  Sprites[83].invencible = NO;
-  Sprites[83].agresiu = NO;
-  Sprites[83].retard_dispar = 0;
-  Sprites[83].vx = Sprites[83].vy = 4;
-  Sprites[83].dimx = Sprites[83].dimy = 16;
+  entities[83].impactable = NO;
+  entities[83].invencible = NO;
+  entities[83].agresiu = NO;
+  entities[83].retard_dispar = 0;
+  entities[83].vx = entities[83].vy = 4;
+  entities[83].dimx = entities[83].dimy = 16;
 
-// Sprites 32 X 32
+// entities 32 X 32
 
 for(i=84;i<88;i++)
 {
-  Sprites[i].impactable = NO;
-  Sprites[i].invencible = NO;
-  Sprites[i].agresiu = NO;
-  Sprites[i].retard_dispar = 0;
-  Sprites[i].vx = Sprites[i].vy = 0;
-  Sprites[i].dimx = Sprites[i].dimy = 32;
+  entities[i].impactable = NO;
+  entities[i].invencible = NO;
+  entities[i].agresiu = NO;
+  entities[i].retard_dispar = 0;
+  entities[i].vx = entities[i].vy = 0;
+  entities[i].dimx = entities[i].dimy = 32;
 }
 
-  Sprites[88].impactable = SI;
-  Sprites[88].invencible = NO;
-  Sprites[88].agresiu = LASER2;
-  Sprites[88].retard_dispar = 10;
-  Sprites[88].vx = Sprites[88].vy = 4;
-  Sprites[88].dimx = Sprites[88].dimy = 32;
+  entities[88].impactable = SI;
+  entities[88].invencible = NO;
+  entities[88].agresiu = LASER2;
+  entities[88].retard_dispar = 10;
+  entities[88].vx = entities[88].vy = 4;
+  entities[88].dimx = entities[88].dimy = 32;
 
-// Sprites 64 X 64
+// entities 64 X 64
 
-  Sprites[89].impactable = NO;
-  Sprites[89].invencible = NO;
-  Sprites[89].agresiu = LASER1;
-  Sprites[89].retard_dispar = 100;
-  Sprites[89].vx = Sprites[89].vy = 1;
-  Sprites[89].dimx = Sprites[89].dimy = 64;
+  entities[89].impactable = NO;
+  entities[89].invencible = NO;
+  entities[89].agresiu = LASER1;
+  entities[89].retard_dispar = 100;
+  entities[89].vx = entities[89].vy = 1;
+  entities[89].dimx = entities[89].dimy = 64;
 
 
-  for(i=0;i<MAX_SPRITES;i++) Sprites[i].imatge = (tImatge) (Imatges[i]+2);
+  for(i=0;i<MAX_SPRITES;i++) entities[i].imatge = (tImatge) (Imatges[i]+2);
 
 
  // Inicialitzem Objectes...
@@ -856,7 +856,7 @@ for(i=84;i<88;i++)
 
         PActual->Enemic.Reset();
 
-        if(!(PActual->Enemic.ConjuntEsNul())&&!(PActual->Ruta.EsNul())&&((PActual->x+Sprites[PActual->Enemic.DimensioMax()].dimx)>=0)&&(PActual->x<=AMPLADA_PANTALLA_JOC+4)&&((PActual->y+Sprites[PActual->Enemic.DimensioMax()].dimx)>=0)&&(PActual->y<=ALTURA_PANTALLA_JOC))
+        if(!(PActual->Enemic.ConjuntEsNul())&&!(PActual->Ruta.EsNul())&&((PActual->x+entities[PActual->Enemic.DimensioMax()].dimx)>=0)&&(PActual->x<=AMPLADA_PANTALLA_JOC+4)&&((PActual->y+entities[PActual->Enemic.DimensioMax()].dimx)>=0)&&(PActual->y<=ALTURA_PANTALLA_JOC))
         {
 
         if(!(SequenciaDestruccioBoss&&PActual->tipus==BOSS1))
@@ -867,7 +867,7 @@ for(i=84;i<88;i++)
 
             while(!PActual->Enemic.ActualEsNul())
             {
-            if(dispar = PActual->Enemic.ActualVolDisparar(&x,&y,PActual->Ruta.TransicioMoviment(),PActual->Ruta.TransicioPosicio(Sprites[PActual->Enemic.SpriteActual()].vx)))
+            if(dispar = PActual->Enemic.ActualVolDisparar(&x,&y,PActual->Ruta.TransicioMoviment(),PActual->Ruta.TransicioPosicio(entities[PActual->Enemic.SpriteActual()].vx)))
             {
 
             switch(dispar)
@@ -875,7 +875,7 @@ for(i=84;i<88;i++)
             
 
             case BALA1:CrearDispar(PActual->x+x-4,PActual->y+y-4,BALA_ENEMIC_1,ElMeuMoviment(PActual->x+x+4,PActual->y+y+4,MyPosX,MyPosY,8),CUA_DISPARS_ENEMICS);break;
-            case LASER1:CrearDispar(PActual->x+(Sprites[PActual->Enemic.SpriteActual()].dimx>>1)-4,PActual->y+Sprites[PActual->Enemic.SpriteActual()].dimy,BALA_ENEMIC_2,0,CUA_DISPARS_ENEMICS);break;
+            case LASER1:CrearDispar(PActual->x+(entities[PActual->Enemic.SpriteActual()].dimx>>1)-4,PActual->y+entities[PActual->Enemic.SpriteActual()].dimy,BALA_ENEMIC_2,0,CUA_DISPARS_ENEMICS);break;
             case ENEMICD:AfegirEnemic(PActual->x+x-4,PActual->y+y-4,ENEMIC5,49,1); //ElMeuMoviment(PActual->x+x,PActual->y+y,MyPosX,MyPosY,16)
             case ENEMICE:AfegirEnemic(PActual->x+x-4,PActual->y+y-4,ENEMIC5,53,1);break; //ElMeuMoviment(PActual->x+x,PActual->y+y,MyPosX,MyPosY,16)
 
@@ -890,13 +890,13 @@ for(i=84;i<88;i++)
 
         
 
-        PActual->Ruta.SeguentPosicio(&(PActual->x),&(PActual->y),MyPosX,MyPosY,Sprites[PActual->Enemic.SpriteActual()].vx,Sprites[PActual->Enemic.SpriteActual()].vy,PActual->Enemic.DimensioMax());
+        PActual->Ruta.SeguentPosicio(&(PActual->x),&(PActual->y),MyPosX,MyPosY,entities[PActual->Enemic.SpriteActual()].vx,entities[PActual->Enemic.SpriteActual()].vy,PActual->Enemic.DimensioMax());
         PActual->Enemic.ActualitzarCoordenades(PActual->x,PActual->y);
         }
 
         if(!(SequenciaDestruccioBoss && PActual->tipus==BOSS1&&(RetardDestruccioBoss>200)))
         {
-            if(!(SequenciaDestruccioBoss&&PActual->tipus==BOSS1&&RetardDestruccioBoss>30))PActual->Enemic.ActualitzarConjunt(PActual->Ruta.TransicioMoviment(),PActual->Ruta.TransicioPosicio(Sprites[PActual->Enemic.SpriteActual()].vx));
+            if(!(SequenciaDestruccioBoss&&PActual->tipus==BOSS1&&RetardDestruccioBoss>30))PActual->Enemic.ActualitzarConjunt(PActual->Ruta.TransicioMoviment(),PActual->Ruta.TransicioPosicio(entities[PActual->Enemic.SpriteActual()].vx));
             PActual->Enemic.EscriureObjectes();
         }
             PActual=PActual->PSeguent;
@@ -939,7 +939,7 @@ for(i=84;i<88;i++)
 
         
         /// Aqui peta al 5e cop....
-            if(!(PActual->Enemic.ConjuntEsNul())&&!(PActual->Ruta.EsNul())&&((PActual->x+Sprites[PActual->Enemic.DimensioMax()].dimx)>=0)&&(PActual->x<=AMPLADA_PANTALLA_JOC+4)&&((PActual->y+Sprites[PActual->Enemic.DimensioMax()].dimx)>=0)&&(PActual->y<=ALTURA_PANTALLA_JOC)&& !( (p=HiHaInterseccio(MyPosX,MyPosY,PActual->x,PActual->y,16,Sprites[PActual->Enemic.SpriteActual()].dimx)&&!(Jo.EsInvencible())&&EsActiu)) )
+            if(!(PActual->Enemic.ConjuntEsNul())&&!(PActual->Ruta.EsNul())&&((PActual->x+entities[PActual->Enemic.DimensioMax()].dimx)>=0)&&(PActual->x<=AMPLADA_PANTALLA_JOC+4)&&((PActual->y+entities[PActual->Enemic.DimensioMax()].dimx)>=0)&&(PActual->y<=ALTURA_PANTALLA_JOC)&& !( (p=HiHaInterseccio(MyPosX,MyPosY,PActual->x,PActual->y,16,entities[PActual->Enemic.SpriteActual()].dimx)&&!(Jo.EsInvencible())&&EsActiu)) )
             {
 
         
@@ -947,7 +947,7 @@ for(i=84;i<88;i++)
             {
             while(!PActual->Enemic.ActualEsNul())
             {
-                if((dispar = PActual->Enemic.ActualVolDisparar(&x,&y,PActual->Ruta.TransicioMoviment(),PActual->Ruta.TransicioPosicio(Sprites[PActual->Enemic.SpriteActual()].vx))) != 0)
+                if((dispar = PActual->Enemic.ActualVolDisparar(&x,&y,PActual->Ruta.TransicioMoviment(),PActual->Ruta.TransicioPosicio(entities[PActual->Enemic.SpriteActual()].vx))) != 0)
                 {
 
                 switch(dispar)
@@ -965,9 +965,9 @@ for(i=84;i<88;i++)
             }
             } 
 
-            PActual->Ruta.SeguentPosicio(&(PActual->x),&(PActual->y),MyPosX,MyPosY,Sprites[PActual->Enemic.SpriteActual()].vx,Sprites[PActual->Enemic.SpriteActual()].vy,PActual->Enemic.DimensioMax());
+            PActual->Ruta.SeguentPosicio(&(PActual->x),&(PActual->y),MyPosX,MyPosY,entities[PActual->Enemic.SpriteActual()].vx,entities[PActual->Enemic.SpriteActual()].vy,PActual->Enemic.DimensioMax());
             PActual->Enemic.ActualitzarCoordenades(PActual->x,PActual->y);
-            PActual->Enemic.ActualitzarConjunt(PActual->Ruta.TransicioMoviment(),PActual->Ruta.TransicioPosicio(Sprites[PActual->Enemic.SpriteActual()].vx));
+            PActual->Enemic.ActualitzarConjunt(PActual->Ruta.TransicioMoviment(),PActual->Ruta.TransicioPosicio(entities[PActual->Enemic.SpriteActual()].vx));
             PActual->Enemic.EscriureObjectes();
             PActual=PActual->PSeguent;
 
@@ -1045,10 +1045,10 @@ for(i=84;i<88;i++)
 
         while(PShotActual != NULL)
         {
-        if((!PShotActual->Moviment.EsNul())&&((PShotActual->x+Sprites[PShotActual->Shot.SpriteActual()].dimx)>=0)&&(PShotActual->x<=(AMPLADA_PANTALLA_JOC+4))&&((PShotActual->y+Sprites[PShotActual->Shot.SpriteActual()].dimy)>=0)&&(PShotActual->y<=(ALTURA_PANTALLA_JOC+4))&&!(  (p=HiHaInterseccio(MyPosX,MyPosY,PShotActual->x,PShotActual->y,16,Sprites[PShotActual->Shot.SpriteActual()].dimx)&&!(Jo.EsInvencible())&&EsActiu)))
+        if((!PShotActual->Moviment.EsNul())&&((PShotActual->x+entities[PShotActual->Shot.SpriteActual()].dimx)>=0)&&(PShotActual->x<=(AMPLADA_PANTALLA_JOC+4))&&((PShotActual->y+entities[PShotActual->Shot.SpriteActual()].dimy)>=0)&&(PShotActual->y<=(ALTURA_PANTALLA_JOC+4))&&!(  (p=HiHaInterseccio(MyPosX,MyPosY,PShotActual->x,PShotActual->y,16,entities[PShotActual->Shot.SpriteActual()].dimx)&&!(Jo.EsInvencible())&&EsActiu)))
         {
 
-            PShotActual -> Moviment.SeguentPosicio(&(PShotActual->x),&(PShotActual->y),MyPosX,MyPosY,Sprites[PShotActual->Shot.SpriteActual()].vx,Sprites[PShotActual->Shot.SpriteActual()].vy,Sprites[PShotActual->Shot.SpriteActual()].dimx);
+            PShotActual -> Moviment.SeguentPosicio(&(PShotActual->x),&(PShotActual->y),MyPosX,MyPosY,entities[PShotActual->Shot.SpriteActual()].vx,entities[PShotActual->Shot.SpriteActual()].vy,entities[PShotActual->Shot.SpriteActual()].dimx);
             PShotActual -> Shot.ActualitzarCoordenades(PShotActual->x,PShotActual->y);
             PShotActual -> Shot.EscriureActual();
             PShotActual -> Shot.SeguentFrame(0,0);
@@ -1127,9 +1127,9 @@ for(i=84;i<88;i++)
         while(PShotActual != NULL)
         {
         
-            if((!PShotActual->Moviment.EsNul())&&((PShotActual->x+Sprites[PShotActual->Shot.SpriteActual()].dimx)>=0)&&(PShotActual->x<=(AMPLADA_PANTALLA_JOC+4))&&((PShotActual->y+Sprites[PShotActual->Shot.SpriteActual()].dimy)>=0)&&(PShotActual->y<=(ALTURA_PANTALLA_JOC+4))&&!(I=Checkit(PShotActual->x,PShotActual->y,PShotActual->Shot.Power(),Sprites[PShotActual->Shot.SpriteActual()].dimx)))
+            if((!PShotActual->Moviment.EsNul())&&((PShotActual->x+entities[PShotActual->Shot.SpriteActual()].dimx)>=0)&&(PShotActual->x<=(AMPLADA_PANTALLA_JOC+4))&&((PShotActual->y+entities[PShotActual->Shot.SpriteActual()].dimy)>=0)&&(PShotActual->y<=(ALTURA_PANTALLA_JOC+4))&&!(I=Checkit(PShotActual->x,PShotActual->y,PShotActual->Shot.Power(),entities[PShotActual->Shot.SpriteActual()].dimx)))
             {
-                    PShotActual -> Moviment.SeguentPosicio(&(PShotActual->x),&(PShotActual->y),MyPosX,MyPosY,Sprites[PShotActual->Shot.SpriteActual()].vx,Sprites[PShotActual->Shot.SpriteActual()].vy,Sprites[PShotActual->Shot.SpriteActual()].dimx);
+                    PShotActual -> Moviment.SeguentPosicio(&(PShotActual->x),&(PShotActual->y),MyPosX,MyPosY,entities[PShotActual->Shot.SpriteActual()].vx,entities[PShotActual->Shot.SpriteActual()].vy,entities[PShotActual->Shot.SpriteActual()].dimx);
                     PShotActual -> Shot.ActualitzarCoordenades(PShotActual->x,PShotActual->y);
                     PShotActual -> Shot.SeguentFrame(0,0);
                     PShotActual -> Shot.EscriureActual();
@@ -1175,10 +1175,10 @@ for(i=84;i<88;i++)
 
         while(PIActual != NULL)
         {
-        if((!PIActual->Moviment.EsNul())&&((PIActual->x+Sprites[PIActual->Item.SpriteActual()].dimx)>=0)&&(PIActual->x<=(AMPLADA_PANTALLA_JOC+4))&&((PIActual->y+Sprites[PIActual->Item.SpriteActual()].dimy)>=0)&&(PIActual->y<=(ALTURA_PANTALLA_JOC+4))&&!(  (p=HiHaInterseccio(MyPosX,MyPosY,PIActual->x,PIActual->y,16,Sprites[PIActual->Item.SpriteActual()].dimx))&&EsActiu) )
+        if((!PIActual->Moviment.EsNul())&&((PIActual->x+entities[PIActual->Item.SpriteActual()].dimx)>=0)&&(PIActual->x<=(AMPLADA_PANTALLA_JOC+4))&&((PIActual->y+entities[PIActual->Item.SpriteActual()].dimy)>=0)&&(PIActual->y<=(ALTURA_PANTALLA_JOC+4))&&!(  (p=HiHaInterseccio(MyPosX,MyPosY,PIActual->x,PIActual->y,16,entities[PIActual->Item.SpriteActual()].dimx))&&EsActiu) )
         {
 
-            PIActual -> Moviment.SeguentPosicio(&(PIActual->x),&(PIActual->y),MyPosX,MyPosY,Sprites[PIActual->Item.SpriteActual()].vx,Sprites[PIActual->Item.SpriteActual()].vy,Sprites[PIActual->Item.SpriteActual()].dimx);
+            PIActual -> Moviment.SeguentPosicio(&(PIActual->x),&(PIActual->y),MyPosX,MyPosY,entities[PIActual->Item.SpriteActual()].vx,entities[PIActual->Item.SpriteActual()].vy,entities[PIActual->Item.SpriteActual()].dimx);
             PIActual -> Item.ActualitzarCoordenades(PIActual->x,PIActual->y);
             PIActual -> Item.EscriureActual();
             PIActual -> Item.SeguentFrame(0,0);

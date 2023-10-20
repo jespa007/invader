@@ -9,6 +9,7 @@
 
 class EntityAnimation{
 public:
+	static const size_t npos=-1;
 
 	Sprite sprite;
 
