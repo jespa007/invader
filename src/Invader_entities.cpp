@@ -16,7 +16,7 @@
 
 void Invader::loadEntities(){
     Image *sprites=Image::get("SPRITES1.RAW");
-    size_t explosion_type_id=entity_manager->newType((EntityTypeConfiguration)(
+    /*size_t explosion_type_id=entity_manager->newType((EntityTypeConfiguration)(
 
     ){
        .max=10
@@ -44,7 +44,7 @@ void Invader::loadEntities(){
                 }
             }
         }
-    });
+    });*/
   /*Objectes[EXPLOSIO1].AfegirFrame(1,MAX_SPR_8X8+7,5,SI);
   Objectes[EXPLOSIO1].AfegirFrame(1,MAX_SPR_8X8+8,5,SI);
   Objectes[EXPLOSIO1].AfegirFrame(1,MAX_SPR_8X8+9,5,SI);

@@ -184,7 +184,7 @@ endif()
 
 # INVADER SRC
 set(  INVADER_LIB_SRCS ${INVADER_LIB_SRCS} 
-	invader.cpp
+	Invader.cpp
 )
 
 

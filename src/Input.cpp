@@ -3,7 +3,7 @@
  *  See LICENSE file for details.
  */
 
-#include "invader.h"
+#include "Invader.h"
 
 bool            g_key[DEF_KEY_LAST]={false};
 bool            g_keyR[DEF_KEY_LAST]={false};

@@ -61,7 +61,13 @@ public:
     static void loadEntities();
     static void loadImages();
     static void loadSounds();
+    static void loadStage1();
+    static void unloadStage1();
+    static void update();
     static void deInit();
+
+    static void iniTestImages();
+    static void updateTestImages();
 
 private:
 

@@ -1,4 +1,4 @@
-#include "invader.h"
+#include "Invader.h"
 
 
 // EFFECTES DE ESTRELLES 2D

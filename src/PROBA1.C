@@ -1,4 +1,4 @@
-#include "invader.h"
+#include "Invader.h"
 
 byte * BUFFER1 = NULL;
 word VSCREEN1;

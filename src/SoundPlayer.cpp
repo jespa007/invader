@@ -3,7 +3,7 @@
  *  See LICENSE file for details.
  */
 
-#include "invader.h"
+#include "Invader.h"
 
 
 SDL_AudioSpec g_audio_spec;

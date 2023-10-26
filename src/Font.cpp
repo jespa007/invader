@@ -4,7 +4,7 @@
  */
 
 #include "font_8x8.bmp.c"
-#include "invader.h"
+#include "Invader.h"
 
 
 //-------

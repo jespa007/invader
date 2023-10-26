@@ -3,7 +3,7 @@
  *  See LICENSE file for details.
  */
 
-#include "invader.h"
+#include "Invader.h"
 
 #define RMASK32 0x000000ff
 #define GMASK32 0x0000ff00

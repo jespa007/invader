@@ -1,4 +1,4 @@
-#include "invader.h"
+#include "Invader.h"
 
 
 void Invader::loadImage(
@@ -80,7 +80,7 @@ void Invader::loadImage(
 }
 
 void Invader::loadImages(){
-       typedef struct{
+    typedef struct{
         std::string file_name;
         int width,height;
     }InvaderGraphicFile;
@@ -111,6 +111,19 @@ void Invader::loadImages(){
         ,image_file.height
         ,"../../../assets/graphics/PALETA1.PAL"
         );
+
+        if(image_file.file_name == "BLOCK1.RAW"){
+
+                /* from block 48 and upper are inverted */
+                /*for(k=48;k<MAX_BLOCS;k++)
+                {
+
+                    for(j=0;j<=((AMPLADA_BLOC)*(AMPLADA_BLOC)-1);j++)
+                    Blocs[k][j] = Blocs[k-48+14][BLOCINVERS[j]];
+                }*/
+                // may be an special flag the flips horizontally, or set properties for blocs or hardcode flip the image 
+
+        }
     }
 
 }

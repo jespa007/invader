@@ -39,6 +39,24 @@ void Invader::init(){
     
 }
 
+void Invader::iniTestImages(){
+    /*idx_current_image=0;
+    current_image=Image::get(image_files[idx_current_image].file_name);*/
+}
+
+void Invader::updateTestImages(){
+     /*if(T_RIGHT) {
+       idx_current_image=(idx_current_image+1)%image_files.size();
+       current_image=Image::get(image_files[idx_current_image].file_name);
+     }*/
+     Image *blocks_raw=Image::get("BLOCS1.RAW");
+     Graphics::drawImage(blocks_raw,blocks_raw->getWidth()>>1,blocks_raw->getHeight()>>1);
+}
+
+void Invader::update(){
+    Invader::updateTestImages();
+}
+
 void Invader::deInit(){
     if(Invader::initialized == false){
         fprintf(stderr, "Invader::deInit : Invader not initialized!");
@@ -66,30 +84,32 @@ int main(int argc, char *argv[]){
 
 
     Invader::init();
-
-    Stage1 stage1;
-    stage1.load();
+    //invader.load();
     
 
-    int idx_current_image=0;
-    Image *current_image=Image::get(image_files[idx_current_image].file_name);
+    //int idx_current_image=0;
+   //Image *current_image=Image::get(image_files[idx_current_image].file_name);
 
-    int idx_current_sound=0;
-    Sound *current_sound=Sound::get(sound_files[idx_current_sound]);
+    //int idx_current_sound=0;
+    //Sound *current_sound=Sound::get(sound_files[idx_current_sound]);
+     Invader::iniTestImages();
 
     do{
 
         // clear screen...
 		Graphics::clear(0,0,0);
 
-        if(current_image!=NULL){
+        /*if(current_image!=NULL){
             Graphics::drawImage(current_image,current_image->getWidth()>>1,current_image->getHeight()>>1);
-        }
+        }*/
+        
 
         // update input
         Input::update();
+        
+        Invader::update();
 
-        if(T_RIGHT) {
+        /*if(T_RIGHT) {
             idx_current_image=(idx_current_image+1)%image_files.size();
             current_image=Image::get(image_files[idx_current_image].file_name);
         }
@@ -100,7 +120,7 @@ int main(int argc, char *argv[]){
             }
             idx_current_sound=(idx_current_sound+1)%sound_files.size();            
             current_sound=Sound::get(sound_files[idx_current_sound]);
-        }
+        }*/
 
 
 
@@ -113,7 +133,7 @@ int main(int argc, char *argv[]){
 		Graphics::update();
     }while(!T_ESC);
 
-    deInit();
+    Invader::deInit();
 
     return 0;
 }

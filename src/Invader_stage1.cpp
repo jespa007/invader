@@ -98,19 +98,9 @@ void Invader::loadStage1(){
     };              
 
 
-     /* from block 48 and upper are inverted */
-    for(k=48;k<MAX_BLOCS;k++)
-    {
-
-        for(j=0;j<=((AMPLADA_BLOC)*(AMPLADA_BLOC)-1);j++)
-        Blocs[k][j] = Blocs[k-48+14][BLOCINVERS[j]];
-     }
-     // may be an special flag the flips horizontally, or set properties for blocs or hardcode flip the image 
-
-
-    tilemap->setup(
+    background->setup(
         Image::get("BLOCK1.RAW")
-        ,tiles
+        ,std::vector<short>(tiles,tiles+INVADER_STAGE1_TILEMAP_HEIGHT*INVADER_STAGE1_TILEMAP_WIDTH)
         ,INVADER_STAGE1_TILEMAP_WIDTH
         ,INVADER_STAGE1_TILEMAP_HEIGHT
         ,INVADER_TILE_WIDTH

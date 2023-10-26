@@ -1,4 +1,4 @@
-#include "invader.h"
+#include "Invader.h"
 
 #define INVADER_STAGE1_TILEMAP_WIDTH   7  
 #define INVADER_STAGE1_TILEMAP_HEIGHT  77

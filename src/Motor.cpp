@@ -1,5 +1,5 @@
 //#include "menu.cc"
-#include "invader.h"
+#include "Invader.h"
 
 //#include "intro.h"
 

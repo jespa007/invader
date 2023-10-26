@@ -1,4 +1,4 @@
-#include "invader.h"
+#include "Invader.h"
 
 void Quit(byte *);
 

@@ -3,7 +3,7 @@
  *  See LICENSE file for details.
  */
 
-#include "invader.h"
+#include "Invader.h"
 
 EntityAnimation::EntityAnimation(){
 
