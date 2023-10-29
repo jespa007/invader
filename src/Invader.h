@@ -54,6 +54,8 @@
 #define INVADER_TILE_WIDTH              32                       
 #define INVADER_TILE_HEIGHT             32
 
+#define INVADER_MAX_TILES               70
+
 
 class Invader{
 public:
@@ -71,7 +73,7 @@ public:
 
 private:
 
-    static void loadImage(
+    static Image *loadImage(
         const std::string _image_name
         , const std::string & _raw_image_file
         , int _image_width

@@ -1,7 +1,7 @@
 #include "Invader.h"
 
 
-void Invader::loadImage(
+Image *Invader::loadImage(
     const std::string _image_name
     , const std::string & _raw_image_file
     , int _image_width
@@ -11,6 +11,7 @@ void Invader::loadImage(
     
     FILE *fp_raw_palette=fopen(_raw_palette_file.c_str(),"rb");
     FILE *fp_raw_image=NULL;
+    Image *image=NULL;
 
     if(fp_raw_palette != NULL){
             Color palette[INVADER_PALETTE_COLORS];
@@ -34,6 +35,9 @@ void Invader::loadImage(
                     if(buf_size_image == expected_size){
                         fread(palette,1,INVADER_PALETTE_SIZE,fp_raw_palette);
                         Image *image=Image::newImage(_image_name,_image_width,_image_height);
+                        bool is_tilemap=_image_name == "BLOCK1.RAW";
+                        float one_over_image_width=1.0f/INVADER_TILE_WIDTH;
+                        float one_over_image_height=1.0f/INVADER_TILE_HEIGHT;
 
                         Color last_color;
                         image->begin();
@@ -47,8 +51,39 @@ void Invader::loadImage(
                                     last_color=current_color;
                                 }
                                 image->putPoint(x,y);
+
+                                if(is_tilemap){
+                                    int src_tile=y*one_over_image_width+one_over_image_width*x;
+                                    if(src_tile >= 14){
+                                        int dst_tile = 48 + (src_tile-14);
+                                        int y_dst_tile=48/10;
+                                        int x_dst_tile=48%10;
+                                        
+                                        int offset =(y_dst_tile)*_image_width*31 + x_dst_tile*_image_width + (INVADER_TILE_WIDTH)*(INVADER_TILE_HEIGHT-1) - y*(INVADER_TILE_WIDTH) + x;
+                                        image->putPoint(x,y);
+                                    }
+                                }
                             }
                         }
+
+                        // Particular case! If image is the tiles it has to build aditional tiles flipped horizontally and vertically
+                        if(){
+                            fseek(fp_raw_image, 0, SEEK_SET);
+                            image->setColor3i(0,0,0);
+                            for(k=48;k<INVADER_MAX_TILES;k++)
+                                fseek(fp_raw_image, 0, SEEK_SET);{
+                                for(int y=0; y < _image_height; y++){
+                                    for(int x=0; x < _image_width; x++){
+                                        // BLOCINVERS[y*INVADER_TILE_WIDTH+x]
+                                        int offset = (INVADER_TILE_WIDTH)*(INVADER_TILE_HEIGHT-1) - y*(INVADER_TILE_WIDTH) + x;
+                                        Blocs[k][j] = Blocs[k-48+14][BLOCINVERS[j]];
+                                        image->setColor3i(current_color.r<<2,current_color.g<<2,current_color.b<<2);
+                                        last_color=current_color;
+                                    }
+                                }
+                            }
+                        }
+
                         image->end();
 
                         //printf("- Loaded image '%s'\n",_image_name.c_str());
@@ -77,6 +112,8 @@ void Invader::loadImage(
     if(fp_raw_palette != NULL){
         fclose(fp_raw_palette);
     }
+
+    return image;
 }
 
 void Invader::loadImages(){
@@ -105,22 +142,49 @@ void Invader::loadImages(){
 
     for(auto image_file:image_files){
         
-        loadImage(image_file.file_name
+        Image *image=loadImage(image_file.file_name
         ,"../../../assets/graphics/"+image_file.file_name
         ,image_file.width
         ,image_file.height
         ,"../../../assets/graphics/PALETA1.PAL"
         );
 
+        // from block 48 and upper are inverted 
         if(image_file.file_name == "BLOCK1.RAW"){
 
-                /* from block 48 and upper are inverted */
-                /*for(k=48;k<MAX_BLOCS;k++)
-                {
+                
+                for(k=48;k<INVADER_MAX_TILES;k++){
+                    for(j=0;j<=((INVADER_TILE_WIDTH)*(INVADER_TILE_HEIGHT)-1);j++){
+                        image->copy();
+                        SDL_RenderCopy(SDL_Renderer * renderer,
+                            SDL_Texture * texture,
+                            const SDL_Rect * srcrect,
+                            const SDL_Rect * dstrect
+                        )
+                        SDL_FLIP_HORIZONTAL|SDL_FLIP_VERTICAL
+                        image->getColor3i(current_color.r<<2,current_color.g<<2,current_color.b<<2);
+                        int offsetBLOCINVERS[y*AMPLADA_BLOC+x] = (AMPLADA_BLOC)*(AMPLADA_BLOC-1) - y*(AMPLADA_BLOC) + x;
+                        Blocs[k][j] = Blocs[k-48+14][BLOCINVERS[j]];
+                        image->setColor3i(current_color.r<<2,current_color.g<<2,current_color.b<<2);
 
-                    for(j=0;j<=((AMPLADA_BLOC)*(AMPLADA_BLOC)-1);j++)
-                    Blocs[k][j] = Blocs[k-48+14][BLOCINVERS[j]];
-                }*/
+                    }
+                }
+
+                    for(int y=0; y < _image_height; y++){
+                        for(int x=0; x < _image_width; x++){
+                            int paletter_idx=fgetc(fp_raw_image);
+                            Color current_color=palette[paletter_idx];
+                            if(last_color != current_color){
+                                image->setColor3i(current_color.r<<2,current_color.g<<2,current_color.b<<2);
+                                last_color=current_color;
+                            }
+                            image->putPoint(x,y);
+                        }
+                    }
+                }
+                image->end();            
+
+
                 // may be an special flag the flips horizontally, or set properties for blocs or hardcode flip the image 
 
         }

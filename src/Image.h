@@ -55,6 +55,7 @@ public:
 	// update pixels
 	void begin();
 	void setColor3i(int8_t _r, int8_t _g, int8_t _b);
+	 setColor3i(int8_t _r, int8_t _g, int8_t _b);
 	void putPoint(int x, int y);
 	void end();
 

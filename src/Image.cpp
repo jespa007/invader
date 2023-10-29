@@ -212,6 +212,12 @@ void Image::putPoint(int x, int y){
 	SDL_RenderDrawPoint(renderer, x, y);
 }
 
+void Image::getPoint(int x, int y){
+	SDL_Renderer *renderer=Graphics::getRenderer();
+	SDL_RenderReadPoint(renderer, x, y);
+}
+
+
 void Image::end(){
 	SDL_Renderer *renderer=Graphics::getRenderer();
 	SDL_SetRenderTarget(renderer, NULL);
