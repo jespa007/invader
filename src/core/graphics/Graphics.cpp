@@ -3,7 +3,9 @@
  *  See LICENSE file for details.
  */
 
-#include "Invader.h"
+#include "core/core.h"
+
+
 
 #define RMASK32 0x000000ff
 #define GMASK32 0x0000ff00
@@ -27,6 +29,8 @@ static float g_graphics_startx=0;
 static int g_graphics_num_displays=0;
 static int g_graphics_active_display=0;
 static SDL_Window* g_graphics_window = NULL;
+static Uint8	g_graphics_bytes_per_pixel=0;
+static SDL_Surface *g_graphics_sdl_window_surface=NULL;
 
 
 void Graphics::setIcon(const std::string & _file){
@@ -79,6 +83,7 @@ void Graphics::createWindow(
 	g_graphics_width=_width;
 	g_graphics_height=_height;
 
+
 	g_graphics_window = SDL_CreateWindow(
 		_title.c_str()
 		,_fullscreen?g_graphics_rect_display[g_graphics_active_display].x:g_graphics_rect_display[g_graphics_active_display].x+(g_graphics_rect_display[g_graphics_active_display].w>>1)
@@ -88,6 +93,7 @@ void Graphics::createWindow(
 		,_fullscreen?SDL_WINDOW_FULLSCREEN_DESKTOP :0
 	);
 
+
 	if (!g_graphics_window) {
 		fprintf(stderr,"Unable to create g_graphics_window: %s\n", SDL_GetError());
 		exit(EXIT_FAILURE);
@@ -96,6 +102,10 @@ void Graphics::createWindow(
 	if(_icon.empty()==false){
 		setIcon(_icon);
 	}
+
+	g_graphics_sdl_window_surface = SDL_GetWindowSurface(g_graphics_window);
+	g_graphics_bytes_per_pixel = g_graphics_sdl_window_surface->format->BytesPerPixel;
+
 
     printf( "Graphics\n");
     printf( "--------\n");
@@ -153,6 +163,11 @@ int Graphics::getWidth(){
 int Graphics::getHeight(){
 	return g_graphics_height;
 }
+
+Uint8 Graphics::getBytesPerPixel(void){
+	return g_graphics_bytes_per_pixel;
+}
+
 
 
 SDL_Renderer * Graphics::getRenderer(){

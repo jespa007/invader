@@ -3,7 +3,7 @@
  *  See LICENSE file for details.
  */
 
-#include "Invader.h"
+#include "@graphics.h"
 
 //-------
 // Static
@@ -71,6 +71,21 @@ Image *Image::newImage(const std::string & _name,int _width,int _height){
 
 }
 
+Image *Image::newImageFromSdlSurface(const std::string & _name, SDL_Surface *_surface){
+
+	Image *image=Image::get(_name);
+
+	if(image != NULL){
+		fprintf(stderr,"Image::newImage: Image '%s' already exists\n",_name.c_str());
+		return image;
+	}
+
+	image=new Image(_surface);
+	(*s_images)[_name]=image;
+
+    return image;
+}
+
 Image *Image::get(const std::string & _name){
 	auto textures=getMap();
 	if(textures->count(_name)!=0){
@@ -103,11 +118,34 @@ void Image::destroy(){
 
 //-------
 // Member
-
-Image::Image(){
+void Image::setup(){
 	width=	height=0;
 	sdl_texture=NULL;
-	// default pixmap..
+}
+
+Image::Image(){
+	setup();
+}
+
+Image::Image(int _width,int _height){
+	setup();
+	createTexture(_width,_height);
+}
+
+Image::Image(SDL_Surface *_surface){
+	setup();
+
+	if((sdl_texture=Image::convertSurfaceToTexture(_surface)) !=NULL){
+		width=_surface->w;
+		height=_surface->h;
+
+		// free surface...
+		printf("Loaded image as surface (%ix%i).\n",width,height);
+	}
+	else{
+		fprintf(stderr,"SurfaceToTexture:%s\n",SDL_GetError());
+	}
+
 }
 
 void Image::createTexture(int _width,int _height){
@@ -146,10 +184,7 @@ void Image::createTexture(int _width,int _height){
 }
 
 
-Image::Image(int _width,int _height){
-	sdl_texture=NULL;
-	createTexture(_width,_height);
-}
+
 
 bool Image::loadImage(const std::string & _file,const ImageLoadOptions &_texture_load_options){
 
@@ -211,12 +246,6 @@ void Image::putPoint(int x, int y){
 	SDL_Renderer *renderer=Graphics::getRenderer();
 	SDL_RenderDrawPoint(renderer, x, y);
 }
-
-void Image::getPoint(int x, int y){
-	SDL_Renderer *renderer=Graphics::getRenderer();
-	SDL_RenderReadPoint(renderer, x, y);
-}
-
 
 void Image::end(){
 	SDL_Renderer *renderer=Graphics::getRenderer();

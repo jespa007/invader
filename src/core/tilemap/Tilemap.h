@@ -8,6 +8,8 @@
 #include "Tile.h"
 #include "TilemapGridFormat.h"
 
+class Image;
+class Entity;
 class Tilemap{
 public:
 

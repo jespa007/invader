@@ -3,8 +3,7 @@
  *  See LICENSE file for details.
  */
 
-#include "Invader.h"
-
+#include "@entity.h"
 
 
 Sprite::Sprite(){

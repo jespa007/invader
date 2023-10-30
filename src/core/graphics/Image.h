@@ -39,6 +39,7 @@ public:
 
 	static Image *newImage(const std::string & name,const std::string & filename,const ImageLoadOptions &_image_load_options=ImageLoadOptions());
 	static Image *newImage(const std::string & name,int _width=0,int _height=0);
+	static Image *newImageFromSdlSurface(const std::string & name, SDL_Surface *_surface);
 
 	static Image *get(const std::string & name);
 	static void unloadAll();
@@ -55,7 +56,6 @@ public:
 	// update pixels
 	void begin();
 	void setColor3i(int8_t _r, int8_t _g, int8_t _b);
-	 setColor3i(int8_t _r, int8_t _g, int8_t _b);
 	void putPoint(int x, int y);
 	void end();
 
@@ -74,7 +74,9 @@ protected:
 
 	Image();
 	Image( int _width,int _height);
+	Image(SDL_Surface *_surface);
 
+	void setup();
 	void createTexture(int _width,int _height);
 
 	static SDL_Texture * convertSurfaceToTexture(SDL_Surface *srf);

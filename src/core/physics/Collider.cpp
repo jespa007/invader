@@ -3,7 +3,7 @@
  *  See LICENSE file for details.
  */
 
-#include "Invader.h"
+#include "@physics.h"
 
 bool Collider::testIntersectionRectangleRectangle(
 		  int _c1_x

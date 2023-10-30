@@ -3,9 +3,7 @@
  *  See LICENSE file for details.
  */
 
-#include "Invader.h"
-
-
+#include "core/core.h"
 
 //-------
 // Member

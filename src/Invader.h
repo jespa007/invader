@@ -1,48 +1,12 @@
  #pragma once
  
- #include <stdio.h>
-#include  <SDL2/SDL.h>
-#include  <unordered_map>
-#include  <vector>
-#include  <map>
-#include  <functional>
-#include  <string>
-
-#define snprintf _snprintf
-
-#ifdef __EMSCRIPTEN__
-#include <emscripten.h>
-#endif
-
-#ifdef __MEMMANAGER__
-#include "memmgr.h"
-#endif
-
-#include 		<stdexcept>
-#include 		<cstddef>
-
-#include "common.h"
-#include "System.h"
-#include "Input.h"
-#include "Image.h"
-#include "Font.h"
-#include "Collider.h"
-#include "Sprite.h"
-#include "EntityAnimation.h"
-#include "Entity.h"
-#include "EntityManager.h"
-#include "Tilemap.h"
-#include "Graphics.h"
-#include "Sound.h"
-#include "SoundPlayer.h"
-#include "Color.h"
-//#include "Stage1.h"
+#include "core/core.h"
 
 
 #define INVADER_WINDOW_WIDTH            320
 #define INVADER_WINDOW_HEIGHT           200
 #define INVADER_PALETTE_COLORS          256
-#define INVADER_PALETTE_SIZE            (INVADER_PALETTE_COLORS*sizeof(Color))
+#define INVADER_PALETTE_SIZE            (INVADER_PALETTE_COLORS*3)
 #define INVADER_IMAGE_WIDTH             320
 #define INVADER_IMAGE_HEIGHT            200
 #define INVADER_IMAGE_SIZE              INVADER_IMAGE_WIDTH*INVADER_IMAGE_HEIGHT
@@ -73,13 +37,14 @@ public:
 
 private:
 
-    static Image *loadImage(
+    static SDL_Surface *loadImage(
         const std::string _image_name
         , const std::string & _raw_image_file
         , int _image_width
         , int _image_height
         ,const std::string  & _raw_palette_file
     );
+
 
     static Tilemap *background;
     static EntityManager *entity_manager;

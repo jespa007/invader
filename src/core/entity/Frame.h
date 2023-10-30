@@ -2,6 +2,7 @@
  *  This file is distributed under the MIT License.
  *  See LICENSE file for details.
  */
+class Image;
 class Frame{
 public:
 	static const size_t npos=-1;

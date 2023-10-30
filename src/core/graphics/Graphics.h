@@ -5,6 +5,10 @@
 
 #pragma once
 
+class Tilemap;
+class Entity;
+class Frame;
+class Collider;
 class Graphics{
 
 public:
@@ -42,6 +46,7 @@ public:
 	static void 				drawFrameInfo(Frame *_frame_info);
 	static void 				drawTilemap(Tilemap *_tilemap);
 	static void					drawCollider(Collider *_collider,int _x_center, int _y_center,int _color=-1);
+	static Uint8  				getBytesPerPixel(void);
 
 
 	static void 				update();
