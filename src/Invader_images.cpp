@@ -190,7 +190,7 @@ void Invader::loadImages(){
     std::vector<InvaderGraphicFile> image_files={
         {"BLOCS1.RAW",INVADER_WINDOW_WIDTH,INVADER_WINDOW_HEIGHT}
         ,{"Enemic.RAW",INVADER_WINDOW_WIDTH,INVADER_WINDOW_HEIGHT}
-        //,{"FONTMT.RAW"} --> discarted becasue is mono font
+        //,{"FONTMT.RAW"} --> discarted because is a special mono font
         ,{"MEDFNT.RAW",INVADER_MED_FONT_LETTER_WIDTH*INVADER_FONT_NUM_LETTERS,INVADER_MED_FONT_LETTER_HEIGHT}
         ,{"BIGFNT.RAW",INVADER_BIG_FONT_LETTER_WIDTH*INVADER_FONT_NUM_LETTERS,INVADER_BIG_FONT_LETTER_HEIGHT}
         ,{"NAU00.RAW",206,97}
@@ -215,50 +215,50 @@ void Invader::loadImages(){
         ,"../../../assets/graphics/PALETA1.PAL"
         );
 
-        Image *image=Image::newImageFromSdlSurface(image_file.file_name,srf_image);
+        // block1.raw adds tiles starting from 14 up a copy of some tiles in the image inverted in Y
+        if(image_file.file_name == "BLOCS1.RAW"){
+
+        	SDL_Surface *src_blocks=SDL_CreateSurfaceFrom(INVADER_WINDOW_WIDTH,INVADER_WINDOW_HEIGHT*2,1,(Uint8 *)srf_image->pixels);
+
+            // set palette
+        	SDL_SetPaletteColors(src_blocks->format->palette, srf_image->format->palette->colors, 0, 255);
+        	SDL_FreeSurface(srf_image);
+
+        	// set old image
+        	srf_image=src_blocks;
+        	//SDL_SetPaletteColors(src_blocks->format->palette, srf_image->format->palette, 0, 255);
+
+        	int tiles_per_row=INVADER_IMAGE_WIDTH/INVADER_TILE_WIDTH;
+			int src_tile_id=14;
+		    for(int dst_tile_id=48;dst_tile_id<INVADER_MAX_TILES;dst_tile_id++,src_tile_id++){
+		    	// 1. set src and dst pointers
+		    	int src_y=(src_tile_id/tiles_per_row)*INVADER_TILE_HEIGHT;
+		    	int src_x=(src_tile_id%tiles_per_row)*INVADER_TILE_WIDTH;
+		    	Uint8 *src_pointer=(Uint8 *)srf_image->pixels+src_y*INVADER_IMAGE_WIDTH+src_x;
+
+		    	int dst_y=(dst_tile_id/tiles_per_row)*(INVADER_TILE_HEIGHT)+INVADER_TILE_HEIGHT-1;
+		    	int dst_x=(dst_tile_id%tiles_per_row)*INVADER_TILE_WIDTH;
+		    	Uint8 *dst_pointer=(Uint8 *)srf_image->pixels+dst_y*INVADER_IMAGE_WIDTH+dst_x;
+
+		    	// 2. copy span
+		    	for(int y=0; y < INVADER_TILE_HEIGHT;y++){
+
+		    		memcpy(dst_pointer,src_pointer,INVADER_TILE_WIDTH);
+
+		    		src_pointer+=(INVADER_IMAGE_WIDTH);
+		    		dst_pointer-=(INVADER_IMAGE_WIDTH);
+		    	}
+
+		     }
+        }
+
+        Image::newImageFromSdlSurface(image_file.file_name,srf_image);
 
 
         SDL_FreeSurface(srf_image);
 
-        // from block 48 and upper are inverted 
-        /*if(image_file.file_name == "BLOCK1.RAW"){
-
-                
-                for(k=48;k<INVADER_MAX_TILES;k++){
-                    for(j=0;j<=((INVADER_TILE_WIDTH)*(INVADER_TILE_HEIGHT)-1);j++){
-                        image->copy();
-                        SDL_RenderCopy(SDL_Renderer * renderer,
-                            SDL_Texture * texture,
-                            const SDL_Rect * srcrect,
-                            const SDL_Rect * dstrect
-                        )
-                        SDL_FLIP_HORIZONTAL|SDL_FLIP_VERTICAL
-                        image->getColor3i(current_color.r<<2,current_color.g<<2,current_color.b<<2);
-                        int offsetBLOCINVERS[y*AMPLADA_BLOC+x] = (AMPLADA_BLOC)*(AMPLADA_BLOC-1) - y*(AMPLADA_BLOC) + x;
-                        Blocs[k][j] = Blocs[k-48+14][BLOCINVERS[j]];
-                        image->setColor3i(current_color.r<<2,current_color.g<<2,current_color.b<<2);
-
-                    }
-                }
-
-                    for(int y=0; y < _image_height; y++){
-                        for(int x=0; x < _image_width; x++){
-                            int paletter_idx=fgetc(fp_raw_image);
-                            Color current_color=palette[paletter_idx];
-                            if(last_color != current_color){
-                                image->setColor3i(current_color.r<<2,current_color.g<<2,current_color.b<<2);
-                                last_color=current_color;
-                            }
-                            image->putPoint(x,y);
-                        }
-                    }
-                }
-                image->end();            
 
 
-                // may be an special flag the flips horizontally, or set properties for blocs or hardcode flip the image 
-
-        }*/
     }
 
 }

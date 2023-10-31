@@ -18,7 +18,7 @@
 #define INVADER_TILE_WIDTH              32                       
 #define INVADER_TILE_HEIGHT             32
 
-#define INVADER_MAX_TILES               70
+#define INVADER_MAX_TILES               67
 
 
 class Invader{
