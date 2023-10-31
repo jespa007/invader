@@ -14,14 +14,43 @@
 #define INVADER_MAX_FRAMES_64X64            1
 
 
+size_t loadSmallExplosions(EntityManager *_entity_manager){
+	Image *image=Image::get("SPRITES1.RAW");
+	int u=112;
+	int v=8;
+
+
+	EntityTypeConfiguration configuration;
+	EntityAnimationOptions animation;
+	configuration.max=20;
+
+	for(int i=0; i < 4; i++){
+		Frame frame;
+		frame.image=image;
+		frame.time=200;
+		frame.crop.x=u;
+		frame.crop.y=v;
+		frame.crop.w=16;
+		frame.crop.h=16;
+		animation.sprite_frames.push_back(frame);
+	}
+
+	configuration.animations.push_back(animation);
+
+	return _entity_manager->newType(configuration);
+
+
+}
+
 void Invader::loadEntities(){
-    Image *sprites=Image::get("SPRITES1.RAW");
-    /*size_t explosion_type_id=entity_manager->newType((EntityTypeConfiguration)(
+	size_t explosion_type_id=loadSmallExplosions(entity_manager);
+    /*Image *sprites=Image::get("SPRITES1.RAW");
+    size_t explosion_type_id=entity_manager->newType((EntityTypeConfiguration)(
 
     ){
        .max=10
 	    ,.properties=0
-	    ,.entity_animations={
+	    ,.animations={
             EntityAnimationOptions(){
                 {
                     sprite_frames={

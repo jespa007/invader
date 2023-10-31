@@ -1,106 +1,5 @@
 #include "Invader.h"
 
-/*
-Image *Invader::loadImageTiles(
-    const std::string _image_name
-    , const std::string & _raw_image_file
-    , int _image_width
-    , int _image_height
-    ,const std::string  & _raw_palette_file
-){
-    
-    FILE *fp_raw_palette=fopen(_raw_palette_file.c_str(),"rb");
-    FILE *fp_raw_image=NULL;
-    Image *image=NULL;
-
-    if(fp_raw_palette != NULL){
-            Color palette[INVADER_PALETTE_COLORS];
-
-            fseek(fp_raw_palette, 0, SEEK_END);
-		    long buf_size_palette = ftell(fp_raw_palette);
-		    fseek(fp_raw_palette, 0, SEEK_SET);
-
-            if(buf_size_palette == INVADER_PALETTE_SIZE){
-            
-                fp_raw_image=fopen(_raw_image_file.c_str(),"rb");
-
-                if(fp_raw_image != NULL){
-
-                    long expected_size=_image_width*_image_height;
-
-                    fseek(fp_raw_image, 0, SEEK_END);
-                    long buf_size_image = ftell(fp_raw_image);
-                    fseek(fp_raw_image, 0, SEEK_SET);
-
-                    if(buf_size_image == expected_size){
-                        fread(palette,1,INVADER_PALETTE_SIZE,fp_raw_palette);
-                        Image *image=Image::newImage(_image_name,_image_width,_image_height);
-
-                        // particular case for tilemap image
-                        float one_over_image_width=1.0f/INVADER_TILE_WIDTH;
-                        float one_over_image_height=1.0f/INVADER_TILE_HEIGHT;
-                        int tiles_width=_image_width/INVADER_TILE_WIDTH;
-                        int tiles_height=_image_height/INVADER_TILE_HEIGHT;
-
-                        Color last_color;
-                        image->begin();
-                        image->setColor3i(0,0,0);
-                        for(int y=0; y < _image_height; y++){
-                            for(int x=0; x < _image_width; x++){
-                                int paletter_idx=fgetc(fp_raw_image);
-                                Color current_color=palette[paletter_idx];
-                                if(last_color != current_color){
-                                    image->setColor3i(current_color.r<<2,current_color.g<<2,current_color.b<<2);
-                                    last_color=current_color;
-                                }
-                                image->putPoint(x,y);
-
-                                if(is_tilemap){
-                                    int src_tile=y*one_over_image_width+one_over_image_width*x;
-                                    if(src_tile >= 14){
-                                        int dst_tile = 48 + (src_tile-14);
-                                        int y_dst_tile=48/10;
-                                        int x_dst_tile=48%10;
-                                        
-                                        int offset =(y_dst_tile)*_image_width*31 + x_dst_tile*_image_width + (INVADER_TILE_WIDTH)*(INVADER_TILE_HEIGHT-1) - y*(INVADER_TILE_WIDTH) + x;
-                                        image->putPoint(x,y);
-                                    }
-                                }
-                            }
-                        }
-
-                        image->end();
-
-                        //printf("- Loaded image '%s'\n",_image_name.c_str());
-
-                    }else{
-                        fprintf(stderr,"loadImage : Error loading '%s'. Invalid image size. Expected %i bytes but it was %i bytes\n",_image_name.c_str(),(int)expected_size,(int)buf_size_image);    
-                    }
-                }else{
-                   fprintf(stderr,"loadImage : Cannot open \"%s\"",_raw_image_file.c_str());
-                }
-
-            }else{
-                fprintf(stderr,"loadImage : Error loading '%s'. Invalid palette size. Expected %i bytes but it was %i bytes\n"
-                ,_image_name.c_str()
-                ,(int)INVADER_PALETTE_SIZE
-                ,(int)(buf_size_palette));
-            }
-    }else{
-        fprintf(stderr,"loadImage : Cannot open \"%s\"\n",_raw_palette_file.c_str());
-    }
-    
-    if(fp_raw_image != NULL){
-        fclose(fp_raw_image);
-    }
-
-    if(fp_raw_palette != NULL){
-        fclose(fp_raw_palette);
-    }
-
-    return image;
-}*/
-
 SDL_Surface *Invader::loadImage(
     const std::string _image_name
     , const std::string & _raw_image_file
@@ -218,9 +117,13 @@ void Invader::loadImages(){
         // block1.raw adds tiles starting from 14 up a copy of some tiles in the image inverted in Y
         if(image_file.file_name == "BLOCS1.RAW"){
 
-        	SDL_Surface *src_blocks=SDL_CreateSurfaceFrom(INVADER_WINDOW_WIDTH,INVADER_WINDOW_HEIGHT*2,1,(Uint8 *)srf_image->pixels);
+        	// assign new surface with enough space for extra tiles
+        	SDL_Surface *src_blocks=SDL_NewSurface(INVADER_WINDOW_WIDTH,INVADER_WINDOW_HEIGHT*2,1);
 
-            // set palette
+        	// copy pixels ...
+      		memcpy(src_blocks->pixels, srf_image->pixels, INVADER_WINDOW_WIDTH * INVADER_WINDOW_HEIGHT);
+
+            // copy palette ...
         	SDL_SetPaletteColors(src_blocks->format->palette, srf_image->format->palette->colors, 0, 255);
         	SDL_FreeSurface(srf_image);
 

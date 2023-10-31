@@ -1,12 +1,10 @@
 #include "@base.h"
 
 
-
-
 std::string Path::getTempPath(void){
-	static char folder[MAX_PATH]={0};
+	char folder[PATH_MAX]={0};
 #ifdef _WIN32
-	GetTempPath(MAX_PATH,folder);
+	GetTempPath(PATH_MAX,folder);
 #else
 	const char *env_folder = getenv("TMPDIR");
 	if (env_folder == 0){

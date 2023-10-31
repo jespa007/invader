@@ -35,7 +35,7 @@ void Invader::updateTestImages(){
        idx_current_image=(idx_current_image+1)%image_files.size();
        current_image=Image::get(image_files[idx_current_image].file_name);
      }*/
-     Image *blocks_raw=Image::get("BLOCS1.RAW");
+     Image *blocks_raw=Image::get("SPRITES1.RAW");
      Graphics::drawImage(blocks_raw,blocks_raw->getWidth()>>1,blocks_raw->getHeight()>>1);
 }
 

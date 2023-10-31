@@ -9,7 +9,7 @@ class EntityTypeConfiguration{
 public:
 	size_t max;
 	uint16_t properties;
-	std::vector<EntityAnimationOptions> entity_animations;
+	std::vector<EntityAnimationOptions> animations;
 	Collider		*collider;
 	size_t life_time;
 	size_t move_time;
@@ -26,4 +26,5 @@ public:
 		move_time=0;
 
 	}
+
 };

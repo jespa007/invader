@@ -56,7 +56,7 @@ size_t EntityManager::newType(const EntityTypeConfiguration & _entity_type_confi
 	entity_type->entities_len=_entity_type_configuration.max;
 	entity_type->entities=new Entity[_entity_type_configuration.max];
 
-	for(auto animation:_entity_type_configuration.entity_animations){
+	for(auto animation:_entity_type_configuration.animations){
 		addAnimation(entity_type_id,animation);
 	}
 

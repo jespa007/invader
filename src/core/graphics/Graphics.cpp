@@ -126,10 +126,10 @@ void Graphics::createWindow(
 
     printf("\n");
 
-	g_graphics_renderer = SDL_CreateRenderer(g_graphics_window, -1, SDL_WINDOW_SHOWN | SDL_RENDERER_ACCELERATED);
+	g_graphics_renderer = SDL_GetRenderer(g_graphics_window);
 
     if (!g_graphics_renderer) {
-		fprintf(stderr,"Unable to create g_graphics_renderer: %s\n", SDL_GetError());
+		fprintf(stderr,"Cannot get renderer\n");
 		exit(EXIT_FAILURE);
     }
 

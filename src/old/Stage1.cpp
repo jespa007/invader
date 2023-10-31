@@ -812,7 +812,7 @@ for(i=84;i<88;i++)
     /*public:
 	int max;
 	uint16_t properties;
-	std::unordered_map<std::string, EntityAnimationOptions> entity_animations;
+	std::unordered_map<std::string, EntityAnimationOptions> animations;
 	Collider		*collider;
 	int life_time;
 	int move_time;
