@@ -114,6 +114,17 @@ void Invader::loadImages(){
         ,"../../../assets/graphics/PALETA1.PAL"
         );
 
+        // Set pink as color mask
+		SDL_SetColorKey(
+			srf_image
+			,SDL_TRUE
+			,SDL_MapRGB(srf_image ->format
+				,0xFF
+				,0x00
+				,0xFF
+			)
+		);
+
         // block1.raw adds tiles starting from 14 up a copy of some tiles in the image inverted in Y
         if(image_file.file_name == "BLOCS1.RAW"){
 
@@ -157,11 +168,20 @@ void Invader::loadImages(){
 
         Image::newImageFromSdlSurface(image_file.file_name,srf_image);
 
-
         SDL_FreeSurface(srf_image);
-
-
-
     }
+}
 
+void Invader::iniTestImages(){
+    /*idx_current_image=0;
+    current_image=Image::get(image_files[idx_current_image].file_name);*/
+}
+
+void Invader::updateTestImages(){
+     /*if(T_RIGHT) {
+       idx_current_image=(idx_current_image+1)%image_files.size();
+       current_image=Image::get(image_files[idx_current_image].file_name);
+     }*/
+     Image *blocks_raw=Image::get("SPRITES1.RAW");
+     Graphics::drawImage(blocks_raw,blocks_raw->getWidth()>>1,blocks_raw->getHeight()>>1);
 }

@@ -34,6 +34,8 @@ public:
 
     static void iniTestImages();
     static void updateTestImages();
+    static void iniTestEntities();
+    static void updateTestEntities();
 
 private:
 

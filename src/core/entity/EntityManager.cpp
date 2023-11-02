@@ -263,6 +263,7 @@ void EntityManager::update(){
 
 			if(entity->is_active){
 
+
 				entity->update();
 
 				// if element has property to die when goes out of screen or life is 0, remove it

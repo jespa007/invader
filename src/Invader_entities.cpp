@@ -27,23 +27,25 @@ size_t loadSmallExplosions(EntityManager *_entity_manager){
 	for(int i=0; i < 4; i++){
 		Frame frame;
 		frame.image=image;
-		frame.time=200;
+		frame.time=100;
 		frame.crop.x=u;
 		frame.crop.y=v;
 		frame.crop.w=16;
 		frame.crop.h=16;
 		animation.sprite_frames.push_back(frame);
+
+		u+=16;
 	}
 
 	configuration.animations.push_back(animation);
 
 	return _entity_manager->newType(configuration);
-
-
 }
 
+size_t explosion_type_id=0;
+
 void Invader::loadEntities(){
-	size_t explosion_type_id=loadSmallExplosions(entity_manager);
+	explosion_type_id=loadSmallExplosions(entity_manager);
     /*Image *sprites=Image::get("SPRITES1.RAW");
     size_t explosion_type_id=entity_manager->newType((EntityTypeConfiguration)(
 
@@ -259,3 +261,21 @@ void Invader::loadEntities(){
   Objectes[COMPORTES_ESQUERRA].AfegirFrame(1,MAX_SPR_8X8+63,5,NO);
   Objectes[COMPORTES_ESQUERRA].AfegirFrame(1,MAX_SPR_8X8+62,5,NO);*/
 }
+
+size_t explosion_id=0;
+void Invader::iniTestEntities(){
+
+}
+
+
+void Invader::updateTestEntities(){
+
+	if(T_E){
+		LOG_INFO("Created new entity");
+		Invader::entity_manager->create(explosion_type_id, 20, 20, 0, 0);
+	}
+
+	Invader::entity_manager->update();
+	Invader::entity_manager->draw();
+}
+

@@ -50,7 +50,7 @@ void Input::update(){
 					case SDLK_BACKSPACE:id_key=DEF_KEY_SPACE;break;
 
 					default:
-						if(DEF_KEY_SPACE <= sdl_event.key.keysym.sym && sdl_event.key.keysym.sym <= DEF_KEY_z) {
+						if(DEF_KEY_SPACE <= sdl_event.key.keysym.sym && sdl_event.key.keysym.sym <= DEF_KEY_Z) {
 							event_key.codeKey = sdl_event.key.keysym.sym;
 						}
 

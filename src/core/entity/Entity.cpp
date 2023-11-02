@@ -33,7 +33,7 @@ Entity::Entity(){
 	next_time_change_frame=-1;
 	//skip_frame=1;
 	scale=1;
-	current_animation_idx=0;
+	current_animation_idx=-1;
 	width=0;
 	height=0;
 	is_active=false;
@@ -56,7 +56,7 @@ void Entity::setEntityManagerInfo(EntityManager *_entity_manager, size_t _entity
 	animations=entity_manager->getAnimations(entity_type_id);
 
 	if(animations->size()>0){
-		auto first_animation=animations[0];
+		setAnimation(0);
 	}
 }
 
@@ -66,9 +66,9 @@ void Entity::setAnimation(
 ){
 	EntityAnimationOptions eso;
 
-	if(_animation_idx==current_animation_idx){
+	/*if(_animation_idx==current_animation_idx){
 		return;
-	}
+	}*/
 
 	if(_animation_idx >= animations->size()){
 		fprintf(stderr,"Entity::setAnimation: animation_idx out of bounds\n");
@@ -76,9 +76,11 @@ void Entity::setAnimation(
 	}
 
 	current_frame_idx=0;
-	next_time_change_frame=System::getTime()+current_animation->sprite.frames[current_frame_idx].time;
 	current_animation_idx=_animation_idx;
 	current_animation=(*animations)[_animation_idx];
+
+	next_time_change_frame=System::getTime()+current_animation->sprite.frames[current_frame_idx].time;
+
 	fix_frame=false;
 	//idx_fixed_frame=-1;
 

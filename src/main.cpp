@@ -12,7 +12,7 @@ int main(int argc, char *argv[]){
 
     //int idx_current_sound=0;
     //Sound *current_sound=Sound::get(sound_files[idx_current_sound]);
-     Invader::iniTestImages();
+     Invader::iniTestEntities();
 
     do{
 
@@ -27,7 +27,8 @@ int main(int argc, char *argv[]){
         // update input
         Input::update();
 
-        Invader::update();
+        Invader::updateTestEntities();
+        System::synchTime();
 
         /*if(T_RIGHT) {
             idx_current_image=(idx_current_image+1)%image_files.size();
