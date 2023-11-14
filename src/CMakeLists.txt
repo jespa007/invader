@@ -185,6 +185,7 @@ endif()
 # INVADER SRC
 set(  INVADER_LIB_SRCS ${INVADER_LIB_SRCS} 
 	core/base/@base.cpp
+	core/animation/@animation.cpp	
 	core/graphics/@graphics.cpp
 	core/sound/@sound.cpp
 	core/input/@input.cpp

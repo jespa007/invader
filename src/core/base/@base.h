@@ -54,6 +54,7 @@
 #include 		<cstddef>
 
 #include "Common.h"
+#include "Bit.h"
 #include "String.h"
 #include "Log.h"
 #include "System.h"

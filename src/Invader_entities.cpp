@@ -21,8 +21,10 @@ size_t loadSmallExplosions(EntityManager *_entity_manager){
 
 
 	EntityTypeConfiguration configuration;
-	EntityAnimationOptions animation;
+	EntityFrameAnimation animation;
 	configuration.max=20;
+	configuration.properties=EntityTypeConfiguration::ENTITY_TYPE_PROPERTY_DIE_FRAME_ANIMATION_ENDS;
+	animation.loop=false;
 
 	for(int i=0; i < 4; i++){
 		Frame frame;
@@ -32,7 +34,7 @@ size_t loadSmallExplosions(EntityManager *_entity_manager){
 		frame.crop.y=v;
 		frame.crop.w=16;
 		frame.crop.h=16;
-		animation.sprite_frames.push_back(frame);
+		animation.frames.push_back(frame);
 
 		u+=16;
 	}
@@ -42,18 +44,18 @@ size_t loadSmallExplosions(EntityManager *_entity_manager){
 	return _entity_manager->newType(configuration);
 }
 
-size_t explosion_type_id=0;
+size_t small_explosion_type_id=0;
 
 void Invader::loadEntities(){
-	explosion_type_id=loadSmallExplosions(entity_manager);
+	small_explosion_type_id=loadSmallExplosions(entity_manager);
     /*Image *sprites=Image::get("SPRITES1.RAW");
-    size_t explosion_type_id=entity_manager->newType((EntityTypeConfiguration)(
+    size_t small_explosion_type_id=entity_manager->newType((EntityTypeConfiguration)(
 
     ){
        .max=10
 	    ,.properties=0
 	    ,.animations={
-            EntityAnimationOptions(){
+            EntityFrameAnimation(){
                 {
                     sprite_frames={
                         Frame(){	
@@ -272,7 +274,7 @@ void Invader::updateTestEntities(){
 
 	if(T_E){
 		LOG_INFO("Created new entity");
-		Invader::entity_manager->create(explosion_type_id, 20, 20, 0, 0);
+		Invader::entity_manager->create(small_explosion_type_id, rand()%INVADER_WINDOW_WIDTH, rand()%INVADER_WINDOW_HEIGHT, 0, 0);
 	}
 
 	Invader::entity_manager->update();

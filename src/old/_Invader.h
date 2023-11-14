@@ -30,7 +30,7 @@
 #include "Font.h"
 #include "Collider.h"
 #include "Sprite.h"
-#include "EntityAnimation.h"
+#include "../core/entity/EntityFrameAnimation.h"
 #include "Entity.h"
 #include "EntityManager.h"
 #include "Tilemap.h"

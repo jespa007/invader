@@ -78,20 +78,19 @@ size_t EntityManager::newType(const EntityTypeConfiguration & _entity_type_confi
 
 size_t EntityManager::addAnimation(
 	size_t _entity_type_id
-	,const EntityAnimationOptions & _entity_animation_options
+	,const EntityFrameAnimation & _entity_frame_animation
 
 ){
 	if(_entity_type_id >= entity_types.size()){
 		fprintf(stderr,"EntityManager::addAnimation : _entity_type_id out of bounds\n");
-		return EntityAnimation::npos;		
+		return EntityManager::npos;
 	}
 
-	EntityAnimation *eso;
+	size_t animation_idx=entity_types[_entity_type_id]->frame_animations.size();
+	//eso=new EntityFrameAnimation(_entity_frame_animation);
+	//eso->loop=_entity_frame_animation.loop;
 
-	size_t animation_idx=entity_types[_entity_type_id]->animations.size();
-	eso=new EntityAnimation(_entity_animation_options);
-
-	entity_types[_entity_type_id]->animations.push_back(eso);
+	entity_types[_entity_type_id]->frame_animations.push_back(_entity_frame_animation);
 
 	return animation_idx;
 
@@ -106,13 +105,13 @@ Collider *EntityManager::getCollider(size_t _entity_type_id){
 	return entity_types[_entity_type_id]->collider;
 }
 
-std::vector<EntityAnimation *> *EntityManager::getAnimations(size_t _entity_type_id){
+std::vector<EntityFrameAnimation> *EntityManager::getFrameAnimations(size_t _entity_type_id){
 	if(_entity_type_id >= entity_types.size()){
-		fprintf(stderr,"EntityManager::getAnimations : _entity_type_id out of bounds\n");
+		fprintf(stderr,"EntityManager::getFrameAnimations : _entity_type_id out of bounds\n");
 		return NULL;		
 	}
 	
-	return &entity_types[_entity_type_id]->animations;
+	return &entity_types[_entity_type_id]->frame_animations;
 }
 
 size_t EntityManager::getNumActiveEntities(size_t _entity_type_id){
@@ -184,6 +183,11 @@ size_t EntityManager::create(size_t _entity_type_id,int _start_x, int _start_y, 
 
 	if(entity_type->on_create){
 		(*entity_type->on_create)(entity);
+	}
+
+	// set first animation as default
+	if(entity_type->frame_animations.size() > 0){
+		entity->setFrameAnimation(0);
 	}
 
 	return entity_idx;
@@ -271,15 +275,21 @@ void EntityManager::update(){
 
 					(entity_type->life_time>0 && entity->life_time<current_time)
 											||
+					(
+							(entity_type->properties & EntityTypeConfiguration::ENTITY_TYPE_PROPERTY_DIE_FRAME_ANIMATION_ENDS)
+											&&
+								entity->finishedFrameAnimation()
+					)
+					//						||
 
-					((entity_type->properties & ENTITY_PROPERTY_DIE_OUTSCREEN)
+					/*((entity_type->properties & ENTITY_TYPE_PROPERTY_DIE_OUT_OF_SCREEN)
 										&&
 						(
 								(entity->getY()<-entity->getHeight() || entity->getY()>Graphics::getHeight())
 															||
 								(entity->getX()<-entity->getWidth()   || entity->getX()> Graphics::getWidth())
 						)
-					)
+					)*/
 				){
 					this->remove(entity_type->id,entity_idx);
 
@@ -313,6 +323,8 @@ void EntityManager::remove(size_t _entity_type_idx, size_t _entity_idx){
 
 	entity_type->entities[_entity_idx].is_active=false;
 	entity_type->free_index.push_back(_entity_idx);
+
+	LOG_INFO("Entity die");
 }
 
 void EntityManager::draw(){
@@ -347,9 +359,9 @@ void EntityManager::destroy(size_t _entity_type_idx){
 		delete entity_type->collider;
 	}
 
-	for(auto animation:entity_type->animations){
+	/*for(auto frame_animation:entity_type->frame_animations){
 		delete animation;
-	}
+	}*/
 
 	if(entity_type->on_create){
 		delete entity_type->on_create;
@@ -362,7 +374,7 @@ void EntityManager::destroy(size_t _entity_type_idx){
 	}
 
 	entity_type->free_index.clear();
-	entity_type->animations.clear();
+	entity_type->frame_animations.clear();
 
 	delete entity_type;
 

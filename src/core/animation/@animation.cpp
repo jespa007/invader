@@ -1,0 +1,11 @@
+#include "@animation.h"
+
+#include "Ease.cpp"
+#include "ChannelsInfo.cpp"
+#include "KeyframePoint.cpp"
+#include "KeyframeTrack.cpp"
+#include "KeyframeTrackGroup.cpp"
+#include "Action.cpp"
+#include "TweenChannel.cpp"
+#include "Tween.cpp"
+#include "Animation.cpp"
