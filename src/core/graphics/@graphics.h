@@ -1,6 +1,11 @@
-#include "core/base/@base.h"
+#include "core/animation/@animation.h"
 #include "SDL_utils.h"
+#include "Color4f.h"
 #include "Image.h"
 #include "Font.h"
+#include "Transform.h"
+#include "TransformAnimation.h"
+#include "Material.h"
+#include "MaterialAnimation.h"
 #include "Graphics.h"
 

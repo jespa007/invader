@@ -18,3 +18,6 @@
 #if  !defined(MIN)
 #define  MIN(a,  b)              ((a)  <  (b)  ?  (a)  :  (b))
 #endif
+
+
+#define ONE_OVER_256 (1.0f/256.0f)
