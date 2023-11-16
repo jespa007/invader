@@ -183,9 +183,6 @@ void Image::createTexture(int _width,int _height){
 
 }
 
-
-
-
 bool Image::loadImage(const std::string & _file,const ImageLoadOptions &_texture_load_options){
 
 	SDL_Surface *srf=SDL_LoadBMP(_file.c_str());
