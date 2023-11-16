@@ -103,8 +103,8 @@ void Graphics::createWindow(
 		setIcon(_icon);
 	}
 
-	g_graphics_sdl_window_surface = SDL_GetWindowSurface(g_graphics_window);
-	g_graphics_bytes_per_pixel = g_graphics_sdl_window_surface->format->BytesPerPixel;
+	//g_graphics_sdl_window_surface = SDL_GetWindowSurface(g_graphics_window);
+	g_graphics_bytes_per_pixel = 4;//g_graphics_sdl_window_surface->format->BytesPerPixel;
 
 
     printf( "Graphics\n");
@@ -126,7 +126,15 @@ void Graphics::createWindow(
 
     printf("\n");
 
-	g_graphics_renderer = SDL_GetRenderer(g_graphics_window);
+    g_graphics_renderer = SDL_GetRenderer(g_graphics_window);
+    if(g_graphics_renderer == NULL){
+    	g_graphics_renderer = SDL_CreateRenderer(g_graphics_window,-1,SDL_RENDERER_ACCELERATED);
+    }
+
+    if (!g_graphics_renderer) {
+		fprintf(stderr,"Cannot get renderer: %s\n", SDL_GetError());
+		exit(EXIT_FAILURE);
+    }
 
     if (!g_graphics_renderer) {
 		fprintf(stderr,"Cannot get renderer\n");
@@ -429,16 +437,17 @@ void Graphics::drawEntity(Entity *_entity,int _x_center, int _y_center){
 	}
 }
 
-void Graphics::drawFrameInfo(Frame *_frame_info,int _x, int _y){
-	if(_frame_info != NULL){
+void Graphics::drawFrameInfo(Frame *_frame,int _x, int _y){
+	if(_frame != NULL){
 		drawImage(
-			_frame_info->image
+			_frame->image
 			,_x
 			,_y
 			,ImageDrawOptions(
-				_frame_info->color
-				,_frame_info->crop
-		));
+				_frame->color
+				,_frame->crop
+			)
+		);
 	}
 }
 
@@ -479,7 +488,6 @@ void Graphics::drawTilemap(
 					,(int)(dst_w)+1
 					,(int)(dst_h)+1
 				};
-
 
 				SDL_Rect src_rect={
 					0

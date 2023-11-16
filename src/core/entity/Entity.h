@@ -23,7 +23,7 @@ public:
 
 	Entity();//EntityManager *_entity_manager, int _entity_id);
 	void setEntityManagerInfo(EntityManager *_entity_manager, size_t _entity_type_id, size_t _entity_id);
-	void setAnimation(size_t _animation_idx);
+	void setFrameAnimation(size_t _frame_animation_idx);
 	void setFrame(size_t _frame_idx);
 	inline int getWidth()  {return width;}
 	inline  int getHeight()  {return height;}
@@ -32,6 +32,7 @@ public:
 	inline int getEntityId()  {return entity_id;}
 	void setMoveTime(Uint32 _move_time){move_time=_move_time;}
 	Uint32 getMoveTime(){return move_time;}
+	bool	finishedFrameAnimation(){return current_frame_idx==Frame::npos;}
 
 	void deInit();
 
@@ -55,18 +56,19 @@ private:
 	size_t		entity_type_id;
 	EntityManager	*entity_manager;
 	//float 		skip_frame;
-	size_t 		current_frame_idx;
 	int 		width, height;
 	bool		fix_frame;
 	Uint32		next_move_time;
 	Uint32		move_time;
 
 
-	size_t		current_animation_idx;
+	size_t		current_frame_animation_idx;
+	size_t		current_frame_idx;
 	int 		next_time_change_frame;
-	EntityAnimation	*current_animation;
+	//EntityFrameAnimation	*current_animation;
+	//size_t		current_animation_idx;
 	//int idx_fixed_frame;
 
-	std::vector<EntityAnimation *> *	animations;
+	std::vector<EntityFrameAnimation> *	frame_animations;
 
 };

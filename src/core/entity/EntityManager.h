@@ -11,15 +11,11 @@ class EntityManager{
 public:
 	const static size_t npos=-1;
 
-	typedef enum{
-		ENTITY_PROPERTY_DIE_OUTSCREEN=0x1 << 0
-	}EntityProperty;
-
 	EntityManager();
 	size_t newType(const EntityTypeConfiguration & _entity_type_configuration);
 
 	Collider *getCollider(size_t _entity_type_idx);
-	std::vector<EntityAnimation *> *getAnimations(size_t _entity_type_id);
+	std::vector<EntityFrameAnimation> *getFrameAnimations(size_t _entity_type_id);
 
 	size_t getNumActiveEntities(size_t _entity_type_id);
 	size_t size(size_t _entity_type_id);
@@ -46,7 +42,7 @@ private:
 		size_t													entities_len;
 		uint16_t												properties;
 		std::vector<int>										free_index;
-		std::vector<EntityAnimation *>							animations;
+		std::vector<EntityFrameAnimation>						frame_animations;
 		Collider 											*	collider;
 		int														life_time;
 		int														move_time;
@@ -62,6 +58,7 @@ private:
 			move_time=0;
 			on_update=NULL;
 			on_create=NULL;
+			id=-1;
 		}
 	};
 
@@ -75,7 +72,7 @@ private:
 	);
 
 
-	size_t addAnimation(size_t _entity_type_id,const EntityAnimationOptions & _entity_animation_options);
+	size_t addAnimation(size_t _entity_type_id,const EntityFrameAnimation & _entity_animation_options);
 	void destroy(size_t _entity_type_id);
 
 };

@@ -54,8 +54,10 @@
 #include 		<cstddef>
 
 #include "Common.h"
+#include "Bit.h"
 #include "String.h"
 #include "Log.h"
 #include "System.h"
 #include "Path.h"
 #include "ColorTerm.h"
+#include "Vector2.h"
