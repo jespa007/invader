@@ -172,16 +172,42 @@ void Invader::loadImages(){
     }
 }
 
+int idx_current_image=0;
 void Invader::iniTestImages(){
-    /*idx_current_image=0;
-    current_image=Image::get(image_files[idx_current_image].file_name);*/
+    idx_current_image=0;
+    //current_image=Image::get(image_files[idx_current_image].file_name);
 }
 
 void Invader::updateTestImages(){
-     /*if(T_RIGHT) {
-       idx_current_image=(idx_current_image+1)%image_files.size();
-       current_image=Image::get(image_files[idx_current_image].file_name);
-     }*/
-     Image *blocks_raw=Image::get("SPRITES1.RAW");
-     Graphics::drawImage(blocks_raw,blocks_raw->getWidth()>>1,blocks_raw->getHeight()>>1);
+
+	const char * image_names[]={
+	        "BLOCS1.RAW"
+	        ,"Enemic.RAW"
+	        //,{"FONTMT.RAW"} --> discarted because is a special mono font
+	        ,"MEDFNT.RAW"
+	        ,"BIGFNT.RAW"
+	        ,"NAU00.RAW"
+	        ,"NAUMARE0.RAW"
+	        ,"Options.raw"
+	        ,"PANELL.RAW"
+	        ,"SPACE0.RAW"
+	        ,"SPRITES1.RAW"
+	        ,"TERRA.RAW"
+	        ,"TERRA0.RAW"
+	        ,"TERRA1.RAW"
+	        ,"TERRAD0.RAW"
+	        ,"TITUL.RAW"
+	};
+
+	size_t image_length=ARRAY_SIZE(image_names);
+
+     if(T_RIGHT) {
+       idx_current_image=(idx_current_image+1)%image_length;
+     }
+
+     Image *current_image=Image::get(image_names[idx_current_image]);
+     Graphics::drawImage(current_image,current_image->getWidth()>>1,current_image->getHeight()>>1);
+
+     /*Image *blocks_raw=Image::get("SPRITES1.RAW");
+     Graphics::drawImage(blocks_raw,blocks_raw->getWidth()>>1,blocks_raw->getHeight()>>1);*/
 }

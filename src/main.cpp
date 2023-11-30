@@ -27,7 +27,7 @@ int main(int argc, char *argv[]){
         // update input
         Input::update();
 
-        Invader::updateTestEntities();
+        Invader::update();
         System::synchTime();
 
         /*if(T_RIGHT) {
