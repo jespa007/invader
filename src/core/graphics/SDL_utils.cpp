@@ -4,10 +4,15 @@
 SDL_Surface * SDL_CreateSurfaceFrom(
 		uint16_t w
 		, uint16_t h,
-		uint8_t bytes_per_pixel, uint8_t *pixels) {
+		uint8_t _bytes_per_pixel, uint8_t *pixels) {
 
 	// 24 bit default.
 	uint32_t rmask = RMASK32, gmask = GMASK32, bmask = BMASK32, amask = 0;
+	uint8_t bytes_per_pixel=_bytes_per_pixel;
+
+	if(bytes_per_pixel == 0){
+		bytes_per_pixel = Graphics::getBytesPerPixel();
+	}
 
 	switch (bytes_per_pixel) {
 	default:
@@ -451,4 +456,42 @@ SDL_Color SDL_Html2Color(uint32_t html){
 
 
 	return color;
+}
+
+bool 		 	SDL_SavePNG(SDL_Surface * _srf,const char * _filename){
+	unsigned error=0;
+	uint8_t *out;
+	size_t outsize;
+	bool ok=false;
+
+	if(_srf!=NULL){
+		LodePNGColorType color_type;
+
+		switch(_srf->format->BitsPerPixel){
+		case 24:
+			color_type=LCT_RGB;
+			break;
+		case 32:
+			color_type=LCT_RGBA;
+			break;
+		default:
+			LOG_ERROR("SDL_SavePNG : Error saving %s. Unsupported bit depth",_filename);
+			return false;
+
+		}
+
+		//unsigned lodepng_encode_memory(unsigned char** out, size_t* outsize, const unsigned char* image,
+		//                               unsigned w, unsigned h, LodePNGColorType colortype, unsigned bitdepth)
+		error=lodepng_encode_memory(&out,&outsize,(const unsigned char *)_srf->pixels,_srf->w,_srf->h,color_type,8);
+		if(!error){
+			//ByteBuffer bb=ByteBuffer(out,outsize);
+			//ok=File::write(_filename,bb);
+			lodepng_save_file(out,outsize,_filename);
+			free(out);
+		}else{
+			LOG_ERROR("SDL_SavePNG : Error saving %s. %s",_filename,lodepng_error_text(error));
+		}
+	}
+
+	return ok;
 }

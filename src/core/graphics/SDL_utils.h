@@ -44,8 +44,8 @@ typedef enum{
 SDL_Surface * 	SDL_GetDefaultImage(void);
 void			SDL_DestroyResources(void);
 
-void 			SDL_SetPixel(SDL_Surface *surface, int x, int y, uint32_t pixel);
-SDL_Surface * 	SDL_NewSurface(uint16_t w, uint16_t h, uint8_t bytes_per_pixel);
+void 			SDL_SetPixel(SDL_Surface *surface, int x, int y, uint32_t pixel=0);
+SDL_Surface * 	SDL_NewSurface(uint16_t w, uint16_t h, uint8_t bytes_per_pixel=0);
 SDL_Surface * 	SDL_NewCircle(uint16_t radius, uint32_t fill_color, uint16_t border_width, uint32_t border_color);
 SDL_Surface * 	SDL_NewCross(uint16_t dimension, uint32_t fill_color, uint16_t border_width);
 SDL_Surface * 	SDL_NewRectangle2d(uint16_t dimension, uint32_t fill_color, uint16_t border_width, uint32_t border_color);
@@ -62,6 +62,6 @@ SDL_Surface *	SDL_Crop(SDL_Surface *_src,SDL_Rect _rect);
 void 			SDL_FlipY(SDL_Surface *surface);
 uint32_t 		SDL_Color2Html(SDL_Color c);
 SDL_Color 		SDL_Html2Color(uint32_t html);
-
+bool 		 	SDL_SavePNG(SDL_Surface * srf,const char * filename);
 
 #endif

@@ -44,6 +44,10 @@ int main(int argc, char *argv[]){
         }*/
 
 
+        if(T_F12) {
+        	Graphics::makeScreenShot();
+        }
+
 
         // toggle fullscreen
 		if(T_F9) {

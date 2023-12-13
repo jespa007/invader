@@ -17,6 +17,8 @@ public:
 
 	static int 				getWidth();
 	static int 				getHeight();
+	static int 				getWindowWidth();
+	static int 				getWindowHeight();
 
 	static void 				createWindow(
 			int _width
@@ -47,7 +49,7 @@ public:
 	static void 				drawTilemap(Tilemap *_tilemap);
 	static void					drawCollider(Collider *_collider,int _x_center, int _y_center,int _color=-1);
 	static Uint8  				getBytesPerPixel(void);
-
+	static void					makeScreenShot();
 
 	static void 				update();
 	static void 				deInit();

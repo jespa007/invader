@@ -53,11 +53,15 @@
 #include 		<stdexcept>
 #include 		<cstddef>
 
+#include "3rdparty/lodepng/lodepng.h"
 #include "Common.h"
 #include "Bit.h"
+#include "Exception.h"
 #include "String.h"
 #include "Log.h"
 #include "System.h"
 #include "Path.h"
 #include "ColorTerm.h"
 #include "Vector2.h"
+
+

@@ -16,7 +16,7 @@ void Invader::init(){
     Invader::background = new Tilemap();
     Invader::entity_manager = new EntityManager();
 
-    Graphics::createWindow(INVADER_WINDOW_WIDTH,INVADER_WINDOW_HEIGHT);
+    Graphics::createWindow(INVADER_WINDOW_WIDTH,INVADER_WINDOW_HEIGHT+50);
     SoundPlayer::init();
     loadImages();
     loadSounds();

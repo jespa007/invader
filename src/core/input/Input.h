@@ -9,6 +9,7 @@
 #define  T_ESC	      	Input::getKey(DEF_KEY_ESCAPE)
 #define  T_F5	      	Input::getKey(DEF_KEY_F5)
 #define  T_F9	      	Input::getKey(DEF_KEY_F9)
+#define  T_F12	      	Input::getKey(DEF_KEY_F12)
 #define  T_F10	      	Input::getKey(DEF_KEY_F10)
 #define  T_SPACE      	Input::getKey(DEF_KEY_SPACE)
 #define  T_TAB			Input::getKey(DEF_KEY_TAB)

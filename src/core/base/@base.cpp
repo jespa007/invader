@@ -1,4 +1,6 @@
+#include "3rdparty/lodepng/lodepng.cpp"
 #include "String.cpp"
+#include "Exception.cpp"
 #include "Log.cpp"
 #include "System.cpp"
 #include "Path.cpp"

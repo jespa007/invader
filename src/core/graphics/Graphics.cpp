@@ -15,7 +15,7 @@
 #define TICKS_FOR_NEXT_FRAME (1000 / 60)
 
 static Graphics *g_graphics_render=NULL;
-static SDL_Renderer *g_graphics_renderer = NULL;
+static SDL_Renderer *g_sdl_renderer = NULL;
 static SDL_Event g_graphics_event;
 static bool g_graphics_fullscreen=false;
 static int g_graphics_width=0, g_graphics_height=0;
@@ -31,6 +31,7 @@ static int g_graphics_active_display=0;
 static SDL_Window* g_graphics_window = NULL;
 static Uint8	g_graphics_bytes_per_pixel=0;
 static SDL_Surface *g_graphics_sdl_window_surface=NULL;
+static bool g_screenshot_requested=false;
 
 
 void Graphics::setIcon(const std::string & _file){
@@ -126,23 +127,23 @@ void Graphics::createWindow(
 
     printf("\n");
 
-    g_graphics_renderer = SDL_GetRenderer(g_graphics_window);
-    if(g_graphics_renderer == NULL){
-    	g_graphics_renderer = SDL_CreateRenderer(g_graphics_window,-1,SDL_RENDERER_ACCELERATED);
+    g_sdl_renderer = SDL_GetRenderer(g_graphics_window);
+    if(g_sdl_renderer == NULL){
+    	g_sdl_renderer = SDL_CreateRenderer(g_graphics_window,-1,SDL_RENDERER_ACCELERATED);
     }
 
-    if (!g_graphics_renderer) {
+    if (!g_sdl_renderer) {
 		fprintf(stderr,"Cannot get renderer: %s\n", SDL_GetError());
 		exit(EXIT_FAILURE);
     }
 
-    if (!g_graphics_renderer) {
+    if (!g_sdl_renderer) {
 		fprintf(stderr,"Cannot get renderer\n");
 		exit(EXIT_FAILURE);
     }
 
     SDL_RendererInfo info;
-    SDL_GetRendererInfo(g_graphics_renderer, &info);
+    SDL_GetRendererInfo(g_sdl_renderer, &info);
     printf( "Render\n");
     printf( "------\n");
 	printf("- Name : %s\n", info.name);
@@ -172,6 +173,13 @@ int Graphics::getHeight(){
 	return g_graphics_height;
 }
 
+int Graphics::getWindowHeight(){
+	return g_graphics_rect_display[g_graphics_active_display].h;
+}
+
+int Graphics::getWindowWidth(){
+	return g_graphics_rect_display[g_graphics_active_display].w;
+}
 Uint8 Graphics::getBytesPerPixel(void){
 	return g_graphics_bytes_per_pixel;
 }
@@ -179,7 +187,7 @@ Uint8 Graphics::getBytesPerPixel(void){
 
 
 SDL_Renderer * Graphics::getRenderer(){
-	return g_graphics_renderer;
+	return g_sdl_renderer;
 }
 
 SDL_Window * Graphics::getWindow(){
@@ -188,19 +196,19 @@ SDL_Window * Graphics::getWindow(){
 
 void Graphics::clear(Uint8 r, Uint8 g, Uint8 b){
 	//Clear screen
-	SDL_SetRenderDrawColor( g_graphics_renderer, r, g, b, 0xFF );
-	SDL_RenderClear( g_graphics_renderer );
+	SDL_SetRenderDrawColor( g_sdl_renderer, r, g, b, 0xFF );
+	SDL_RenderClear( g_sdl_renderer );
 }
 
 void 				 Graphics::drawPoint( int _x, int _y, int _rgb){
     SDL_SetRenderDrawColor(
-      g_graphics_renderer
+      g_sdl_renderer
 		,_rgb&0xFF 			// r
 		,(_rgb>>8)&0xFF 	// g
 		,(_rgb>>16)&0xFF	// b
 		,0					// alpha
 	);  
-  SDL_RenderDrawPoint(g_graphics_renderer, _x, _y);
+  SDL_RenderDrawPoint(g_sdl_renderer, _x, _y);
 }
 
 //draw one quadrant arc, and mirror the other 4 quadrants
@@ -229,7 +237,7 @@ void Graphics::drawEllipse( int _x_center, int _y_center, int _radius_x, int _ra
     int y1 = y;
 
     SDL_SetRenderDrawColor(
-      g_graphics_renderer
+      g_sdl_renderer
 		,_rgb&0xFF 			// r
 		,(_rgb>>8)&0xFF 	// g
 		,(_rgb>>16)&0xFF	// b
@@ -247,10 +255,10 @@ void Graphics::drawEllipse( int _x_center, int _y_center, int _radius_x, int _ra
         //draw line from previous point to new point, ONLY if point incremented
         if( (x != x1) || (y != y1) )//only draw if coordinate changed
         {
-            SDL_RenderDrawLine(g_graphics_renderer, x0 + x, y0 - y,    x0 + x1, y0 - y1 );//quadrant TR
-            SDL_RenderDrawLine(g_graphics_renderer, x0 - x, y0 - y,    x0 - x1, y0 - y1 );//quadrant TL
-            SDL_RenderDrawLine(g_graphics_renderer, x0 - x, y0 + y,    x0 - x1, y0 + y1 );//quadrant BL
-            SDL_RenderDrawLine(g_graphics_renderer, x0 + x, y0 + y,    x0 + x1, y0 + y1 );//quadrant BR
+            SDL_RenderDrawLine(g_sdl_renderer, x0 + x, y0 - y,    x0 + x1, y0 - y1 );//quadrant TR
+            SDL_RenderDrawLine(g_sdl_renderer, x0 - x, y0 - y,    x0 - x1, y0 - y1 );//quadrant TL
+            SDL_RenderDrawLine(g_sdl_renderer, x0 - x, y0 + y,    x0 - x1, y0 + y1 );//quadrant BL
+            SDL_RenderDrawLine(g_sdl_renderer, x0 + x, y0 + y,    x0 + x1, y0 + y1 );//quadrant BR
         }
         //save previous points
         x = x1;//save new previous point
@@ -260,10 +268,10 @@ void Graphics::drawEllipse( int _x_center, int _y_center, int _radius_x, int _ra
     if(x!=0)
     {
         x=0;
-        SDL_RenderDrawLine(g_graphics_renderer, x0 + x, y0 - y,    x0 + x1, y0 - y1 );//quadrant TR
-        SDL_RenderDrawLine(g_graphics_renderer, x0 - x, y0 - y,    x0 - x1, y0 - y1 );//quadrant TL
-        SDL_RenderDrawLine(g_graphics_renderer, x0 - x, y0 + y,    x0 - x1, y0 + y1 );//quadrant BL
-        SDL_RenderDrawLine(g_graphics_renderer, x0 + x, y0 + y,    x0 + x1, y0 + y1 );//quadrant BR
+        SDL_RenderDrawLine(g_sdl_renderer, x0 + x, y0 - y,    x0 + x1, y0 - y1 );//quadrant TR
+        SDL_RenderDrawLine(g_sdl_renderer, x0 - x, y0 - y,    x0 - x1, y0 - y1 );//quadrant TL
+        SDL_RenderDrawLine(g_sdl_renderer, x0 - x, y0 + y,    x0 - x1, y0 + y1 );//quadrant BL
+        SDL_RenderDrawLine(g_sdl_renderer, x0 + x, y0 + y,    x0 + x1, y0 + y1 );//quadrant BR
     }
 }
 
@@ -278,14 +286,14 @@ void Graphics::drawRectangle( int _x_center, int _y_center, int _width, int _hei
 	rect.h=_height*g_graphics_display_scaley;
 
     SDL_SetRenderDrawColor(
-      g_graphics_renderer
+      g_sdl_renderer
 		,_rgb&0xFF 			// r
 		,(_rgb>>8)&0xFF 	// g
 		,(_rgb>>16)&0xFF	// b
 		,0					// alpha
 	);
 
-    SDL_RenderDrawRect(g_graphics_renderer, &rect);
+    SDL_RenderDrawRect(g_sdl_renderer, &rect);
 }
 
 //draw one quadrant arc, and mirror the other 4 quadrants
@@ -299,14 +307,14 @@ void Graphics::drawFilledRectangle( int _x_center, int _y_center, int _width, in
 	rect.h=_height*g_graphics_display_scaley;
 
 
-    SDL_SetRenderDrawColor(g_graphics_renderer
+    SDL_SetRenderDrawColor(g_sdl_renderer
 		,_rgb&0xFF 			// r
 		,(_rgb>>8)&0xFF 	// g
 		,(_rgb>>16)&0xFF	// b
 		,0					// alpha
 	);
 
-    SDL_RenderFillRect(g_graphics_renderer, &rect);
+    SDL_RenderFillRect(g_sdl_renderer, &rect);
 
 }
 
@@ -371,7 +379,7 @@ void Graphics::drawImage(
 					SDL_COLOR32B_TO_BLUE8B(rgb)
 			);
 
-			SDL_RenderCopy(g_graphics_renderer, sdl_texture, &image_crop, &dst_rect);
+			SDL_RenderCopy(g_sdl_renderer, sdl_texture, &image_crop, &dst_rect);
 		}
 	}
 }
@@ -410,7 +418,7 @@ void Graphics::drawText(
 		for(unsigned i=0; i < _text.size(); i++){
 			char c=_text[i];
 			SDL_Rect src_rect=_font->getRectChar(c);
-			SDL_RenderCopy(g_graphics_renderer, _font->getSdlTexture(), &src_rect, &dst_rect);
+			SDL_RenderCopy(g_sdl_renderer, _font->getSdlTexture(), &src_rect, &dst_rect);
 			dst_rect.x+=dst_rect.w;
 		}
 	}
@@ -522,7 +530,7 @@ void Graphics::drawTilemap(
 
 								// render image at current position
 								if(SDL_RenderCopy(
-										g_graphics_renderer
+										g_sdl_renderer
 										,sdl_texture
 										,&src_rect
 										,&dst_rect)!=0){
@@ -573,13 +581,17 @@ void Graphics::drawCollider(
 	}
 }
 
+void Graphics::makeScreenShot(){
+	g_screenshot_requested=true;
+}
+
 void Graphics::update(){
 
 	// if g_graphics_fullscreen draws left/right block
 	if(g_graphics_fullscreen){
 		SDL_Rect rect;
 
-		SDL_SetRenderDrawColor(g_graphics_renderer
+		SDL_SetRenderDrawColor(g_sdl_renderer
 			,0
 			,0
 			,0
@@ -591,23 +603,37 @@ void Graphics::update(){
 		rect.w=g_graphics_fullscreen_startx;
 		rect.h=g_graphics_rect_display[g_graphics_active_display].h;
 
-		SDL_RenderFillRect(g_graphics_renderer, &rect);
+		SDL_RenderFillRect(g_sdl_renderer, &rect);
 
 		rect.x=g_graphics_rect_display[g_graphics_active_display].w-g_graphics_fullscreen_startx;
 		rect.y=0;
 		rect.w=g_graphics_fullscreen_startx;
 		rect.h=g_graphics_rect_display[g_graphics_active_display].h;
 
-		SDL_RenderFillRect(g_graphics_renderer, &rect);
+		SDL_RenderFillRect(g_sdl_renderer, &rect);
 	}
 
-	// using a software g_graphics_renderer there's no wait vertical synchronization, so
+	// using a software g_sdl_renderer there's no wait vertical synchronization, so
 	// it waits 60FPS (~16ms) by software
     while (SDL_GetTicks() < g_graphics_last_time) {
         SDL_Delay(1);
     }
 
-	SDL_RenderPresent( g_graphics_renderer );
+	SDL_RenderPresent( g_sdl_renderer );
+
+	if(g_screenshot_requested == true){
+		LOG_INFO("- Make a screenshot ");
+		int w,h;
+		SDL_GetRendererOutputSize(g_sdl_renderer,&w,&h);
+		SDL_Surface *sshot = SDL_NewSurface(w,h);
+		//SDL_Surface *sshot = SDL_CreateRGBSurface(0, Graphics::getWindowWidth(),Graphics::getWindowHight(), 32, 0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000);
+		SDL_RenderReadPixels(g_sdl_renderer, NULL, SDL_PIXELFORMAT_ARGB8888, sshot->pixels, sshot->pitch);
+		SDL_SavePNG(sshot, "screenshot.png");
+		//SDL_SaveBMP(sshot, "screenshot.bmp");
+		SDL_FreeSurface(sshot);
+
+		g_screenshot_requested=false;
+	}
 
 	// save current time to wait other 16 ms
 	g_graphics_last_time=SDL_GetTicks()+TICKS_FOR_NEXT_FRAME;
@@ -687,8 +713,8 @@ void  Graphics::toggleShowSpriteColliders(){
 }
 
 void Graphics::deInit(){
-	if(g_graphics_renderer != NULL){
-		SDL_DestroyRenderer(g_graphics_renderer);
+	if(g_sdl_renderer != NULL){
+		SDL_DestroyRenderer(g_sdl_renderer);
 	}
 
 	if(g_graphics_window != NULL){
@@ -700,7 +726,7 @@ void Graphics::deInit(){
 	}
 
 	g_graphics_rect_display=NULL;
-	g_graphics_renderer=NULL;
+	g_sdl_renderer=NULL;
 	g_graphics_window=NULL;
 	SDL_Quit();
 }

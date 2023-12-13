@@ -47,6 +47,7 @@ void Input::update(){
 					case SDLK_F5: id_key = DEF_KEY_F5; break;
 					case SDLK_F9: id_key = DEF_KEY_F9;break;
 					case SDLK_F10: id_key = DEF_KEY_F10;break;
+					case SDLK_F12: id_key = DEF_KEY_F12;break;
 					case SDLK_BACKSPACE:id_key=DEF_KEY_SPACE;break;
 
 					default:
