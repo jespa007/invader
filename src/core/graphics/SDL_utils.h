@@ -12,10 +12,10 @@
 	#define BMASK16 0x001f
 	#define AMASK16 0x0000
 #else // little indian
-	#define RMASK32 0x000000ff
-	#define GMASK32 0x0000ff00
-	#define BMASK32 0x00ff0000
 	#define AMASK32 0xff000000
+	#define RMASK32 0x00ff0000
+	#define GMASK32 0x0000ff00
+	#define BMASK32 0x000000ff
 
 	#define RMASK16 0xf100
 	#define GMASK16 0x03e0

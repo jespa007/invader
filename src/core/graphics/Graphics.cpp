@@ -6,17 +6,9 @@
 #include "core/core.h"
 
 
-
-#define RMASK32 0x000000ff
-#define GMASK32 0x0000ff00
-#define BMASK32 0x00ff0000
-#define AMASK32 0xff000000
-
 #define TICKS_FOR_NEXT_FRAME (1000 / 60)
 
-static Graphics *g_graphics_render=NULL;
 static SDL_Renderer *g_sdl_renderer = NULL;
-static SDL_Event g_graphics_event;
 static bool g_graphics_fullscreen=false;
 static int g_graphics_width=0, g_graphics_height=0;
 static bool g_graphics_show_sprite_colliders=false;
@@ -30,8 +22,8 @@ static int g_graphics_num_displays=0;
 static int g_graphics_active_display=0;
 static SDL_Window* g_graphics_window = NULL;
 static Uint8	g_graphics_bytes_per_pixel=0;
-static SDL_Surface *g_graphics_sdl_window_surface=NULL;
 static bool g_screenshot_requested=false;
+static int g_num_screenshot=0;
 
 
 void Graphics::setIcon(const std::string & _file){
@@ -153,8 +145,13 @@ void Graphics::createWindow(
 	if (info.flags & SDL_RENDERER_PRESENTVSYNC) printf( "SDL_RENDERER_PRESENTVSYNC ");
 	if (info.flags & SDL_RENDERER_TARGETTEXTURE) printf( "SDL_RENDERER_TARGETTEXTURE ");
 	printf( "\n- Num.textures formats : %d\n", info.num_texture_formats);
-	printf( "- Image size max : %dx%d \n", info.max_texture_width, info.max_texture_height);
+	for( Uint32 i = 0; i < info.num_texture_formats; i++ )
+	{
+	    printf("\n  %s",SDL_GetPixelFormatName( info.texture_formats[i] ));
+	}
+	printf( "\n\n- Image size max : %dx%d \n", info.max_texture_width, info.max_texture_height);
 	printf( "- Current driver : %s\n", SDL_GetCurrentVideoDriver());
+
 	printf( "\n");
 
 
@@ -622,13 +619,16 @@ void Graphics::update(){
 	SDL_RenderPresent( g_sdl_renderer );
 
 	if(g_screenshot_requested == true){
-		LOG_INFO("- Make a screenshot ");
+
+		std::string screenshot_filename=String::format("screenshot%04i.png",g_num_screenshot++);
 		int w,h;
+
+		LOG_INFO("- Make screenshot '%s'",screenshot_filename.c_str());
+		//SDL_RendererInfo  sdl_info;
 		SDL_GetRendererOutputSize(g_sdl_renderer,&w,&h);
-		SDL_Surface *sshot = SDL_NewSurface(w,h);
-		//SDL_Surface *sshot = SDL_CreateRGBSurface(0, Graphics::getWindowWidth(),Graphics::getWindowHight(), 32, 0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000);
+		SDL_Surface *sshot = SDL_NewSurface(w,h);//SDL_CreateRGBSurface(0, w,h, 32, 0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000);
 		SDL_RenderReadPixels(g_sdl_renderer, NULL, SDL_PIXELFORMAT_ARGB8888, sshot->pixels, sshot->pitch);
-		SDL_SavePNG(sshot, "screenshot.png");
+		SDL_SavePNG(sshot, screenshot_filename.c_str());
 		//SDL_SaveBMP(sshot, "screenshot.bmp");
 		SDL_FreeSurface(sshot);
 
