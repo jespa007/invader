@@ -4,6 +4,7 @@
 	<comment></comment>
 	<projects>
 		<project>memmgr</project>
+		<project>zetgame</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
