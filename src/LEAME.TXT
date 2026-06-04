@@ -1,0 +1,27 @@
+Libreria para reproducir sonidos utilizando Sound Blaster
+Oswaldo Varela C.
+Codigo original: Ethan Brodsky
+
+Las modificaciones realizadas se refieren a que la libreria original
+fué diseñada para compilarse en lenguaje C, mas en un compilador C++
+la compilación daba errores por tener syntaxis diferente.
+Ahora el código puede ejecutarse en cualquier compilador C++ sin
+ningun problema como Borland C++ o Turbo C++.
+
+POR FAVOR NO CAMBIE ESTE CODIGO, Y NO RESTE CRÉDITOS A SU AUTOR
+ORIGINAL ETHAN BRODSKY, ASUMIENDO QUE USTED ES EL AUTOR INTELECTUAL
+DE ESTE.
+
+Si usted desea utilizar sus propios sonidos siga los siguientes pasos.
+1) Grabe el sonido deseado con el formato WAVE (.wav) utilizando
+   22000 Hz, 8 bits, mono.
+2) utilize la utilidad de conversión wav2raw.exe con el siguiente formato:
+	wav2raw archivo.wav archivo.raw
+3) con la utilidad sndlib.exe podra incluir su sonido en la libreria:
+	sndlib sonidos.snd
+		Despliega informacion de la libreria
+	sndlib sonidos.snd + archivo.raw aplauso
+		agrega en la libreria archivo.raw con la clave aplauso
+4) usted deberá incrementar en el código fuente la variable
+   NUMSOUNDS. Y tambien agregar la clave del sonido agregado en el
+   arreglo de claves llamado sonidos_key.
