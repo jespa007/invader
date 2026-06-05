@@ -1,0 +1,2 @@
+En aqui es la gesti¢ global de les fonts (MONOFNT.raw,MEDFNT.raw BIGFNT.raw) utilitzades com els colors
+que s' utilitzar…n en el joc.(colors.pal)

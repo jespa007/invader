@@ -1,0 +1,14 @@
+Turbo C++ Version 3.00 Copyright (c) 1992 Borland International
+medfnt.c:
+Warning medfnt.c 214: Function should return a value in function main
+Warning medfnt.c 214: 'actual' is assigned a value that is never used in function main
+Turbo Assembler  Version 3.2  Copyright (c) 1988, 1992 Borland International
+
+Assembling file:   .\medfnt.ASM
+Error messages:    None
+Warning messages:  None
+Passes:            1
+Remaining memory:  394k
+
+
+        Available memory 4080520
