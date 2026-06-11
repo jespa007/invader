@@ -7,7 +7,7 @@ CLS
  ECHO.
  echo %1
 
- c:\tc3\bin\tcc -P -mh -1 -Ic:\tc3\Include -Lc:\tc3\Lib -e..\EXE\%1 *.OBJ > error.mnt
+ c:\tc3\bin\tcc -P -mh -1 -Ic:\tc3\Include -Lc:\tc3\Lib -e..\BIN\%1 *.OBJ > error.mnt
  if errorlevel 1 goto ERROR2
  CLS
  ECHO Sense errors. 
