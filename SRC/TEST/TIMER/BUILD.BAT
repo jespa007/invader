@@ -1,0 +1,1 @@
+tcc -P -mh -1 -Ic:\tc3\Include -I..\.. -Lc:\tc3\Lib -eTIMER.EXE MAIN.C

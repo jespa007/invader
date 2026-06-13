@@ -14,9 +14,11 @@
 
 
 
-
-
 // UTILITATS.
+#include "TYPES.H"
+#include "BIOS.H"
+#include "PIT.H"
+#include "SYSTEM.H"
 
  #include "const.h"
  #include "tipus.h"

@@ -159,6 +159,9 @@ tpaleta paleta1,paleta2,paleta3;
 //  �Propi del joc�
 //  ���������������
 
+#include "BIOS.C"
+#include "PIT.C"
+#include "SYSTEM.C"
 #include "Effects.cc"
 #include "Text.cc"
 

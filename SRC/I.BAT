@@ -4,11 +4,9 @@
 CLS
 
 :1
- 
- echo COMPILANT
- ECHO.
- echo INVADER.C
-
+ echo.
+ echo COMPILANT INVADER.CPP
+echo.
  c:\tc3\bin\tcc -P -mh -1 -Ic:\tc3\Include -Lc:\tc3\Lib -c invader.cpp > error.cmp
  if errorlevel 1 goto ERROR1
  if errorlevel 2 goto WARNING1
