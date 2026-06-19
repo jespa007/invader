@@ -1,1 +1,1 @@
-tcc -P -mh -1 -Ic:\tc3\Include -I..\.. -Lc:\tc3\Lib -eTIMER.EXE MAIN.C
+tcc -P -mh -1 -I..\.. -n..\..\..\BUILD -e..\..\..\BIN\TIMER.EXE MAIN.C

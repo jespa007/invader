@@ -1,47 +1,42 @@
 @echo off
 
-
 CLS
 
 :1
  echo.
  echo COMPILANT INVADER.CPP
 echo.
- c:\tc3\bin\tcc -P -mh -1 -Ic:\tc3\Include -Lc:\tc3\Lib -c invader.cpp > error.cmp
+ tcc -P -mh -1 -c SRC\INVADER.CPP -o BUILD\INVADER.OBJ > BUILD\RESULT.CMP
  if errorlevel 1 goto ERROR1
- if errorlevel 2 goto WARNING1
  CLS
  GOTO MOUNT
-
-:WARNING1
-CLS
-echo WARNINGS:
-ECHO.
-echo type error.cmp
-goto end
-
 
 :ERROR1
  CLS
  echo ERRORS:
  ECHO.
- type error.cmp
+ type BUILD\RESULT.CMP
  goto end
 
 :MOUNT
+CLS
 
-if errorlevel 1 goto end
+echo.
+echo MUNTANT %1
+echo.
 
-if EXIST test.obj del test.obj
-if EXIST pastaman.obj del pastaman.obj
-del mapa1.obj
-del mapa2.obj
-del mapa3.obj
-del intro.obj
-del credits.obj
-del proba1.obj
-del genmov.obj
+ tcc -P -mh -1 -eBIN\INVADER.EXE BUILD\INVADER.OBJ > RESULT.MNT
+ if errorlevel 1 goto ERROR2
+ CLS
+ ECHO Sense errors. 
+ goto end
 
-doc INVADER.EXE
+:ERROR2
+ CLS
+ echo ERR.MNT:
+ ECHO.
+ type BUILD\ERROR.MNT
+ goto end
+
 
 :end
