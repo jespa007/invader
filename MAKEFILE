@@ -1,0 +1,26 @@
+CC=tcc
+
+SRC=SRC
+BIN=BIN
+
+!ifdef DEBUG
+OBJDIR=BUILD\DEBUG
+CFLAGS=-mh -1 -I$(SRC) -n$(OBJDIR) -v -y -DDEBUG
+LFLAGS=-mh -1 -v -y
+OUT=$(BIN)\INV_D.EXE
+!else
+OBJDIR=BUILD\RELEASE
+CFLAGS=-mh -1 -I$(SRC) -n$(OBJDIR) -G -O -DNDEBUG
+LFLAGS=-mh -1
+OUT=$(BIN)\INVADER.EXE
+!endif
+
+OBJS=$(OBJDIR)\MAIN.OBJ
+
+all: $(OUT)
+
+$(OUT): $(OBJS)
+	$(CC) $(LFLAGS) -e$(OUT) $(OBJS)
+
+$(OBJDIR)\MAIN.OBJ: $(SRC)\MAIN.C
+	$(CC) $(CFLAGS) -c $(SRC)\MAIN.C
