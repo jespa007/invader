@@ -1,2 +1,2 @@
-#include "INPUT\KEY.C"
+#include "INPUT\KEYBOARD.C"
 #include "INPUT\MOUSE.C"

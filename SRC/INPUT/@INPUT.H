@@ -1,3 +1,3 @@
 #include "BASE\@BASE.H"
-#include "INPUT\KEY.H"
+#include "INPUT\KEYBOARD.H"
 #include "INPUT\MOUSE.H"

@@ -1,3 +1,3 @@
-#include "BASE\MEM.C"
+#include "BASE\MEMORY.C"
 #include "BASE\PIT.C"
 #include "BASE\BIOS.C"

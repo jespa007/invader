@@ -1,5 +1,5 @@
-#ifndef __KEY_H__
-#define __KEY_H__
+#ifndef __KEYBOARD_H__
+#define __KEYBOARD_H__
 
 typedef enum {
      KEY_ESC   =1
@@ -15,8 +15,8 @@ typedef enum {
 
 
 
-void Key_Init();
-bool Key_IsDown(KEY _key);
-void Key_DeInit();
+void Keyboard_Init();
+bool Keyboard_IsKeyPressed(KEY _key);
+void Keyboard_DeInit();
 
 #endif
