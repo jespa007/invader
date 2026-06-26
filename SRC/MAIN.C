@@ -25,20 +25,17 @@ ModeX_PutPixel(MODEX_PAGE3, 40, 40, 15);
             ,123
         );*/
     
+     Graphics_WaitVRetrace();
     ModeX_SetPage(MODEX_PAGE0);
-    Graphics_WaitVRetrace();
 
-    
+    Graphics_WaitVRetrace();
     ModeX_SetPage(MODEX_PAGE1);
-    Graphics_WaitVRetrace();
 
-    
+    Graphics_WaitVRetrace();
     ModeX_SetPage(MODEX_PAGE2);
-Graphics_WaitVRetrace();
 
-    
-    ModeX_SetPage(MODEX_PAGE3);        
     Graphics_WaitVRetrace();
+    ModeX_SetPage(MODEX_PAGE3);
         //Graphics_End();
     }while(!Key_IsDown(KEY_ESC));
 
