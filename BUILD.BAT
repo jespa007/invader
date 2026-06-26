@@ -4,4 +4,5 @@ if not exist BUILD\DEBUG mkdir BUILD\DEBUG
 if not exist BUILD\RELEASE mkdir BUILD\RELEASE
 if not exist BIN mkdir BIN
 
-make %1 %2 %3 %4
+make %1 %2 %3 %4 > ERROR.CMP
+if errorlevel 1 type ERROR.CMP

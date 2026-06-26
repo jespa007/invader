@@ -1,3 +1,6 @@
 #include "BASE\@BASE.H"
+#include "GRAPH\VGAREGS.H"
+#include "GRAPH\MODE13.H"
+#include "GRAPH\MODEX.H"
 #include "GRAPH\GRAPHICS.H"
 #include "GRAPH\FNTMONO.H"

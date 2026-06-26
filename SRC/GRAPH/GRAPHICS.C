@@ -1,8 +1,5 @@
-#include "GRAPH\@GRAPH.H"
+#include "SRC\GRAPH\@GRAPH.H"
 
-#define VIDEO_SEGMENT 0xA000
-#define VIDEO_OFFSET  0x0000
-#define VGA_MEMORY ((unsigned char far *)MK_FP(VIDEO_SEGMENT, VIDEO_OFFSET))
 
 struct{
     uint16_t width;
@@ -14,11 +11,7 @@ void Graphics_Init(uint16_t _width, uint16_t _height){
     g_graphics.width = _width;
     g_graphics.height = _height;
 
-    asm{
-         mov ah,00h  // AH = 0: Inicia el mode de Video 
-        mov al,13h  // AL Mode 320 x 200 a 256 colors. 
-        int 10h
-    }
+    Mode13_Init();
 }
 
 uint16_t    Graphics_GetWidth(){
@@ -43,8 +36,7 @@ void        Graphics_ClearScreen(uint8_t _color){
     }
 }
 
-void Graphics_WaitVRetrace()
-{
+void Graphics_WaitVRetrace(){
 
     asm mov dx,0x3DA
   et1:
@@ -89,9 +81,5 @@ void        Graphics_DrawText(int _x, int _y, uint8_t _color, const char *_text,
 }
 
 void Graphics_DeInit(){
-     asm{
-        mov ah,00h  // AH = 0: Inicia el mode de Video 
-        mov al,3h  // AL (00,02,03,07 = TEXTE). 
-        int 10h
-    }
+    Mode13_DeInit();
 }

@@ -7,23 +7,44 @@ int main(void){
         printf("Hello world RELEASE!\n");
     #endif
 
-    Graphics_Init(SCREEN_WIDTH, SCREEN_HEIGHT);
+    //Graphics_Init(SCREEN_WIDTH, SCREEN_HEIGHT);
+ModeX_Init();
+
+ModeX_PutPixel(MODEX_PAGE0, 10, 10, 4);
+ModeX_PutPixel(MODEX_PAGE1, 20, 20, 2);
+ModeX_PutPixel(MODEX_PAGE2, 30, 30, 1);
+ModeX_PutPixel(MODEX_PAGE3, 40, 40, 15);    
     Key_Init();
 
     do{ 
         //Graphics_Begin();
-        FntMono_PutChar(0,0,'A',0,0);
+       /* FntMono_PutChar(0,0,'A',0,0);
         Graphics_PutPixel(
             Graphics_GetWidth()>>1
             ,Graphics_GetHeight()>>1
             ,123
-        );
+        );*/
+    
+    ModeX_SetPage(MODEX_PAGE0);
+    Graphics_WaitVRetrace();
+
+    
+    ModeX_SetPage(MODEX_PAGE1);
+    Graphics_WaitVRetrace();
+
+    
+    ModeX_SetPage(MODEX_PAGE2);
+Graphics_WaitVRetrace();
+
+    
+    ModeX_SetPage(MODEX_PAGE3);        
+    Graphics_WaitVRetrace();
         //Graphics_End();
     }while(!Key_IsDown(KEY_ESC));
 
 
     Key_DeInit();
-    Graphics_DeInit();
+    ModeX_DeInit();
     
 
 

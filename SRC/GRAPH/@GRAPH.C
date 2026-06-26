@@ -1,2 +1,5 @@
+#include "GRAPH\VGAREGS.C"
+#include "GRAPH\MODE13.C"
+#include "GRAPH\MODEX.C"
 #include "GRAPH\GRAPHICS.C"
 #include "GRAPH\FNTMONO.C"
