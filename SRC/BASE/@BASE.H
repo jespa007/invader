@@ -3,6 +3,7 @@
 #include <dos.h>
 #include <stdarg.h>
 #include <string.h>
+#include <alloc.h>
 
 #include "BASE\TYPES.H"
 #include "BASE\COMMON.H"
