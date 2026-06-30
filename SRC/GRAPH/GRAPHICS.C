@@ -1,4 +1,4 @@
-#include "SRC\GRAPH\@GRAPH.H"
+#include "GRAPH\@GRAPH.H"
 
 
 struct{

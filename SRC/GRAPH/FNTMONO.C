@@ -1,4 +1,4 @@
-#include "SRC\GRAPH\@GRAPH.H"
+#include "GRAPH\@GRAPH.H"
 
 #define FNT_MONO_MAX_CHARACTERS     48
 #define FNT_MONO_CHAR_HEIGHT        8

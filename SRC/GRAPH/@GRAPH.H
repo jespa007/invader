@@ -4,3 +4,4 @@
 #include "GRAPH\MODEX.H"
 #include "GRAPH\GRAPHICS.H"
 #include "GRAPH\FNTMONO.H"
+#include "GRAPH\PALETTE.H"

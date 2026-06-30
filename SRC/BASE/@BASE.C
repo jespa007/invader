@@ -1,3 +1,8 @@
 #include "BASE\MEMORY.C"
 #include "BASE\PIT.C"
 #include "BASE\BIOS.C"
+#include "BASE\BUFFER.C"
+#include "BASE\FILE.C"
+#include "BASE\LOG.C"
+#include "BASE\PATH.C"
+#include "BASE\STRING.C"

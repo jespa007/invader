@@ -3,3 +3,4 @@
 #include "GRAPH\MODEX.C"
 #include "GRAPH\GRAPHICS.C"
 #include "GRAPH\FNTMONO.C"
+#include "GRAPH\PALETTE.C"

@@ -1,4 +1,4 @@
-#include "SRC\GRAPH\@GRAPH.H"
+#include "GRAPH\@GRAPH.H"
 
 #define MODEX_Y_OFFSET(y) \
     (((((uint16_t)(y)) << 6) + (((uint16_t)(y)) << 4)) << g_array_offset[g_current_mode])
