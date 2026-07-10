@@ -1,11 +1,16 @@
 #include "INVADER.H"
 
 int main(void){
+    void *p = MALLOC(10);
     #ifdef DEBUG
         printf("Hello world DEBUG!\n");
     #else
         printf("Hello world RELEASE!\n");
     #endif
+
+    
+
+
 
     //Graphics_Init(SCREEN_WIDTH, SCREEN_HEIGHT);
 /*ModeX_Init();
@@ -44,6 +49,8 @@ ModeX_PutPixel(MODEX_PAGE3, 40, 40, 15);    */
     Key_DeInit();
     //ModeX_DeInit();
     Mode13_DeInit();
+
+    Memory_DumpLeaks();
     
 
 

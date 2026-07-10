@@ -19,4 +19,6 @@ void   Memory_FreeDebug(void *ptr, const char *file, int line);
 
 void far * Memory_FarAllocDebug(unsigned long size, const char *file, int line);
 void       Memory_FarFreeDebug(void far *ptr, const char *file, int line);
+
+void Memory_DumpLeaks(void);
 #endif
