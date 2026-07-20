@@ -1,5 +1,9 @@
 #include "GRAPH\@GRAPH.H"
 
+
+static Surface * g_mode13_surface = NULL;
+
+
 void Mode13_Init(){
     
     asm{
@@ -7,6 +11,12 @@ void Mode13_Init(){
         mov al,13h  // AL Mode 320 x 200 a 256 colors. 
         int 10h
     }
+
+    // init surface here
+}
+
+void Mode13_GetSurface(){
+    return g_mode13_surface;
 }
 
 void Mode13_PutBlock(
@@ -151,10 +161,14 @@ NoPutSprite:
 
 
 void Mode13_DeInit(){
+
+    Surface_Delete(g_mode13_surface);
     
      asm{
         mov ah,00h  // AH = 0: Inicia el mode de Video 
         mov al,3h  // AL (00,02,03,07 = TEXTE). 
         int 10h
     }
+
+    
 }

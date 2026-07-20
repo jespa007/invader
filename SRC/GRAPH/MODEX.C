@@ -18,11 +18,16 @@ static uint8_t g_array_offset[3] =
 };
 
 static uint8_t g_current_mode = 0; // VARIABLE GLOBAL QUE COMPREN EL MODE ACTUAL DEL MODE X!.
+static Surface * g_modex_surface = NULL;
 
 void ModeX_Init() {
  // Iniciem mode GRAFIC NORMAL ...
-
- Mode13_Init();
+    asm{
+         mov ah,00h  // AH = 0: Inicia el mode de Video 
+        mov al,13h  // AL Mode 320 x 200 a 256 colors. 
+        int 10h
+    }
+ // configure vga regs per plane
 
  Graphics_WaitVRetrace();
 
@@ -35,6 +40,12 @@ void ModeX_Init() {
     VgaRegs_SetOffsetRegister(40 << g_current_mode); 
     ModeX_ClearAllVRAM(0);
     ModeX_SetPage(MODEX_PAGE0);
+
+    // init surface here
+}
+
+void ModeX_GetSurface(){
+    return g_modex_surface;
 }
 
 void ModeX_ClearAllVRAM(uint8_t color)
@@ -198,5 +209,15 @@ void ModeX_SetMode(uint8_t _mode) {
 }
 
 void ModeX_DeInit(){
-    Mode13_DeInit();
+
+    Surface_Delete(g_modex_surface);
+
+     asm{
+        mov ah,00h  // AH = 0: Inicia el mode de Video 
+        mov al,3h  // AL (00,02,03,07 = TEXTE). 
+        int 10h
+    }
+
+
+    
 }

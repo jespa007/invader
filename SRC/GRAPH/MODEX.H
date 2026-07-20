@@ -16,7 +16,10 @@
 #define MODEX_PAGE2 2
 #define MODEX_PAGE3 3
 
-void ModeX_Init();
+Surface * ModeX_Init();
+Surface * ModeX_GetSurface();
+
+
 void ModeX_SetDim(uint8_t _dim);
 void ModeX_ClearAllVRAM(uint8_t color);
 void ModeX_PutPixel(

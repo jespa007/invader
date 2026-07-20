@@ -6,7 +6,8 @@
 #define VGA_MEMORY ((unsigned char far *)MK_FP(VIDEO_SEGMENT, VIDEO_OFFSET))
 
 
-void Mode13_Init();
+Surface * Mode13_Init();
+Surface * Mode13_GetSurface();
 void Mode13_PutBlock(
     int _x
     ,int _y

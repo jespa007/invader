@@ -7,6 +7,7 @@
 
 #include "BASE\TYPES.H"
 #include "BASE\COMMON.H"
+#include "BASE\RECT.H"
 #include "BASE\PIT.H"
 #include "BASE\BIOS.H"
 #include "BASE\MEMORY.H"

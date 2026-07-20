@@ -5,3 +5,4 @@
 #include "GRAPH\GRAPHICS.H"
 #include "GRAPH\FNTMONO.H"
 #include "GRAPH\PALETTE.H"
+#include "GRAPH\SURFACE.H"
