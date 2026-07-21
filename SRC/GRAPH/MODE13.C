@@ -3,8 +3,15 @@
 
 static Surface * g_mode13_surface = NULL;
 
+Surface * Surface_NewMode13(
+    uint16_t _segment,
+    uint16_t _offset,
+    uint16_t _width,
+    uint16_t _height,
+    uint16_t _pitch
+);
 
-void Mode13_Init(){
+bool Mode13_Init(){
     
     asm{
          mov ah,00h  // AH = 0: Inicia el mode de Video 
@@ -13,9 +20,24 @@ void Mode13_Init(){
     }
 
     // init surface here
+    g_mode13_surface = Surface_NewMode13(
+        0xA000,
+        0,
+        320,
+        200,
+        320
+    );
+
+    if (g_mode13_surface == NULL)
+    {
+        /* Restore text mode if necessary. */
+        return false;
+    }
+
+    return true;    
 }
 
-void Mode13_GetSurface(){
+Surface * Mode13_GetSurface(){
     return g_mode13_surface;
 }
 
@@ -163,6 +185,7 @@ NoPutSprite:
 void Mode13_DeInit(){
 
     Surface_Delete(g_mode13_surface);
+    g_mode13_surface = NULL;
     
      asm{
         mov ah,00h  // AH = 0: Inicia el mode de Video 

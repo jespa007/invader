@@ -2,6 +2,9 @@
 
 int main(void){
     void *p = MALLOC(10);
+    Buffer * palette = NULL;
+    Surface * blocks = NULL; 
+
     #ifdef DEBUG
         printf("Hello world DEBUG!\n");
     #else
@@ -21,6 +24,9 @@ ModeX_PutPixel(MODEX_PAGE2, 30, 30, 1);
 ModeX_PutPixel(MODEX_PAGE3, 40, 40, 15);    */
     Mode13_Init();
     Key_Init();
+
+    palette = File_Read("GFX\\PALETA1.PAL");
+    blocks = Surface_NewFromRaw("GFX\\BLOCS1.RAW",320,200);
 
     do{ 
         //Graphics_Begin();
@@ -44,6 +50,9 @@ ModeX_PutPixel(MODEX_PAGE3, 40, 40, 15);    */
     ModeX_SetPage(MODEX_PAGE3);*/
         //Graphics_End();
     }while(!Key_IsDown(KEY_ESC));
+
+    Buffer_Delete(palette);
+    Surface_Delete(blocks);
 
 
     Key_DeInit();

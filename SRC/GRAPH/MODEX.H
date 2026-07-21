@@ -16,7 +16,7 @@
 #define MODEX_PAGE2 2
 #define MODEX_PAGE3 3
 
-Surface * ModeX_Init();
+bool  ModeX_Init();
 Surface * ModeX_GetSurface();
 
 

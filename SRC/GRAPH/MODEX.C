@@ -17,23 +17,31 @@ static uint8_t g_array_offset[3] =
  2
 };
 
+Surface *Surface_NewModeX(
+    uint16_t _segment,
+    uint16_t _offset,
+    uint16_t _width,
+    uint16_t _height,
+    uint16_t _pitch
+);
+
 static uint8_t g_current_mode = 0; // VARIABLE GLOBAL QUE COMPREN EL MODE ACTUAL DEL MODE X!.
 static Surface * g_modex_surface = NULL;
 
-void ModeX_Init() {
+bool ModeX_Init() {
  // Iniciem mode GRAFIC NORMAL ...
     asm{
          mov ah,00h  // AH = 0: Inicia el mode de Video 
         mov al,13h  // AL Mode 320 x 200 a 256 colors. 
         int 10h
     }
- // configure vga regs per plane
 
- Graphics_WaitVRetrace();
+    // configure vga regs per plane
+    Graphics_WaitVRetrace();
 
- VgaRegs_RegisterOut(SEQU_ADDR,0x04,0x06); //  forcem el bit CHAIN-4 a 0.
- VgaRegs_RegisterOut(CRTC_ADDR,0x17,0xe3); // ajust mode paraules.
- VgaRegs_RegisterOut(CRTC_ADDR,0x14,0x00); // ajust mode dobles paraules.
+    VgaRegs_RegisterOut(SEQU_ADDR,0x04,0x06); //  forcem el bit CHAIN-4 a 0.
+    VgaRegs_RegisterOut(CRTC_ADDR,0x17,0xe3); // ajust mode paraules.
+    VgaRegs_RegisterOut(CRTC_ADDR,0x14,0x00); // ajust mode dobles paraules.
 
 
     g_current_mode = MODEX_MODE1X4;
@@ -42,9 +50,22 @@ void ModeX_Init() {
     ModeX_SetPage(MODEX_PAGE0);
 
     // init surface here
+    g_modex_surface = Surface_NewModeX(
+        0xA000,
+        0,
+        320,
+        240,
+        80
+    );
+
+    if (g_modex_surface == NULL){
+        return false;
+    }    
+
+    return true;
 }
 
-void ModeX_GetSurface(){
+Surface * ModeX_GetSurface(){
     return g_modex_surface;
 }
 
@@ -211,13 +232,12 @@ void ModeX_SetMode(uint8_t _mode) {
 void ModeX_DeInit(){
 
     Surface_Delete(g_modex_surface);
-
-     asm{
+    g_modex_surface = NULL;
+    
+    asm{
         mov ah,00h  // AH = 0: Inicia el mode de Video 
         mov al,3h  // AL (00,02,03,07 = TEXTE). 
         int 10h
     }
-
-
-    
+   
 }

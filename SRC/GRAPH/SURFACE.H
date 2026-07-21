@@ -1,6 +1,8 @@
 #ifndef __SURFACE_H__
 #define __SURFACE_H__
 
+typedef struct Surface Surface;
+
 typedef enum SurfaceType
 {
     SURFACE_MEMORY,
@@ -8,29 +10,37 @@ typedef enum SurfaceType
     SURFACE_MODEX
 } SurfaceType;
 
-typedef struct Surface{
+struct Surface
+{
     void * data;
-} Surface;
+};
 
 
-Surface * Surface_Create( uint16_t _width, uint16_t _height);
+
+Surface *  Surface_New( uint16_t _width, uint16_t _height);
+Surface  * Surface_NewFromPixels(uint8_t far * _pixels,  uint16_t _width, uint16_t _height);
+Surface  * Surface_NewFromRaw(
+    const char * _filename,
+    uint16_t _width,
+    uint16_t _height
+);
 
 void Surface_Clear(Surface * _this, uint8_t _color);
 
-void Surface_Blit(
+bool Surface_Blit(
     Surface * _this,
     int _x,
     int _y,
     const Surface *_src,
-    Rect _src_clip
+    const Rect * _src_clip
 );
 
-void Surface_BlitColorKey(
+bool Surface_BlitColorKey(
     Surface * _this,
     int _x,
     int _y,
     const Surface *_src,
-    Rect _src_clip
+    const Rect _src_clip,
     uint8_t _color_key
 );
 

@@ -3,10 +3,10 @@
 
 #define VIDEO_SEGMENT 0xA000
 #define VIDEO_OFFSET  0x0000
-#define VGA_MEMORY ((unsigned char far *)MK_FP(VIDEO_SEGMENT, VIDEO_OFFSET))
+#define VGA_MEMORY ((uint8_t far *)MK_FP(VIDEO_SEGMENT, VIDEO_OFFSET))
 
 
-Surface * Mode13_Init();
+bool  Mode13_Init();
 Surface * Mode13_GetSurface();
 void Mode13_PutBlock(
     int _x

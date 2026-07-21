@@ -1,8 +1,9 @@
 #include "BASE\@BASE.H"
 #include "GRAPH\VGAREGS.H"
+#include "GRAPH\SURFACE.H"
 #include "GRAPH\MODE13.H"
 #include "GRAPH\MODEX.H"
 #include "GRAPH\GRAPHICS.H"
 #include "GRAPH\FNTMONO.H"
 #include "GRAPH\PALETTE.H"
-#include "GRAPH\SURFACE.H"
+

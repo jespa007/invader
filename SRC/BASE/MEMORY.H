@@ -9,6 +9,8 @@
 
 #define FARMALLOC(size)             Memory_FarAllocDebug((size), __FILE__, __LINE__)
 #define FARFREE(ptr)                Memory_FarFreeDebug((ptr), __FILE__, __LINE__)
+#define FARMEMCPY(_dst, _src, _length) \
+    _fmemcpy((_dst), (_src), (_length))
 
 #define FARNEW(S) ((S*)             Memory_FarAllocDebug(sizeof(S), __FILE__, __LINE__))
 #define FARNEW_LENGTH(S,N) ((S*)    Memory_FarAllocDebug(sizeof(S)*(N),__FILE__,__LINE__))
