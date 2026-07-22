@@ -123,26 +123,53 @@ Surface  * Surface_NewFromPixels( uint8_t far * _pixels, uint16_t _width, uint16
 
 }
 
-
-Surface * Surface_NewMode13(
+static Surface *Surface_NewVideo(
+    SurfaceType _type,
     uint16_t _segment,
     uint16_t _offset,
     uint16_t _width,
     uint16_t _height,
     uint16_t _pitch
-){
-    Surface *surface = Surface_NewFromPixels(
-        ((uint8_t far *)MK_FP(_segment, _offset))
-        ,_width
-        ,_height
+)
+{
+    Surface *surface;
+    SurfaceData *data;
+
+    surface = Surface_NewFromPixels(
+        (uint8_t far *)MK_FP(_segment, _offset),
+        _width,
+        _height
     );
 
-    if(surface != NULL){
-        SurfaceData *data = surface->data;
-        data->pitch = _pitch;
+    if (surface == NULL)
+    {
+        return NULL;
     }
 
+    data = surface->data;
+
+    data->type  = _type;
+    data->pitch = _pitch;
+
     return surface;
+}
+
+Surface *Surface_NewMode13(
+    uint16_t _segment,
+    uint16_t _offset,
+    uint16_t _width,
+    uint16_t _height,
+    uint16_t _pitch
+)
+{
+    return Surface_NewVideo(
+        SURFACE_MODE13,
+        _segment,
+        _offset,
+        _width,
+        _height,
+        _pitch
+    );
 }
 
 Surface *Surface_NewModeX(
@@ -151,19 +178,16 @@ Surface *Surface_NewModeX(
     uint16_t _width,
     uint16_t _height,
     uint16_t _pitch
-){
-    Surface *surface = Surface_NewFromPixels(
-        ((uint8_t far *)MK_FP(_segment, _offset))
-        ,_width
-        ,_height
+)
+{
+    return Surface_NewVideo(
+        SURFACE_MODEX,
+        _segment,
+        _offset,
+        _width,
+        _height,
+        _pitch
     );
-
-    if(surface != NULL){
-        SurfaceData *data = surface->data;
-        data->pitch = _pitch;
-    }
-
-    return surface;
 }
 
 Surface *Surface_NewFromRaw(
@@ -254,14 +278,46 @@ void Surface_Clear(Surface * _this, uint8_t color){
 
 
 
-static bool Surface_BlitMemToMem(
-    Surface * _this,
+static bool Surface_BlitMemToLinear(
+    Surface *_this,
     int _x,
     int _y,
     const Surface *_src,
     const Rect *_src_rect
-){
+)
+{
+    SurfaceData *dst_data;
+    SurfaceData *src_data;
+    uint8_t far *dst;
+    uint8_t far *src;
+    uint16_t row;
 
+    dst_data = _this->data;
+    src_data = _src->data;
+
+    dst =
+        dst_data->data.pixels +
+        ((uint32_t)_y * dst_data->pitch) +
+        _x;
+
+    src =
+        src_data->data.pixels +
+        ((uint32_t)_src_rect->y * src_data->pitch) +
+        _src_rect->x;
+
+    for (row = 0; row < _src_rect->height; ++row)
+    {
+        _fmemcpy(
+            dst,
+            src,
+            _src_rect->width
+        );
+
+        dst += dst_data->pitch;
+        src += src_data->pitch;
+    }
+
+    return true;
 }
 
 static bool Surface_BlitMemToMode13(
@@ -322,25 +378,15 @@ bool Surface_Blit(
     }    
 
     switch (dst_data->type){
-        case SURFACE_MEMORY:
-            return Surface_BlitMemToMem(
-                _this,
-               _x,
-               _y,
-                _src,
-                _src_rect
-            );
-            break;
-
-        case SURFACE_MODE13:
-           return Surface_BlitMemToMode13(
-                _this,
-               _x,
-               _y,
-                _src,
-                _src_rect
-            );
-            break;
+    case SURFACE_MEMORY:
+    case SURFACE_MODE13:
+        return Surface_BlitMemToLinear(
+            _this,
+            _x,
+            _y,
+            _src,
+            _src_rect
+        );
 
         case SURFACE_MODEX:
             return Surface_BlitMemToModeX(
