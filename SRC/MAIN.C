@@ -5,6 +5,7 @@ int main(void){
     Buffer * palette = NULL;
     Surface * surface_blocks = NULL; 
     Surface * surface_video = NULL; 
+    int i=0;
 
     #ifdef DEBUG
         printf("Hello world DEBUG!\n");
@@ -29,7 +30,7 @@ ModeX_PutPixel(MODEX_PAGE3, 40, 40, 15);    */
     surface_video = Mode13_GetSurface();
     palette = File_Read("GFX\\PALETA1.PAL");
     surface_blocks = Surface_NewFromRaw("GFX\\BLOCS1.RAW",320,200);
-
+    
 
     do{ 
         Rect rect = { 0, 0, 32, 32 };
@@ -41,6 +42,19 @@ ModeX_PutPixel(MODEX_PAGE3, 40, 40, 15);    */
             ,surface_blocks
             ,&rect
         );
+
+        if(Key_IsDown(KEY_RIGHT)){
+            if(i < 3){
+                i++;
+                rect.x=32*i;
+                
+            }
+        }else if(Key_IsDown(KEY_LEFT)){
+            if(i > 1){
+                i--;
+                rect.x=32*i;
+            }
+        }
         //Graphics_Begin();
        /* FntMono_PutChar(0,0,'A',0,0);
         Graphics_PutPixel(
