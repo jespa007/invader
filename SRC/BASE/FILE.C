@@ -13,7 +13,7 @@ Buffer * File_Read(const char *_filename){
 	{
 		if((file_length = File_Length(_filename)) != INVALID_LENGTH) {
 
-			buffer=Buffer_New(file_length+1); // we reserve +1 for end string just in case is a text (it always works!)
+			buffer = Buffer_New(file_length);
 			readed_elements = fread(buffer->ptr, 1, file_length, fp);
 
 			if(readed_elements != file_length) {

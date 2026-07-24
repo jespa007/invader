@@ -1,9 +1,10 @@
 #include "INVADER.H"
 
 int main(void){
-    void *p = MALLOC(10);
+    
     Buffer * palette = NULL;
-    Surface * blocks = NULL; 
+    Surface * surface_blocks = NULL; 
+    Surface * surface_video = NULL; 
 
     #ifdef DEBUG
         printf("Hello world DEBUG!\n");
@@ -25,10 +26,21 @@ ModeX_PutPixel(MODEX_PAGE3, 40, 40, 15);    */
     Mode13_Init();
     Key_Init();
 
+    surface_video = Mode13_GetSurface();
     palette = File_Read("GFX\\PALETA1.PAL");
-    blocks = Surface_NewFromRaw("GFX\\BLOCS1.RAW",320,200);
+    surface_blocks = Surface_NewFromRaw("GFX\\BLOCS1.RAW",320,200);
+
 
     do{ 
+        Rect rect = { 0, 0, 32, 32 };
+
+        Surface_Blit(
+            surface_video
+            ,0
+            ,0
+            ,surface_blocks
+            ,&rect
+        );
         //Graphics_Begin();
        /* FntMono_PutChar(0,0,'A',0,0);
         Graphics_PutPixel(
@@ -52,7 +64,7 @@ ModeX_PutPixel(MODEX_PAGE3, 40, 40, 15);    */
     }while(!Key_IsDown(KEY_ESC));
 
     Buffer_Delete(palette);
-    Surface_Delete(blocks);
+    Surface_Delete(surface_blocks);
 
 
     Key_DeInit();
