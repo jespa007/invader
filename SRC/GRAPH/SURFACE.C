@@ -276,7 +276,137 @@ void Surface_Clear(Surface * _this, uint8_t color){
 
 }
 
+static void Surface_CopyLinearBlock(
+    uint8_t far *_dst,
+    uint16_t _dst_pitch,
+    const uint8_t far *_src,
+    uint16_t _src_pitch,
+    uint16_t _width,
+    uint16_t _height
+)
+{
+    uint16_t src_seg = FP_SEG(_src);
+    uint16_t src_off = FP_OFF(_src);
+    uint16_t dst_seg = FP_SEG(_dst);
+    uint16_t dst_off = FP_OFF(_dst);
 
+    uint16_t src_skip = _src_pitch - _width;
+    uint16_t dst_skip = _dst_pitch - _width;
+
+    asm {
+        push ds
+        push es
+        push si
+        push di
+        push bp
+
+        mov ax, src_seg
+        mov ds, ax
+        mov si, src_off
+
+        mov ax, dst_seg
+        mov es, ax
+        mov di, dst_off
+
+        mov bp, _height
+        cld
+
+    copy_row:
+        mov cx, _width
+        mov dx, cx
+
+        shr cx, 1
+        rep movsw
+
+        test dl, 1
+        jz row_done
+
+        movsb
+
+    row_done:
+        add si, src_skip
+        add di, dst_skip
+
+        dec bp
+        jnz copy_row
+
+        pop bp
+        pop di
+        pop si
+        pop es
+        pop ds
+    }
+}
+
+static void Surface_CopyColorKeyLinearBlock(
+    uint8_t far *_dst,
+    uint16_t _dst_pitch,
+    const uint8_t far *_src,
+    uint16_t _src_pitch,
+    uint16_t _width,
+    uint16_t _height,
+    uint8_t _color_key
+)
+{
+    uint16_t src_seg = FP_SEG(_src);
+    uint16_t src_off = FP_OFF(_src);
+    uint16_t dst_seg = FP_SEG(_dst);
+    uint16_t dst_off = FP_OFF(_dst);
+
+    uint16_t src_skip = _src_pitch - _width;
+    uint16_t dst_skip = _dst_pitch - _width;
+
+    asm {
+        push ds
+        push es
+        push si
+        push di
+        push bp
+        push bx
+
+        mov ax, src_seg
+        mov ds, ax
+        mov si, src_off
+
+        mov ax, dst_seg
+        mov es, ax
+        mov di, dst_off
+
+        mov bl, _color_key
+        mov bp, _height
+        cld
+
+    color_row:
+        mov cx, _width
+
+    color_pixel:
+        lodsb
+        cmp al, bl
+        je transparent
+
+        stosb
+        jmp color_next
+
+    transparent:
+        inc di
+
+    color_next:
+        loop color_pixel
+
+        add si, src_skip
+        add di, dst_skip
+
+        dec bp
+        jnz color_row
+
+        pop bx
+        pop bp
+        pop di
+        pop si
+        pop es
+        pop ds
+    }
+}
 
 static bool Surface_BlitMemToLinear(
     Surface *_this,
