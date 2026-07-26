@@ -30,15 +30,17 @@ void interrupt KeyboardISR(void)
 
     if (scancode < 0x80)
     {
-        if (scancode < KEY_MAX)
+        if (scancode < KEY_MAX){
             keys[scancode] = KEY_DOWN;
+        }
     }
     else
     {
         scancode -= 0x80;
 
-        if (scancode < KEY_MAX)
+        if (scancode < KEY_MAX){
             keys[scancode] = KEY_UP;
+        }
     }
 
     outportb(PIC_PORT, PIC_EOI);
