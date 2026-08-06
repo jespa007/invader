@@ -46,7 +46,7 @@ void interrupt KeyboardISR(void)
     outportb(PIC_PORT, PIC_EOI);
 }
 
-void Key_Init(){
+void Keyboard_Init(){
 
     memset((void *)keys, KEY_UP, sizeof(keys));
 
@@ -55,11 +55,11 @@ void Key_Init(){
 }
 
 
-bool Key_IsDown(KEY _key){
+bool Keyboard_IsKeyDown(KEY _key){
     return keys[_key] != KEY_UP;
 }
 
-void Key_DeInit()
+void Keyboard_DeInit()
 {
    setvect(KEYBOARD_INTERRUPT, OldKeyboardISR);
 }

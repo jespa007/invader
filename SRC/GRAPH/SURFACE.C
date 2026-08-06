@@ -310,8 +310,10 @@ static void Surface_CopyLinearBlock(
 
         mov bp, _height
         cld
+    }
 
     copy_row:
+    asm{
         mov cx, _width
         mov dx, cx
 
@@ -322,8 +324,10 @@ static void Surface_CopyLinearBlock(
         jz row_done
 
         movsb
+    }
 
     row_done:
+    asm{
         add si, src_skip
         add di, dst_skip
 
@@ -336,6 +340,7 @@ static void Surface_CopyLinearBlock(
         pop es
         pop ds
     }
+    
 }
 
 static void Surface_CopyColorKeyLinearBlock(
@@ -375,22 +380,30 @@ static void Surface_CopyColorKeyLinearBlock(
         mov bl, _color_key
         mov bp, _height
         cld
+    }
 
-    color_row:
+color_row:
+asm{
         mov cx, _width
+}
 
     color_pixel:
+asm{
         lodsb
         cmp al, bl
         je transparent
 
         stosb
         jmp color_next
+}
 
     transparent:
+asm{
         inc di
+}
 
-    color_next:
+color_next:
+asm{
         loop color_pixel
 
         add si, src_skip
@@ -406,6 +419,7 @@ static void Surface_CopyColorKeyLinearBlock(
         pop es
         pop ds
     }
+    
 }
 
 static bool Surface_BlitMemToLinear(
@@ -425,17 +439,10 @@ static bool Surface_BlitMemToLinear(
     dst_data = _this->data;
     src_data = _src->data;
 
-    dst =
-        dst_data->data.pixels +
-        ((uint32_t)_y * dst_data->pitch) +
-        _x;
+    //dst = dst_data->data.pixels +  ((uint32_t)_y * dst_data->pitch) + _x;
+    //src =  src_data->data.pixels + ((uint32_t)_src_rect->y * src_data->pitch) + _src_rect->x;
 
-    src =
-        src_data->data.pixels +
-        ((uint32_t)_src_rect->y * src_data->pitch) +
-        _src_rect->x;
-
-    for (row = 0; row < _src_rect->height; ++row)
+    /*for (row = 0; row < _src_rect->height; ++row)
     {
         _fmemcpy(
             dst,
@@ -445,7 +452,15 @@ static bool Surface_BlitMemToLinear(
 
         dst += dst_data->pitch;
         src += src_data->pitch;
-    }
+    }*/
+   Surface_CopyLinearBlock(
+        dst_data->data.pixels,
+        dst_data->pitch,
+        src_data->data.pixels,
+        src_data->pitch,
+        _src_rect->width,
+        _src_rect->height
+   );
 
     return true;
 }
