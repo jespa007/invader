@@ -8,7 +8,9 @@
 #define PIC_PORT           0x20
 #define PIC_EOI            0x20
 
-static volatile uint8_t keys[KEY_MAX];
+static volatile uint8_t isr_keys[KEY_MAX]; /* ISR writes here */
+static uint8_t keys[KEY_MAX];               /* frame snapshot */
+static uint8_t previous_keys[KEY_MAX];      /* previous frame */
 
 static void interrupt (*OldKeyboardISR)(void);
 
@@ -31,7 +33,7 @@ void interrupt KeyboardISR(void)
     if (scancode < 0x80)
     {
         if (scancode < KEY_MAX){
-            keys[scancode] = KEY_DOWN;
+            isr_keys[scancode] = KEY_DOWN;
         }
     }
     else
@@ -39,7 +41,7 @@ void interrupt KeyboardISR(void)
         scancode -= 0x80;
 
         if (scancode < KEY_MAX){
-            keys[scancode] = KEY_UP;
+            isr_keys[scancode] = KEY_UP;
         }
     }
 
@@ -48,18 +50,34 @@ void interrupt KeyboardISR(void)
 
 void Keyboard_Init(){
 
+    memset((void *)isr_keys, KEY_UP, sizeof(isr_keys));
     memset((void *)keys, KEY_UP, sizeof(keys));
+    memset((void *)previous_keys, KEY_UP, sizeof(previous_keys));
 
     OldKeyboardISR = getvect(KEYBOARD_INTERRUPT);
     setvect(KEYBOARD_INTERRUPT, KeyboardISR);
 }
 
-
 bool Keyboard_IsKeyDown(KEY _key){
-    return keys[_key] != KEY_UP;
+    return isr_keys[_key] != KEY_UP;
 }
 
-void Keyboard_DeInit()
-{
+bool Keyboard_IsKeyReleased(KEY _key){
+    return previous_keys[_key] != KEY_UP && keys[_key] == KEY_UP;
+}
+
+bool Keyboard_IsKeyPressed(KEY _key){
+    return previous_keys[_key] != KEY_UP && keys[_key] == KEY_UP;
+}
+
+void Keyboard_Update(void){
+    memcpy(previous_keys, keys, sizeof(keys));
+
+    disable();
+    memcpy(keys, (const void *)isr_keys, sizeof(isr_keys));
+    enable();
+}
+
+void Keyboard_DeInit() {
    setvect(KEYBOARD_INTERRUPT, OldKeyboardISR);
 }

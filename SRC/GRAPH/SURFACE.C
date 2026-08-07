@@ -293,12 +293,17 @@ static void Surface_CopyLinearBlock(
     uint16_t src_skip = _src_pitch - _width;
     uint16_t dst_skip = _dst_pitch - _width;
 
+    if (_width == 0 || _height == 0)
+    {
+        return;
+    }
+
     asm {
         push ds
         push es
         push si
         push di
-        push bp
+        push bx
 
         mov ax, src_seg
         mov ds, ax
@@ -308,12 +313,14 @@ static void Surface_CopyLinearBlock(
         mov es, ax
         mov di, dst_off
 
-        mov bp, _height
+        mov bx, _height
+
         cld
     }
 
-    copy_row:
-    asm{
+copy_row:
+
+    asm {
         mov cx, _width
         mov dx, cx
 
@@ -326,21 +333,21 @@ static void Surface_CopyLinearBlock(
         movsb
     }
 
-    row_done:
-    asm{
+row_done:
+
+    asm {
         add si, src_skip
         add di, dst_skip
 
-        dec bp
+        dec bx
         jnz copy_row
 
-        pop bp
+        pop bx
         pop di
         pop si
         pop es
         pop ds
     }
-    
 }
 
 static void Surface_CopyColorKeyLinearBlock(
@@ -361,12 +368,16 @@ static void Surface_CopyColorKeyLinearBlock(
     uint16_t src_skip = _src_pitch - _width;
     uint16_t dst_skip = _dst_pitch - _width;
 
+    if (_width == 0 || _height == 0)
+    {
+        return;
+    }
+
     asm {
         push ds
         push es
         push si
         push di
-        push bp
         push bx
 
         mov ax, src_seg
@@ -378,48 +389,52 @@ static void Surface_CopyColorKeyLinearBlock(
         mov di, dst_off
 
         mov bl, _color_key
-        mov bp, _height
+        mov dx, _height
+
         cld
     }
 
 color_row:
-asm{
-        mov cx, _width
-}
 
-    color_pixel:
-asm{
+    asm {
+        mov cx, _width
+    }
+
+color_pixel:
+
+    asm {
         lodsb
+
         cmp al, bl
-        je transparent
+        je color_transparent
 
         stosb
         jmp color_next
-}
+    }
 
-    transparent:
-asm{
+color_transparent:
+
+    asm {
         inc di
-}
+    }
 
 color_next:
-asm{
+
+    asm {
         loop color_pixel
 
         add si, src_skip
         add di, dst_skip
 
-        dec bp
+        dec dx
         jnz color_row
 
         pop bx
-        pop bp
         pop di
         pop si
         pop es
         pop ds
     }
-    
 }
 
 static bool Surface_BlitMemToLinear(
@@ -427,7 +442,8 @@ static bool Surface_BlitMemToLinear(
     int _x,
     int _y,
     const Surface *_src,
-    const Rect *_src_rect
+    const Rect *_src_rect,
+    int _color_key
 )
 {
     SurfaceData *dst_data;
@@ -439,28 +455,29 @@ static bool Surface_BlitMemToLinear(
     dst_data = _this->data;
     src_data = _src->data;
 
-    //dst = dst_data->data.pixels +  ((uint32_t)_y * dst_data->pitch) + _x;
-    //src =  src_data->data.pixels + ((uint32_t)_src_rect->y * src_data->pitch) + _src_rect->x;
+    dst = dst_data->data.pixels +  ((uint32_t)_y * dst_data->pitch) + _x;
+    src =  src_data->data.pixels + ((uint32_t)_src_rect->y * src_data->pitch) + _src_rect->x;
 
-    /*for (row = 0; row < _src_rect->height; ++row)
-    {
-        _fmemcpy(
+   if(_color_key == -1){
+    Surface_CopyLinearBlock(
             dst,
+            dst_data->pitch,
             src,
-            _src_rect->width
+            src_data->pitch,
+            _src_rect->width,
+            _src_rect->height
+    );
+    }else{
+        Surface_CopyColorKeyLinearBlock(
+            dst,
+            dst_data->pitch,
+            src,
+            src_data->pitch,
+            _src_rect->width,
+            _src_rect->height,
+            (uint8_t)_color_key
         );
-
-        dst += dst_data->pitch;
-        src += src_data->pitch;
-    }*/
-   Surface_CopyLinearBlock(
-        dst_data->data.pixels,
-        dst_data->pitch,
-        src_data->data.pixels,
-        src_data->pitch,
-        _src_rect->width,
-        _src_rect->height
-   );
+    }
 
     return true;
 }
@@ -485,17 +502,19 @@ static bool Surface_BlitMemToModeX(
     int _x,
     int _y,
     const Surface *_src,
-    const Rect *_src_rect
+    const Rect *_src_rect,
+    int _color_key
 ){
 
 }
 
-bool Surface_Blit(
+bool Surface_BlitInternal(
     Surface *_this,
     int _x,
     int _y,
     const Surface * _src,
-    const Rect * _src_rect
+    const Rect * _src_rect,
+    int _color_key
 ){
     SurfaceData * dst_data = NULL;
     SurfaceData * src_data = NULL;
@@ -530,7 +549,8 @@ bool Surface_Blit(
             _x,
             _y,
             _src,
-            _src_rect
+            _src_rect,
+            _color_key
         );
 
         case SURFACE_MODEX:
@@ -539,7 +559,8 @@ bool Surface_Blit(
                _x,
                _y,
                 _src,
-                _src_rect
+                _src_rect,
+                _color_key
             );
             break;
 
@@ -548,6 +569,41 @@ bool Surface_Blit(
     }
 
     return true;
+}
+
+bool Surface_Blit(
+    Surface *_this,
+    int _x,
+    int _y,
+    const Surface * _src,
+    const Rect * _src_rect
+){
+    Surface_BlitInternal(
+        _this,
+        _x,
+        _y,
+        _src,
+        _src_rect,
+        -1
+    );
+}
+
+bool Surface_BlitColorKey(
+    Surface * _this,
+    int _x,
+    int _y,
+    const Surface *_src,
+    const Rect * _src_rect,
+    uint8_t _color_key
+){
+   Surface_BlitInternal(
+        _this,
+        _x,
+        _y,
+        _src,
+        _src_rect,
+        _color_key
+    );
 }
 
 void Surface_Delete(Surface * _this){

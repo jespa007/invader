@@ -40,7 +40,7 @@ bool Surface_BlitColorKey(
     int _x,
     int _y,
     const Surface *_src,
-    const Rect _src_clip,
+    const Rect * _src_clip,
     uint8_t _color_key
 );
 

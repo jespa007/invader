@@ -47,21 +47,22 @@ ModeX_PutPixel(MODEX_PAGE3, 40, 40, 15);    */
             ,&rect
         );
 
-        Surface_Blit(
+        Surface_BlitColorKey(
             surface_video
             ,10
             ,50
             ,surface_sprites
             ,&rect
+            ,SPRITE_COLOR_KEY
         );
 
-        if(Keyboard_IsKeyDown(KEY_RIGHT)){
+        if(Keyboard_IsKeyPressed(KEY_RIGHT)){
             if(i < 4){
                 i++;
                 rect.x=32*i;
                 
             }
-        }else if(Keyboard_IsKeyDown(KEY_LEFT)){
+        }else if(Keyboard_IsKeyPressed(KEY_LEFT)){
             if(i > 1){
                 i--;
                 rect.x=32*i;
@@ -87,7 +88,9 @@ ModeX_PutPixel(MODEX_PAGE3, 40, 40, 15);    */
     Graphics_WaitVRetrace();
     ModeX_SetPage(MODEX_PAGE3);*/
         //Graphics_End();
-    }while(!Keyboard_IsKeyDown(KEY_ESC));
+        Input_Update();
+
+    }while(!Keyboard_IsKeyPressed(KEY_ESC));
 
     Buffer_Delete(palette);
     Surface_Delete(surface_blocks);

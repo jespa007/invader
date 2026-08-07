@@ -16,7 +16,9 @@ typedef enum {
 
 
 void Keyboard_Init();
-bool Keyboard_IsDown(KEY _key);
+bool Keyboard_IsKeyPressed(KEY _key);
+bool Keyboard_IsKeyReleased(KEY _key);
+bool Keyboard_IsKeyDown(KEY _key);
 void Keyboard_DeInit();
 
 #endif
