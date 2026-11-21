@@ -1,6 +1,5 @@
 #include "GRAPH\@GRAPH.H"
 
-
 struct{
     uint16_t width;
     uint16_t height;
@@ -8,10 +7,11 @@ struct{
 
 void Graphics_Init(uint16_t _width, uint16_t _height){
     
-    g_graphics.width = _width;
-    g_graphics.height = _height;
-
-    Mode13_Init();
+    memset(&g_graphics,0,sizeof(g_graphics));
+    if(ModeX_Init(_width,_height) == true){
+        g_graphics.width = _width;
+        g_graphics.height = _height;
+    }
 }
 
 uint16_t    Graphics_GetWidth(){
@@ -36,34 +36,15 @@ void        Graphics_ClearScreen(uint8_t _color){
     }
 }
 
-void Graphics_WaitVRetrace(){
-
-    asm mov dx,0x3DA
-  et1:
-    asm{ 
-	in al,dx
-	and al,0x08
-	jnz et1
-       }
-  et2:
-    asm { 
-	 in al,dx
-	 and al,0x08
-	 jz et2
-	}
-
-}
-
 void        Graphics_Begin(){
-    Graphics_ClearScreen(0);
-}
-
-void        Graphics_End(){
-    Graphics_WaitVRetrace();
+    ModeX_Begin();
+    ModeX_Clear(0);
 }
 
 
 void Graphics_PutPixel(int _x, int _y, uint8_t _color){
+
+    /*Mode13
 
  int despl = (_y<<8)+(_y<<6)+_x; // 320*y+x
 
@@ -73,13 +54,39 @@ void Graphics_PutPixel(int _x, int _y, uint8_t _color){
         mov di, despl
         mov al, _color
         mov es:[di], al
-    }
+    }*/
 }
+
+void Graphics_PutBlock(Point _dst,Rect _src,  const Surface * _surface) {
+    ModeX_PutBlock(_dst,_src,_surface);
+}
+
+void Graphics_PutSprite(Point _dst,Rect _src,  const Surface * _surface, uint8_t _transparent_color) {
+    ModeX_PutSprite(_dst,_src,_surface, _transparent_color);
+
+   /* GraphicsCommand *command = &g_graphics.commands[g_graphics.command_count++];
+
+    command->type = GRAPHICS_COMMAND_SPRITE;
+    command->dst_rect = _dst;
+    command->src_rect = _src;
+    command->transparent_color = _transparent_color;*/
+}
+
 
 void        Graphics_DrawText(int _x, int _y, uint8_t _color, const char *_text, ...){
 
 }
 
+void Graphics_Update(void) {
+    ModeX_Update();
+}
+
+void        Graphics_End(){
+    ModeX_Flush();
+}
+
+
 void Graphics_DeInit(){
-    Mode13_DeInit();
+    ModeX_DeInit();
+    memset(&g_graphics, 0, sizeof(g_graphics));
 }

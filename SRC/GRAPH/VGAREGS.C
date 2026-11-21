@@ -155,6 +155,23 @@ void VgaRegs_MaskPlanes(uint8_t _mask)
 
 }
 
+void VgaRegs_WaitVRetrace(){
+
+    asm mov dx,0x3DA
+  et1:
+    asm{ 
+	in al,dx
+	and al,0x08
+	jnz et1
+       }
+  et2:
+    asm { 
+	 in al,dx
+	 and al,0x08
+	 jz et2
+	}
+
+}
 
 void VgaRegs_EnableAllPlanes(void){
  // Desmascara tots els plans.

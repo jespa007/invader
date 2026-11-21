@@ -6,3 +6,4 @@
 #include "BASE\LOG.C"
 #include "BASE\PATH.C"
 #include "BASE\STRING.C"
+#include "BASE\POINT.C"

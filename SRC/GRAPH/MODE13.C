@@ -177,10 +177,7 @@ NoPutPixel:
   
 NoPutSprite: 
 
-
-
 }
-
 
 void Mode13_DeInit(){
 

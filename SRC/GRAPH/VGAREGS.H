@@ -25,6 +25,7 @@ uint8_t VgaRegs_RegisterIn(uint16_t _controller,uint8_t _register);
 void    VgaRegs_SetOffsetRegister(uint8_t _width);
 void    VgaRegs_SetStartAddress(uint16_t _offset);
 void    VgaRegs_MaskPlanes(uint8_t _mask);
+void    VgaRegs_WaitVRetrace();
 void    VgaRegs_EnableAllPlanes(void);
 
 #endif

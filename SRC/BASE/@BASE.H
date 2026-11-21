@@ -16,3 +16,4 @@
 #include "BASE\STRING.H"
 #include "BASE\PATH.H"
 #include "BASE\LOG.H"
+#include "BASE\POINT.H"

@@ -10,6 +10,14 @@ typedef enum SurfaceType
     SURFACE_MODEX
 } SurfaceType;
 
+// Read-only view for fast chunky-memory blitters. Not for VGA surfaces.
+typedef struct SurfaceMemoryView {
+    const uint8_t far *pixels;
+    uint16_t width;
+    uint16_t height;
+    uint16_t pitch;
+} SurfaceMemoryView;
+
 struct Surface
 {
     void * data;
@@ -24,6 +32,8 @@ Surface  * Surface_NewFromRaw(
     uint16_t _width,
     uint16_t _height
 );
+
+bool Surface_GetMemoryView(const Surface *_surface, SurfaceMemoryView * _view);
 
 void Surface_Clear(Surface * _this, uint8_t _color);
 

@@ -276,6 +276,28 @@ void Surface_Clear(Surface * _this, uint8_t color){
 
 }
 
+bool Surface_GetMemoryView(const Surface *_surface, SurfaceMemoryView *_view){
+    const SurfaceData *data;
+    if(_surface == NULL || _surface->data == NULL || _view == NULL) {
+        return false;
+    }
+
+    data = (const SurfaceData *)_surface->data;
+
+    if(
+        data->type != SURFACE_MEMORY 
+     || data->data.pixels == NULL
+    ) {
+        return false;
+    }
+
+    _view->pixels = data->data.pixels;
+    _view->width = data->width;
+    _view->height = data->height;
+    _view->pitch = data->pitch;
+    return true;
+}
+
 static void Surface_CopyLinearBlock(
     uint8_t far *_dst,
     uint16_t _dst_pitch,
