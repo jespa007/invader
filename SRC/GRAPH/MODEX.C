@@ -527,6 +527,7 @@ void ModeX_Flush(){
         ? MODEX_PAGE1 : MODEX_PAGE0;    
 
 
+    // TODO : Verify page-flip timing on real VGA hardware
     VgaRegs_WaitVRetrace();
 }
 
