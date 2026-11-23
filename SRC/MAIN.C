@@ -16,6 +16,8 @@ int main(void){
     surface_blocks = Surface_NewFromRaw("GFX\\BLOCS1.RAW", 320, 200);
     surface_sprites = Surface_NewFromRaw("GFX\\SPRITES1.RAW", 320, 200);
 
+    Graphics_SetPalette(palette->ptr,0,255);
+
     if(Graphics_GetWidth() != SCREEN_WIDTH ||
        surface_blocks == NULL || surface_sprites == NULL){
         LOG_ERROR("Cannot initialize graphics or load sprite sheets");

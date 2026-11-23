@@ -6,6 +6,7 @@ void        Graphics_Init(uint16_t _width, uint16_t _height);
 uint16_t    Graphics_GetWidth();
 uint16_t    Graphics_GetHeight();
 void        Graphics_Begin();
+void        Graphics_SetPalette(uint8_t far * _palette, uint8_t _start, uint8_t _end);
 void        Graphics_DrawText(int _x, int _y, uint8_t _color, const char *_text, ...);
 void        Graphics_PutPixel(int _x, int _y, uint8_t _color);
 void        Graphics_PutBlock(Point _dst,Rect _src, const Surface * _surface);
